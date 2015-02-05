@@ -14,10 +14,10 @@ class Player extends Sprite {
 		this.mapX = mapX;
 		this.mapY = mapY;
 		
-		updateWorldCoords();
-	
 		playerImage = new Image(Root.assets.getTexture("Player"));
 		addChild(playerImage);
+		
+		updateWorldCoords();
 	}
 	
 	public function moveTo(mapX:Int, mapY:Int) {
@@ -26,8 +26,8 @@ class Player extends Sprite {
 		updateWorldCoords();
 	}
 	
-	public function updateWorldCoords() {
-		x = mapX * 32;
-		y = mapY * 32;
+	private function updateWorldCoords() {
+		x = mapX * width;
+		y = mapY * height;
 	}
 }

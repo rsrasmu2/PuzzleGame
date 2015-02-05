@@ -7,7 +7,6 @@ class Root extends Sprite {
 	
 	public static var assets:AssetManager;
 	
-	public var player:Player;
 	public var map:GameMap;
 	
 	public function new() {
@@ -23,6 +22,7 @@ class Root extends Sprite {
 				Starling.juggler.tween(startup.loadingBitmap, 2.0, {
 					transition:Transitions.EASE_OUT, delay:0, alpha: 0, onComplete: function(){
 						startup.removeChild(startup.loadingBitmap);
+						
 						map = new GameMap();
 						addChild(map);
 					}

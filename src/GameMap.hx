@@ -5,6 +5,7 @@ import flash.ui.Keyboard;
 
 
 class GameMap extends Sprite {
+	//NOTE: The convention to access map coordinate from this array is mapArr[y][x], NOT mapArr[x][y] 
 	private var mapArr : Array<Array<Int>>;
 	
 	private var player : Player;
@@ -28,16 +29,20 @@ class GameMap extends Sprite {
 	
 	public function generateSprites() {
 		removeChildren();
-	
-		for (y in 0...mapArr.length) {
-			for (x in 0...mapArr[0].length) {
-				switch mapArr[y][x] {
-					case 1:
-						createObstacle(x, y);
-					case 2:
-						createPlayer(x, y);
+		
+		if (mapArr.length > 0 && mapArr[0].length > 0) {
+			for (y in 0...mapArr.length) {
+				for (x in 0...mapArr[0].length) {
+					switch mapArr[y][x] {
+						case 1:
+							createObstacle(x, y);
+						case 2:
+							createPlayer(x, y);
+					}
 				}
 			}
+		} else {
+			trace("Error: mapArr dimensions must be greater than 0")
 		}
 	}
 	
@@ -72,6 +77,7 @@ class GameMap extends Sprite {
 		var currentX:Int = player.mapX;
 		var currentY:Int = player.mapY;
 		
+		//This could be cleaned up a bit if anyone is bored. Makes sure we're within the map bounds and that the next space is empty.
 		while (currentX+dirX >= 0 && currentX+dirX < mapArr[currentY].length && currentY+dirY >= 0 && currentY+dirY < mapArr.length && mapArr[currentY+dirY][currentX+dirX] == 0) {
 			currentX += dirX;
 			currentY += dirY;
@@ -81,6 +87,7 @@ class GameMap extends Sprite {
 	}
 	
 	private function movePlayer(mapX:Int, mapY:Int) {
+		//player's previous position is set to 0 and its new position is set to 2.
 		mapArr[player.mapY][player.mapX] = 0;
 		mapArr[mapY][mapX] = 2;
 		player.moveTo(mapX, mapY);

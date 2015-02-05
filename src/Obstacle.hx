@@ -4,13 +4,13 @@ import starling.display.Image;
 class Obstacle extends Sprite {
 	private var obstacleImage:Image;
 
-	public function new(x:Int, y:Int) {
+	public function new(mapX:Int, mapY:Int) {
 		super();
-		
-		this.x = x * 32;
-		this.y = y * 32;
 		
 		obstacleImage = new Image(Root.assets.getTexture("Obstacle"));
 		addChild(obstacleImage);
+		
+		x = mapX * width;
+		y = mapY * height;
 	}
 }

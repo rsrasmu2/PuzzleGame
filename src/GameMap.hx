@@ -36,9 +36,9 @@ class GameMap extends Sprite {
 		y = flash.Lib.current.stage.stageHeight / 2 - (quad.height / 2);
 				  
 		generateSprites();
-		}
+	}
 	
-	public function generateSprites() {
+	private function generateSprites() {
 		removeChildren();
 		
 		if (mapArr.length > 0 && mapArr[0].length > 0) {
@@ -60,7 +60,7 @@ class GameMap extends Sprite {
 	}
 	
 	private function createPlayer(x:Int, y:Int) {
-		player = new Player(x, y);
+		player = new Player(x, y, this);
 		addChild(player);
 	}
 	
@@ -97,10 +97,14 @@ class GameMap extends Sprite {
 			var time:Float = 0;
 			
 			//This could be cleaned up a bit if anyone is bored. Makes sure we're within the map bounds and that the next space is empty.
-			while (currentX+dirX >= 0 && currentX+dirX < mapArr[currentY].length && currentY+dirY >= 0 && currentY+dirY < mapArr.length && mapArr[currentY+dirY][currentX+dirX] == 0) {
+			while (currentX+dirX >= 0 && currentX+dirX < mapArr[currentY].length && currentY+dirY >= 0 && currentY+dirY < mapArr.length && mapArr[currentY+dirY][currentX+dirX] != 1) {
 				currentX += dirX;
 				currentY += dirY;
 				time += 1;
+				
+				if (mapArr[currentY][currentX] == 3) {
+					break;
+				}
 			}
 			
 			movePlayer(currentX, currentY, time);
@@ -110,7 +114,12 @@ class GameMap extends Sprite {
 	private function movePlayer(mapX:Int, mapY:Int, time:Float) {
 		//player's previous position is set to 0 and its new position is set to 2.
 		mapArr[player.mapY][player.mapX] = 0;
-		mapArr[mapY][mapX] = 2;
 		player.moveTo(mapX, mapY, time);
+	}
+	
+	public function checkVictory() {
+		if (mapArr[player.mapY][player.mapX] == 3) {
+			trace("Victory!");
+		}
 	}
 }

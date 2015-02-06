@@ -16,11 +16,14 @@ class Player extends Sprite {
 	//the higher the speed, the faster the movement
 	private inline static var PLAYER_SPEED = 6.0;
 	
-	public function new(mapX:Int, mapY:Int) {
+	private var gameMap:GameMap;
+	
+	public function new(mapX:Int, mapY:Int, gameMap:GameMap) {
 		super();
 	
 		this.mapX = mapX;
 		this.mapY = mapY;
+		this.gameMap = gameMap;
 		
 		playerImage = new Image(Root.assets.getTexture("Player"));
 		addChild(playerImage);
@@ -49,6 +52,7 @@ class Player extends Sprite {
 			x: getWorldX(),
 			y: getWorldY(),
 			onComplete: function() {
+				gameMap.checkVictory();
 				movable = true;
 			}
 		});

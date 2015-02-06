@@ -8,6 +8,8 @@ class Root extends Sprite {
 	public static var assets:AssetManager;
 	
 	public var map:GameMap;
+	public var game:Game;
+	
 	
 	public function new() {
 		super();
@@ -24,8 +26,8 @@ class Root extends Sprite {
 					transition:Transitions.EASE_OUT, delay:0, alpha: 0, onComplete: function(){
 						startup.removeChild(startup.loadingBitmap);
 						
-						map = new GameMap();
-						addChild(map);
+						game = new Game();
+						addChild(game);
 					}
 				});
 			}

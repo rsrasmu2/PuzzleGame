@@ -61,7 +61,7 @@ class GameMap extends Sprite {
 	
 	private function createPlayer(x:Int, y:Int) {
 		player = new Player(x, y);
-		player.addEventListener("playerMoveFinished", onPlayerMoveFinished);
+		addEventListener("playerMoveFinished", onPlayerMoveFinished);
 		addChild(player);
 		mapArr[y][x] == 0;
 	}

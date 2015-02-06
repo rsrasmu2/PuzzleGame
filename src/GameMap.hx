@@ -60,7 +60,8 @@ class GameMap extends Sprite {
 	}
 	
 	private function createPlayer(x:Int, y:Int) {
-		player = new Player(x, y, this);
+		player = new Player(x, y);
+		player.addEventListener("playerMoveFinished", onPlayerMoveFinished);
 		addChild(player);
 		mapArr[y][x] == 0;
 	}
@@ -113,7 +114,7 @@ class GameMap extends Sprite {
 		}
 	}
 	
-	public function checkVictory() {
+	public function onPlayerMoveFinished(e:Event):Void {
 		if (mapArr[player.mapY][player.mapX] == 3) {
 			trace("Victory!");
 		}

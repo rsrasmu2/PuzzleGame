@@ -3,6 +3,7 @@ import starling.display.Image;
 import starling.core.Starling;
 import starling.animation.Transitions;
 import starling.animation.Tween;
+import starling.events.*;
 
 class Player extends Sprite {
 	//player's array coords
@@ -16,14 +17,11 @@ class Player extends Sprite {
 	//the higher the speed, the faster the movement
 	private inline static var PLAYER_SPEED = 6.0;
 	
-	private var gameMap:GameMap;
-	
-	public function new(mapX:Int, mapY:Int, gameMap:GameMap) {
+	public function new(mapX:Int, mapY:Int) {
 		super();
 	
 		this.mapX = mapX;
 		this.mapY = mapY;
-		this.gameMap = gameMap;
 		
 		playerImage = new Image(Root.assets.getTexture("Player"));
 		addChild(playerImage);
@@ -42,7 +40,7 @@ class Player extends Sprite {
 			x: getWorldX(),
 			y: getWorldY(),
 			onComplete: function() {
-				gameMap.checkVictory();
+				dispatchEvent(new Event("playerMoveFinished"));
 				movable = true;
 			}
 		});

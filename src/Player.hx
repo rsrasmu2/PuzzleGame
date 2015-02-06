@@ -47,6 +47,7 @@ class Player extends Sprite {
 	}
 	
 	private function updateWorldPosition(distance:Float) {
+		//Slides the player to its mapX and mapY coords
 		movable = false;
 		Starling.juggler.tween(this, (distance / PLAYER_SPEED), { transition: Transitions.LINEAR,
 			x: getWorldX(),

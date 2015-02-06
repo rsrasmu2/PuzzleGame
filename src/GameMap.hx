@@ -22,18 +22,12 @@ class GameMap extends Sprite {
 		//0 = empty
 		//1 = obstacle
 		//2 = player
-		mapArr = [[1,0,0,0,0,0,0,0,0,0,1],
+		mapArr = [[0,0,0,0,0,0,0,0,0,0,0],
 				  [0,0,0,0,0,0,0,0,0,0,0],
 				  [0,2,0,0,0,1,0,0,0,0,0],
 				  [0,0,0,0,0,0,0,0,0,0,0],
 				  [0,0,0,0,1,0,0,0,0,0,0],
-				  [0,0,0,0,0,0,0,0,0,0,0],
-				  [0,0,0,0,0,0,0,0,0,0,0],
-				  [0,0,0,0,0,0,0,0,0,0,0],
-				  [0,0,0,0,0,0,0,0,0,0,0],
-				  [0,0,0,0,0,0,0,0,0,0,0],
-                  [0,0,0,0,0,0,0,0,0,0,0],
-                  [1,0,0,0,0,0,0,0,0,0,1]];
+				  [0,0,0,0,0,0,0,0,0,0,0]];
 				  
 		//Center the map
 		var quad = new Quad(mapArr[0].length * SPRITE_WIDTH, mapArr.length * SPRITE_HEIGHT, 0xffffff);
@@ -76,36 +70,40 @@ class GameMap extends Sprite {
 			playerMovementScan(-1, 0);
 		}
 	
-		if (e.keyCode == Keyboard.RIGHT) {
+		else if (e.keyCode == Keyboard.RIGHT) {
 			playerMovementScan(1, 0);
 		}
 		
-		if (e.keyCode == Keyboard.UP) {
+		else if (e.keyCode == Keyboard.UP) {
 			playerMovementScan(0, -1);
 		}
 		
-		if (e.keyCode == Keyboard.DOWN) {
+		else if (e.keyCode == Keyboard.DOWN) {
 			playerMovementScan(0, 1);
 		}
 	}
 	
 	private function playerMovementScan(dirX:Int, dirY:Int) {
-		var currentX:Int = player.mapX;
-		var currentY:Int = player.mapY;
-		
-		//This could be cleaned up a bit if anyone is bored. Makes sure we're within the map bounds and that the next space is empty.
-		while (currentX+dirX >= 0 && currentX+dirX < mapArr[currentY].length && currentY+dirY >= 0 && currentY+dirY < mapArr.length && mapArr[currentY+dirY][currentX+dirX] == 0) {
-			currentX += dirX;
-			currentY += dirY;
+		if (player.movable) {
+			var currentX:Int = player.mapX;
+			var currentY:Int = player.mapY;
+			var time:Float = 0;
+			
+			//This could be cleaned up a bit if anyone is bored. Makes sure we're within the map bounds and that the next space is empty.
+			while (currentX+dirX >= 0 && currentX+dirX < mapArr[currentY].length && currentY+dirY >= 0 && currentY+dirY < mapArr.length && mapArr[currentY+dirY][currentX+dirX] == 0) {
+				currentX += dirX;
+				currentY += dirY;
+				time += 1;
+			}
+			
+			movePlayer(currentX, currentY, time);
 		}
-		
-		movePlayer(currentX, currentY);
 	}
 	
-	private function movePlayer(mapX:Int, mapY:Int) {
+	private function movePlayer(mapX:Int, mapY:Int, time:Float) {
 		//player's previous position is set to 0 and its new position is set to 2.
 		mapArr[player.mapY][player.mapX] = 0;
 		mapArr[mapY][mapX] = 2;
-		player.moveTo(mapX, mapY);
+		player.moveTo(mapX, mapY, time);
 	}
 }

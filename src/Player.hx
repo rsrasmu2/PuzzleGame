@@ -1,12 +1,20 @@
 import starling.display.Sprite;
 import starling.display.Image;
+import starling.core.Starling;
+import starling.animation.Transitions;
+import starling.animation.Tween;
 
 class Player extends Sprite {
 	//player's array coords
 	public var mapX:Int;
 	public var mapY:Int;
+	
+	public var movable = true;
 
 	private var playerImage:Image;
+	
+	//the higher the speed, the faster the movement
+	private inline static var PLAYER_SPEED = 6.0;
 	
 	public function new(mapX:Int, mapY:Int) {
 		super();
@@ -17,17 +25,32 @@ class Player extends Sprite {
 		playerImage = new Image(Root.assets.getTexture("Player"));
 		addChild(playerImage);
 		
-		updateWorldCoords();
+		x = getWorldX();
+		y = getWorldY();
 	}
 	
-	public function moveTo(mapX:Int, mapY:Int) {
+	public function moveTo(mapX:Int, mapY:Int, time:Float) {
 		this.mapX = mapX;
 		this.mapY = mapY;
-		updateWorldCoords();
+		updateWorldPosition(time / PLAYER_SPEED);
 	}
 	
-	private function updateWorldCoords() {
-		x = mapX * width;
-		y = mapY * height;
+	public function getWorldX() {
+		return mapX * GameMap.SPRITE_WIDTH;
+	}
+	
+	public function getWorldY() {
+		return mapY * GameMap.SPRITE_HEIGHT;
+	}
+	
+	private function updateWorldPosition(time:Float) {
+		movable = false;
+		Starling.juggler.tween(this, time, { transition: Transitions.LINEAR,
+			x: getWorldX(),
+			y: getWorldY(),
+			onComplete: function() {
+				movable = true;
+			}
+		});
 	}
 }

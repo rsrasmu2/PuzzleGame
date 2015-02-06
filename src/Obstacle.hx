@@ -10,7 +10,7 @@ class Obstacle extends Sprite {
 		obstacleImage = new Image(Root.assets.getTexture("Obstacle"));
 		addChild(obstacleImage);
 		
-		x = mapX * width;
-		y = mapY * height;
+		x = mapX * GameMap.SPRITE_WIDTH;
+		y = mapY * GameMap.SPRITE_HEIGHT;
 	}
 }

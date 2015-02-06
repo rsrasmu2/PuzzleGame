@@ -18,14 +18,23 @@ class GameMap extends Sprite {
 		//0 = empty
 		//1 = obstacle
 		//2 = player
-		mapArr = [[0,0,0,0,0,0,0],
-				  [0,0,0,0,0,0,0],
-				  [0,2,0,0,0,1,0],
-				  [0,0,0,0,0,0,0],
-				  [0,0,0,0,1,0,0]];
+		mapArr = [[0,0,0,0,0,0,0,0,0,0,0],
+				  [0,0,0,0,0,0,0,0,0,0,0],
+				  [0,2,0,0,0,1,0,0,0,0,0],
+				  [0,0,0,0,0,0,0,0,0,0,0],
+				  [0,0,0,0,1,0,0,0,0,0,0],
+				  [0,0,0,0,0,0,0,0,0,0,0],
+				  [0,0,0,0,0,0,0,0,0,0,0],
+				  [0,0,0,0,0,0,0,0,0,0,0],
+				  [0,0,0,0,0,0,0,0,0,0,0],
+				  [0,0,0,0,0,0,0,0,0,0,0],
+                  [0,0,0,0,0,0,0,0,0,0,0],
+                  [0,0,0,0,0,0,0,0,0,0,0]];
 				  
 		generateSprites();
-	}
+				x = flash.Lib.current.stage.stageWidth / 2 - (width / 2);
+		y = flash.Lib.current.stage.stageHeight / 2 - (height / 2);
+		}
 	
 	public function generateSprites() {
 		removeChildren();
@@ -42,7 +51,7 @@ class GameMap extends Sprite {
 				}
 			}
 		} else {
-			trace("Error: mapArr dimensions must be greater than 0")
+			trace("Error: mapArr dimensions must be greater than 0");
 		}
 	}
 	

@@ -95,7 +95,7 @@ class GameMap extends Sprite {
 		if (player.movable) {
 			var currentX:Int = player.mapX;
 			var currentY:Int = player.mapY;
-			var distance:Float = 0;
+			var distance:Int = 0;
 			
 			//This could be cleaned up a bit if anyone is bored. Makes sure we're within the map bounds and that the next space isn't an obstacle.
 			while (currentX+dirX >= 0 && currentX+dirX < mapArr[currentY].length && currentY+dirY >= 0 && currentY+dirY < mapArr.length && mapArr[currentY+dirY][currentX+dirX] != 1) {

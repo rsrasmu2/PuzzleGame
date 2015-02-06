@@ -32,7 +32,7 @@ class Player extends Sprite {
 		y = getWorldY();
 	}
 	
-	public function moveTo(mapX:Int, mapY:Int, distance:Float) {
+	public function moveTo(mapX:Int, mapY:Int, distance:Int) {
 		this.mapX = mapX;
 		this.mapY = mapY;
 		

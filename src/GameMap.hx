@@ -22,10 +22,11 @@ class GameMap extends Sprite {
 		//0 = empty
 		//1 = obstacle
 		//2 = player
-		mapArr = [[0,0,0,0,0,0,0,0,0,0,0],
-				  [0,0,0,0,0,0,0,0,0,0,0],
+		//3 = finish
+		mapArr = [[0,0,0,0,0,0,0,1,0,0,0],
+				  [0,0,3,0,0,0,0,0,0,0,0],
 				  [0,2,0,0,0,1,0,0,0,0,0],
-				  [0,0,0,0,0,0,0,0,0,0,0],
+				  [0,0,0,0,0,0,0,0,1,0,0],
 				  [0,0,0,0,1,0,0,0,0,0,0],
 				  [0,0,0,0,0,0,0,0,0,0,0]];
 				  
@@ -48,6 +49,8 @@ class GameMap extends Sprite {
 							createObstacle(x, y);
 						case 2:
 							createPlayer(x, y);
+						case 3:
+							createFinish(x, y);
 					}
 				}
 			}
@@ -63,6 +66,10 @@ class GameMap extends Sprite {
 	
 	private function createObstacle(x:Int, y:Int) {
 		addChild(new Obstacle(x, y));
+	}
+	
+	private function createFinish(x:Int, y:Int) {
+		addChild(new Finish(x, y));
 	}
 	
 	private function checkInput(e:KeyboardEvent) {

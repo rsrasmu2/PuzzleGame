@@ -17,6 +17,7 @@ class Root extends Sprite {
 		assets = new AssetManager();
 		assets.enqueue("assets/Player.png");
 		assets.enqueue("assets/Obstacle.png");
+		assets.enqueue("assets/Finish.png");
 		assets.loadQueue(function onProgress(ratio:Float) {
 			if (ratio == 1) {
 				Starling.juggler.tween(startup.loadingBitmap, 2.0, {

@@ -1,10 +1,14 @@
 import starling.display.Sprite;
 import starling.display.Image;
+import starling.display.Quad;
 import starling.events.*;
 import flash.ui.Keyboard;
 
 
 class GameMap extends Sprite {
+	public inline static var SPRITE_WIDTH = 32;
+	public inline static var SPRITE_HEIGHT = 32;
+
 	//NOTE: The convention to access map coordinate from this array is mapArr[y][x], NOT mapArr[x][y] 
 	private var mapArr : Array<Array<Int>>;
 	
@@ -18,7 +22,7 @@ class GameMap extends Sprite {
 		//0 = empty
 		//1 = obstacle
 		//2 = player
-		mapArr = [[0,0,0,0,0,0,0,0,0,0,0],
+		mapArr = [[1,0,0,0,0,0,0,0,0,0,1],
 				  [0,0,0,0,0,0,0,0,0,0,0],
 				  [0,2,0,0,0,1,0,0,0,0,0],
 				  [0,0,0,0,0,0,0,0,0,0,0],
@@ -29,11 +33,14 @@ class GameMap extends Sprite {
 				  [0,0,0,0,0,0,0,0,0,0,0],
 				  [0,0,0,0,0,0,0,0,0,0,0],
                   [0,0,0,0,0,0,0,0,0,0,0],
-                  [0,0,0,0,0,0,0,0,0,0,0]];
+                  [1,0,0,0,0,0,0,0,0,0,1]];
+				  
+		//Center the map
+		var quad = new Quad(mapArr[0].length * SPRITE_WIDTH, mapArr.length * SPRITE_HEIGHT, 0xffffff);
+		x = flash.Lib.current.stage.stageWidth / 2 - (quad.width / 2);
+		y = flash.Lib.current.stage.stageHeight / 2 - (quad.height / 2);
 				  
 		generateSprites();
-				x = flash.Lib.current.stage.stageWidth / 2 - (width / 2);
-		y = flash.Lib.current.stage.stageHeight / 2 - (height / 2);
 		}
 	
 	public function generateSprites() {

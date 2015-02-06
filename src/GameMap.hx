@@ -94,27 +94,27 @@ class GameMap extends Sprite {
 		if (player.movable) {
 			var currentX:Int = player.mapX;
 			var currentY:Int = player.mapY;
-			var time:Float = 0;
+			var distance:Float = 0;
 			
 			//This could be cleaned up a bit if anyone is bored. Makes sure we're within the map bounds and that the next space is empty.
 			while (currentX+dirX >= 0 && currentX+dirX < mapArr[currentY].length && currentY+dirY >= 0 && currentY+dirY < mapArr.length && mapArr[currentY+dirY][currentX+dirX] != 1) {
 				currentX += dirX;
 				currentY += dirY;
-				time += 1;
+				distance += 1;
 				
 				if (mapArr[currentY][currentX] == 3) {
 					break;
 				}
 			}
 			
-			movePlayer(currentX, currentY, time);
+			movePlayer(currentX, currentY, distance);
 		}
 	}
 	
-	private function movePlayer(mapX:Int, mapY:Int, time:Float) {
+	private function movePlayer(mapX:Int, mapY:Int, distance:Float) {
 		//player's previous position is set to 0 and its new position is set to 2.
 		mapArr[player.mapY][player.mapX] = 0;
-		player.moveTo(mapX, mapY, time);
+		player.moveTo(mapX, mapY, distance);
 	}
 	
 	public function checkVictory() {

@@ -35,18 +35,7 @@ class Player extends Sprite {
 	public function moveTo(mapX:Int, mapY:Int, distance:Float) {
 		this.mapX = mapX;
 		this.mapY = mapY;
-		updateWorldPosition(distance);
-	}
-	
-	public function getWorldX() {
-		return mapX * GameMap.SPRITE_WIDTH;
-	}
-	
-	public function getWorldY() {
-		return mapY * GameMap.SPRITE_HEIGHT;
-	}
-	
-	private function updateWorldPosition(distance:Float) {
+		
 		//Slides the player to its mapX and mapY coords
 		movable = false;
 		Starling.juggler.tween(this, (distance / PLAYER_SPEED), { transition: Transitions.LINEAR,
@@ -57,5 +46,13 @@ class Player extends Sprite {
 				movable = true;
 			}
 		});
+	}
+	
+	public function getWorldX() {
+		return mapX * GameMap.SPRITE_WIDTH;
+	}
+	
+	public function getWorldY() {
+		return mapY * GameMap.SPRITE_HEIGHT;
 	}
 }

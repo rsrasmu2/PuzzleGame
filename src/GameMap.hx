@@ -62,6 +62,7 @@ class GameMap extends Sprite {
 	private function createPlayer(x:Int, y:Int) {
 		player = new Player(x, y, this);
 		addChild(player);
+		mapArr[y][x] == 0;
 	}
 	
 	private function createObstacle(x:Int, y:Int) {
@@ -108,14 +109,8 @@ class GameMap extends Sprite {
 				}
 			}
 			
-			movePlayer(currentX, currentY, distance);
+			player.moveTo(currentX, currentY, distance);
 		}
-	}
-	
-	private function movePlayer(mapX:Int, mapY:Int, distance:Float) {
-		//player's previous position is set to 0 and its new position is set to 2.
-		mapArr[player.mapY][player.mapX] = 0;
-		player.moveTo(mapX, mapY, distance);
 	}
 	
 	public function checkVictory() {

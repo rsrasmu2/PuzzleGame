@@ -17,6 +17,7 @@ class Game extends Sprite
 	public inline static var ON_COMPLETE = "LevelCompleted";
 	
 	private var map : GameMap;
+	private var loadMap : LoadMap;
 	private var currentLevel = 1;
 	
 	public function new()
@@ -24,10 +25,12 @@ class Game extends Sprite
 		super();
 		game = this;
 		map = new GameMap();
+		loadMap = new LoadMap();
 		
 		map.addEventListener(ON_COMPLETE,
 			function(){
 				currentLevel++;
+				//if (currentLevel > Levels.level.length) {
 				if (currentLevel > Levels.level.length) {
 					setStage(Menu);
 				} else {
@@ -102,7 +105,7 @@ class Game extends Sprite
 				
 			case Level:
 				addChild(map);
-				map.setMap(Levels.level[currentLevel-1]);	//Level 1 is array index 0.
+				map.setMap(loadMap.load(Levels.level[currentLevel-1]));	//Level 1 is array index 0.
 		}
 	}
 }

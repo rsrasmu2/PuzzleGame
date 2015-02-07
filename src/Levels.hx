@@ -1,38 +1,13 @@
-class Levels {
 
-	//0 = empty
-	//1 = obstacle
-	//2 = player
-	//3 = finish
-
-	//This is horribly ugly, but I can't think of a more efficient way to do it.
-	public static var level : Array<Array<Array<Int>>> = [
-													//Levels created here will automatically be added to the game.
+class  Levels
+{
+	//Add the name of the text file here
+	//Order below is the order played
+	public static var level : Array<String> = [
+				"m1",
+				"m2",
+				"j1",
+				"j2"
+	];
 	
-													//Level 1
-												   [[2,0,0,1],
-													[0,3,0,0],
-													[0,0,1,0],
-													[0,0,0,0]],
-													
-													//Level 2
-												   [[0,0,0,0,0,0,0,1,0,0,0],
-													[0,0,3,0,0,0,0,0,0,0,0],
-													[0,2,0,0,0,1,0,0,0,0,0],
-													[0,0,0,0,0,0,0,0,1,0,0],
-													[0,0,0,0,1,0,0,0,0,0,0],
-													[0,0,0,0,0,0,0,0,0,0,0]],
-													
-													//Level 3
-												   [[0,0,0,0,0,0,0,0,0,0],
-												    [0,2,0,0,0,0,0,0,1,0],
-													[0,1,0,0,0,0,0,0,0,0],
-													[0,0,0,0,1,0,1,0,0,0],
-													[0,0,0,1,0,3,0,0,0,0],
-													[1,0,0,0,0,0,0,0,0,1],
-													[0,0,0,0,0,0,0,1,0,0],
-													[0,0,1,0,0,0,0,0,0,0],
-													[0,0,0,0,0,0,0,0,1,0],
-													[0,1,0,0,0,0,0,0,0,0]]
-												];
 }

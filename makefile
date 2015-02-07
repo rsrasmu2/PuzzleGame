@@ -1,4 +1,4 @@
-FLEX_SDK=~\Flex
+FLEX_SDK ?= C:/flexsdk
 
 APP=puzzle
 APP_XML=$(APP).xml
@@ -21,4 +21,4 @@ clean:
 	del $(APP).swf
 	
 test: $(APP).swf
-	$(ADL) -profile tv -screensize 640:640:640:640 $(APP_XML)
+	$(ADL) -profile tv -screensize 640x640:640x640 $(APP_XML)

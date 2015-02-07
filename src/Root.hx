@@ -20,6 +20,12 @@ class Root extends Sprite {
 		assets.enqueue("assets/Player.png");
 		assets.enqueue("assets/Obstacle.png");
 		assets.enqueue("assets/Finish.png");
+		
+		//Load the level assets
+		for (i in 0...Levels.level.length) {
+			assets.enqueue("assets/Levels/" + Levels.level[i] + ".txt");
+		}
+		
 		assets.loadQueue(function onProgress(ratio:Float) {
 			if (ratio == 1) {
 				Starling.juggler.tween(startup.loadingBitmap, 2.0, {

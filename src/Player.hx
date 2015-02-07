@@ -29,7 +29,7 @@ class Player extends Sprite {
 		this.mapX = constX = mapX;
 		this.mapY = constY = mapY;
 
-		playerImage = new Image(Root.assets.getTexture("Player"));
+		playerImage = new Image(Root.assets.getTexture("playerDown.png"));
 		addChild(playerImage);
 
 		x = getWorldX();
@@ -68,5 +68,20 @@ class Player extends Sprite {
 			x = getWorldX(); y = getWorldY();
 		}
 	}
-
+	
+	//Change the player image depending on the direction going. 0:Down, 1:Right, 2:Up, 3:Left
+	public function changeTexture(choice:Int) {
+		removeChild(playerImage);
+		switch (choice) {
+			case 0:
+				playerImage = new Image(Root.assets.getTexture("playerDown.png"));
+			case 1:
+				playerImage = new Image(Root.assets.getTexture("playerRight.png"));
+			case 2:
+				playerImage = new Image(Root.assets.getTexture("playerUp.png"));
+			case 3:
+				playerImage = new Image(Root.assets.getTexture("playerLeft.png"));
+		}
+		addChild(playerImage);
+	}
 }

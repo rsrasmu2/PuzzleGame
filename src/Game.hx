@@ -52,7 +52,7 @@ class Game extends Sprite
 				title.fontSize = 50;
 				title.y = 50;
 
-				var play = new MenuText("Play",200);
+				var play = new MenuText("Play", 200);
 				play.y = title.y + 100;
 				play.fontSize = 20;
 				play.addEventListener(Event.TRIGGERED,

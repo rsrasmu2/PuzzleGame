@@ -1,3 +1,4 @@
+import haxe.io.Eof;
 import starling.display.Sprite;
 import starling.display.Image;
 import starling.display.Quad;
@@ -96,13 +97,17 @@ class GameMap extends Sprite {
 		switch (e.keyCode)
 		{
 			case Keyboard.LEFT:
-				playerMovementScan(-1, 0);
+				playerMovementScan( -1, 0);
+				player.changeTexture(3);
 			case Keyboard.RIGHT:
 				playerMovementScan(1, 0);
+				player.changeTexture(1);
 			case Keyboard.UP:
 				playerMovementScan(0, -1);
+				player.changeTexture(2);
 			case Keyboard.DOWN:
 				playerMovementScan(0, 1);
+				player.changeTexture(0);
 			case Keyboard.R:
 				player.restart();
 		}
@@ -127,7 +132,7 @@ class GameMap extends Sprite {
 					break;
 				}
 			}
-
+			
 			player.moveTo(currentX, currentY, distance);
 		}
 	}

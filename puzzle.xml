@@ -2,7 +2,7 @@
 <application xmlns="http://ns.adobe.com/air/application/3.8">
 	<id>com.RobRas.PuzzleGame</id>
 	<name>Puzzle Game</name>
-	<versionNumber>2015.02.02</versionNumber>
+	<versionNumber>15.02.02</versionNumber>
 	<filename>Puzzle Game</filename>
 	<initialWindow>
 		<content>puzzle.swf</content>

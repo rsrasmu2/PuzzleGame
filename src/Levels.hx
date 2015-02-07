@@ -1,5 +1,3 @@
-import flash.utils.Dictionary;
-
 class Levels {
 
 	//0 = empty
@@ -9,6 +7,8 @@ class Levels {
 
 	//This is horribly ugly, but I can't think of a more efficient way to do it.
 	public static var level : Array<Array<Array<Int>>> = [
+													//Levels created here will automatically be added to the game.
+	
 													//Level 1
 												   [[2,0,0,1],
 													[0,3,0,0],

@@ -14,23 +14,15 @@ class GameMap extends Sprite {
 
 	private var player : Player;
 
-	public function new(?map : Array<Array<Int>>) {
+	public function new() {
 		super();
-
 		addEventListener(KeyboardEvent.KEY_DOWN, checkInput);
-
-		//0 = empty
-		//1 = obstacle
-		//2 = player
-		//3 = finish
-		mapArr = (map == null) ? [
-		[0,0,0,0,0,0,0,1,0,0,0],
-		[0,0,3,0,0,0,0,0,0,0,0],
-		[0,2,0,0,0,1,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0,1,0,0],
-		[0,0,0,0,1,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0,0,0,0]] : map;
-
+	}
+	
+	public function setMap(map : Array<Array<Int>>) {
+		removeChildren();
+		mapArr = map;
+		
 		//Center the map
 		var quad = new Quad(mapArr[0].length * SPRITE_WIDTH, mapArr.length * SPRITE_HEIGHT);
 		x = Starling.current.stage.stageWidth / 2 - (quad.width / 2);
@@ -63,7 +55,7 @@ class GameMap extends Sprite {
 		generateSprites();
 		//make sure your level has a player!!!
 		if(player == null){
-			trace("This level doens't have a player! Error will occur if you try to move the player");
+			trace("This level doesn't have a player! Error will occur if you try to move the player");
 		}
 	}
 
@@ -84,12 +76,12 @@ class GameMap extends Sprite {
 		} else {
 			trace("Error: mapArr dimensions must be greater than 0");
 		}
+		addChild(player); //Added at the end so it moves on top of everything else;
 	}
 
 	private function createPlayer(x:Int, y:Int) {
 		player = new Player(x, y);
 		addEventListener("playerMoveFinished", onPlayerMoveFinished);
-		addChild(player);
 	}
 
 	private function createObstacle(x:Int, y:Int) {
@@ -128,7 +120,7 @@ class GameMap extends Sprite {
 			&& currentY+dirY < mapArr.length && mapArr[currentY+dirY][currentX+dirX] != 1) {
 				currentX += dirX;
 				currentY += dirY;
-				distance += 1;
+				distance++;
 
 				//We've hit the goal!
 				if (mapArr[currentY][currentX] == 3) {
@@ -142,7 +134,6 @@ class GameMap extends Sprite {
 
 	private function onPlayerMoveFinished(e:Event) {
 		if (mapArr[player.mapY][player.mapX] == 3) {
-			trace("Victory!");
 			dispatchEvent(new Event(Game.ON_COMPLETE));
 		}
 	}

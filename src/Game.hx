@@ -8,23 +8,32 @@ enum GameState
 	Menu;
 	Instructions;
 	Credits;
-
-	//level state for each level
-	Level1;
-	Level2;
-	Level3;
-	Level4;
-	Level5;
+	Level;
 }
 
 class Game extends Sprite
 {
 	public static var game : Game;
 	public inline static var ON_COMPLETE = "LevelCompleted";
+	
+	private var map : GameMap;
+	private var currentLevel = 1;
+	
 	public function new()
 	{
 		super();
 		game = this;
+		map = new GameMap();
+		
+		map.addEventListener(ON_COMPLETE,
+			function(){
+				currentLevel++;
+				if (currentLevel > Levels.level.length) {
+					setStage(Menu);
+				} else {
+					setStage(Level);
+				}
+			});
 
 		//based on game state
 		setStage(Menu);
@@ -44,7 +53,10 @@ class Game extends Sprite
 				play.y = title.y + 100;
 				play.fontSize = 20;
 				play.addEventListener(Event.TRIGGERED,
-				function(){ setStage(Level1);});
+				function(){
+					currentLevel = 1;
+					setStage(Level);
+				});
 
 				var instr = new MenuText("Instructions",200);
 				instr.y = play.y + 100;
@@ -57,6 +69,7 @@ class Game extends Sprite
 				cred.fontSize = 20;
 				cred.addEventListener(Event.TRIGGERED,
 				function(){	setStage(Credits);});
+				
 			case Instructions:
 				var title = new MenuText("How To Play",200,200);
 				title.fontSize = 50;
@@ -75,6 +88,7 @@ class Game extends Sprite
 				"an object. Press R to restart current level if you're stuck.", 300, 200);
 				instr.fontSize = 20;
 				instr.y = back.y + 75;
+				
 			case Credits:
 				var back = new MenuText("Back");
 				back.fontSize = 20; back.y = 50;
@@ -82,20 +96,13 @@ class Game extends Sprite
 				function(){ setStage(Menu);});
 
 				var cred = new MenuText("Credits\n--------"+
-				"\nTemitope Alaga\n(Add other members names later)",200,200);
+				"\nTemitope Alaga\nRobert Rasmussen(Add other members names later)",200,200);
 				cred.fontSize = 30;
 				cred.y = back.y + 200;
-			case Level1://Temitope Alaga
-				var level = [[2,0,0,1],[0,3,0,0],[0,0,1,0],[0,0,0,0]];
-				var map = new GameMap(level);
-				map.addEventListener(ON_COMPLETE,
-				function(){ setStage(Level2);});
+				
+			case Level:
 				addChild(map);
-			default:
-				var map = new GameMap();
-				map.addEventListener(ON_COMPLETE,
-				function(){ setStage(Menu);});
-				addChild(map);
+				map.setMap(Levels.level[currentLevel-1]);	//Level 1 is array index 0.
 		}
 	}
 }

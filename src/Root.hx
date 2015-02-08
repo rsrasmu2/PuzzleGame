@@ -24,6 +24,9 @@ class Root extends Sprite {
 		assets.enqueue("assets/playerSprites.png");
 		assets.enqueue("assets/playerSprites.xml");
 		
+		assets.enqueue("assets/Mars/marsObstacles.png");
+		assets.enqueue("assets/Mars/marsObstacles.xml");
+		
 		//Load the level assets
 		for (i in 0...Levels.level.length) {
 			assets.enqueue("assets/Levels/" + Levels.level[i] + ".txt");

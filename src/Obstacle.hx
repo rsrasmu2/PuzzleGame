@@ -7,7 +7,12 @@ class Obstacle extends Sprite {
 	public function new(mapX:Int, mapY:Int) {
 		super();
 		
-		obstacleImage = new Image(Root.assets.getTexture("Obstacle"));
+		var chance: Int = Std.random(10);
+		if (chance > 4) {
+			obstacleImage = new Image(Root.assets.getTexture("marsRock.png"));
+		} else {
+			obstacleImage = new Image(Root.assets.getTexture("marsCrater.png"));
+		}
 		addChild(obstacleImage);
 		
 		x = mapX * GameMap.SPRITE_WIDTH;

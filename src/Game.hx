@@ -99,7 +99,7 @@ class Game extends Sprite
 				function(){ setStage(Menu);});
 
 				var cred = new MenuText("Credits\n--------"+
-				"\nTemitope Alaga\nRobert Rasmussen(Add other members names later)",200,200);
+				"\nTemitope Alaga\nRobert Rasmussen\nJordan Harris\n(Add other members names later)",200,200);
 				cred.fontSize = 30;
 				cred.y = back.y + 200;
 				

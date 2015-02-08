@@ -24,10 +24,8 @@ class Player extends Sprite {
 	public function new(mapX:Int, mapY:Int) {
 		super();
 
-		this.mapX = mapX;
-		this.mapY = mapY;
-		this.mapX = constX = mapX;
-		this.mapY = constY = mapY;
+		this.mapX = this.constX = mapX;
+		this.mapY = this.constY = mapY;
 
 		playerImage = new Image(Root.assets.getTexture("playerDown.png"));
 		addChild(playerImage);
@@ -48,7 +46,7 @@ class Player extends Sprite {
 			x: getWorldX(),
 			y: getWorldY(),
 			onComplete: function() {
-				parent.dispatchEvent(new Event("playerMoveFinished"));
+				parent.dispatchEvent(new Event(GameMap.MOVE_DONE));
 				movable = true;
 			}
 		});
@@ -63,13 +61,12 @@ class Player extends Sprite {
 	}
 
 	public function restart(){
-		if(movable){
-			mapX = constX;mapY = constY;
-			x = getWorldX(); y = getWorldY();
-		}
+		mapX = constX;mapY = constY;
+		x = getWorldX(); y = getWorldY();
 	}
-	
+
 	//Change the player image depending on the direction going. 0:Down, 1:Right, 2:Up, 3:Left
+	//This should only happen when the player starts to move and not while it is moving
 	public function changeTexture(choice:Int) {
 		removeChild(playerImage);
 		switch (choice) {

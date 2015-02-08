@@ -10,6 +10,9 @@ class GameMap extends Sprite {
 	public inline static var SPRITE_WIDTH = 32;
 	public inline static var SPRITE_HEIGHT = 32;
 
+	//for player movement event
+	public inline static var MOVE_DONE = "playerMoveFinished";
+
 	//NOTE: The convention to access map coordinate from this array is mapArr[y][x], NOT mapArr[x][y]
 	private var mapArr : Array<Array<Int>>;
 
@@ -19,11 +22,14 @@ class GameMap extends Sprite {
 		super();
 		addEventListener(KeyboardEvent.KEY_DOWN, checkInput);
 	}
-	
+
 	public function setMap(map : Array<Array<Int>>) {
 		removeChildren();
 		mapArr = map;
-		
+
+		/*Use trace to check level and make sure null isn't a value in the map
+		trace(mapArr);*/
+
 		//Center the map
 		var quad = new Quad(mapArr[0].length * SPRITE_WIDTH, mapArr.length * SPRITE_HEIGHT);
 		x = Starling.current.stage.stageWidth / 2 - (quad.width / 2);
@@ -82,7 +88,7 @@ class GameMap extends Sprite {
 
 	private function createPlayer(x:Int, y:Int) {
 		player = new Player(x, y);
-		addEventListener("playerMoveFinished", onPlayerMoveFinished);
+		addEventListener(MOVE_DONE, onPlayerMoveFinished);
 	}
 
 	private function createObstacle(x:Int, y:Int) {
@@ -94,6 +100,8 @@ class GameMap extends Sprite {
 	}
 
 	private function checkInput(e:KeyboardEvent) {
+		//ignore event if the player is in the middle of moving
+		if(!player.movable) return;
 		switch (e.keyCode)
 		{
 			case Keyboard.LEFT:
@@ -114,27 +122,25 @@ class GameMap extends Sprite {
 	}
 
 	private function playerMovementScan(dirX:Int, dirY:Int) {
-		if (player.movable) {
-			var currentX:Int = player.mapX;
-			var currentY:Int = player.mapY;
-			var distance:Int = 0;
+		var currentX:Int = player.mapX;
+		var currentY:Int = player.mapY;
+		var distance:Int = 0;
 
-			/*This could be cleaned up a bit if anyone is bored. Makes sure we're within
-			the map bounds and that the next space isn't an obstacle.*/
-			while (currentX+dirX >= 0 && currentX+dirX < mapArr[currentY].length && currentY+dirY >= 0
-			&& currentY+dirY < mapArr.length && mapArr[currentY+dirY][currentX+dirX] != 1) {
-				currentX += dirX;
-				currentY += dirY;
-				distance++;
+		/*This could be cleaned up a bit if anyone is bored. Makes sure we're within
+		the map bounds and that the next space isn't an obstacle.*/
+		while (currentX+dirX >= 0 && currentX+dirX < mapArr[currentY].length && currentY+dirY >= 0
+		&& currentY+dirY < mapArr.length && mapArr[currentY+dirY][currentX+dirX] != 1) {
+			currentX += dirX;
+			currentY += dirY;
+			distance++;
 
-				//We've hit the goal!
-				if (mapArr[currentY][currentX] == 3) {
-					break;
-				}
+			//We've hit the goal!
+			if (mapArr[currentY][currentX] == 3) {
+				break;
 			}
-			
-			player.moveTo(currentX, currentY, distance);
 		}
+
+		player.moveTo(currentX, currentY, distance);
 	}
 
 	private function onPlayerMoveFinished(e:Event) {

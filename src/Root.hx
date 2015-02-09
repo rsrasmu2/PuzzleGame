@@ -13,6 +13,7 @@ class Root extends Sprite {
 	
 	public function new() {
 		super();
+		trace("1");
 	}
 	
 	public function start(startup:Startup) {
@@ -20,13 +21,16 @@ class Root extends Sprite {
 		assets.enqueue("assets/Player.png");
 		assets.enqueue("assets/Obstacle.png");
 		assets.enqueue("assets/Finish.png");
+		assets.enqueue("assets/star_background.png");
+		assets.enqueue("assets/star_foreground.png");
 		assets.loadQueue(function onProgress(ratio:Float) {
 			if (ratio == 1) {
 				Starling.juggler.tween(startup.loadingBitmap, 2.0, {
 					transition:Transitions.EASE_OUT, delay:0, alpha: 0, onComplete: function(){
 						startup.removeChild(startup.loadingBitmap);
-						
+						trace("2");
 						game = new Game();
+						trace("6");
 						addChild(game);
 					}
 				});

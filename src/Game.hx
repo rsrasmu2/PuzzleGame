@@ -23,7 +23,7 @@ class Game extends Sprite
 	{
 		super();
 		bg = new Background();
-		Starling.current.stage.addChild(bg);
+		
 		map = new GameMap();
 
 		map.addEventListener(ON_COMPLETE,
@@ -44,6 +44,8 @@ class Game extends Sprite
 	private function setStage(state : GameState)
 	{
 		removeChildren();
+		addChild(bg);
+		
 		switch(state)
 		{
 			case Menu:
@@ -113,7 +115,7 @@ class MenuText extends Button
 {
 	public function new(game:Game,s:String,w:Int=100,h:Int=100)
 	{
-		super(Texture.empty(w,h));
+		super(Root.assets.getTexture("Button"));
 
 		x = Starling.current.stage.stageWidth/2 - width/2;
 		y = Starling.current.stage.stageHeight/2 - height/2;

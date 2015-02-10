@@ -16,7 +16,7 @@ class Obstacle extends Sprite {
 			} else if (planet == "n") {
 				obstacleImage = new Image(Root.assets.getTexture("neptObj"));
 			} else if (planet == "s") {
-				obstacleImage = new Image(Root.assets.getTexture("neptObj"));
+				obstacleImage = new Image(Root.assets.getTexture("planet1"));
 			} else if (planet == "u") {
 				obstacleImage = new Image(Root.assets.getTexture("neptObj"));
 			} else {
@@ -30,7 +30,7 @@ class Obstacle extends Sprite {
 			} else if (planet == "n") {
 				obstacleImage = new Image(Root.assets.getTexture("neptObj2"));
 			} else if (planet == "s") {
-				obstacleImage = new Image(Root.assets.getTexture("neptObj2"));
+				obstacleImage = new Image(Root.assets.getTexture("planet2"));
 			} else if (planet == "u") {
 				obstacleImage = new Image(Root.assets.getTexture("neptObj2"));
 			} else {

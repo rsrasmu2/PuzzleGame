@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:9dc3d142aa155cb0ec069a87da583d1a:fe0a71f1de220d5d71616cc7f7e27f53:d3ecae188567ea01601d024241b2f4be$ -->
+<TextureAtlas imagePath="star_assets.png">
+    <SubTexture name="star_background" x="4" y="4" width="640" height="640"/>
+    <SubTexture name="star_foreground" x="650" y="4" width="614" height="619" frameX="-26" frameY="-16" frameWidth="640" frameHeight="640"/>
+</TextureAtlas>

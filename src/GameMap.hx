@@ -115,6 +115,8 @@ class GameMap extends Sprite {
 				player.changeTexture(0);
 			case Keyboard.R:
 				player.restart();
+			case Keyboard.ESCAPE://go back to main menu
+				parent.dispatchEvent(new Event(Game.RESET_GAME));
 		}
 	}
 

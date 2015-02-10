@@ -7,7 +7,8 @@ import starling.events.*;
  */
 class BgLayer extends Sprite
 {
-
+	public var imageWidth:Float;
+	
 	private var image1:Image;
 	private var image2:Image;
 
@@ -32,11 +33,11 @@ class BgLayer extends Sprite
 		else {
 			image1 = new Image(Root.assets.getTexture("star_foreground"));
 			image2 = new Image(Root.assets.getTexture("star_foreground"));
-
 		}
 
 		image1.x = 0;
 		image2.x = image2.width;
+		imageWidth = image1.width;
 
 		addChild(image1);
 		addChild(image2);

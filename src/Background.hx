@@ -41,12 +41,12 @@ class Background extends Sprite
 	public function onEnterFrame(event:Event):Void {
 
 		bgLayer1.x -= bgLayer1.getParallax();
-		if (bgLayer1.x < -flash.Lib.current.stage.stageWidth) {
+		if (bgLayer1.x < -bgLayer1.imageWidth) {
 			bgLayer1.x = 0;
 		}
 
 		bgLayer2.x -= bgLayer2.getParallax();
-		if (bgLayer2.x < -flash.Lib.current.stage.stageWidth) {
+		if (bgLayer2.x < -bgLayer2.imageWidth) {
 			bgLayer2.x = 0;
 		}
 	}

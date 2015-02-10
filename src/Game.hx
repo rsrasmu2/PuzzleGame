@@ -16,16 +16,14 @@ class Game extends Sprite
 	public inline static var ON_COMPLETE = "LevelCompleted";
 
 	private var map : GameMap;
-	private var loadMap : LoadMap;
 	private var currentLevel = 1;
-
 	private var bg:Background;
-	
+
 	public function new()
 	{
 		super();
 		bg = new Background();
-		addChild(bg);
+		Starling.current.stage.addChild(bg);
 		map = new GameMap();
 
 		map.addEventListener(ON_COMPLETE,

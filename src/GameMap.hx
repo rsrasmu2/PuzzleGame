@@ -12,6 +12,8 @@ class GameMap extends Sprite {
 
 	//for player movement event
 	public inline static var MOVE_DONE = "playerMoveFinished";
+	
+	public var planet:String;
 
 	//NOTE: The convention to access map coordinate from this array is mapArr[y][x], NOT mapArr[x][y]
 	private var mapArr : Array<Array<Int>>;
@@ -89,7 +91,7 @@ class GameMap extends Sprite {
 	}
 
 	private function createObstacle(x:Int, y:Int) {
-		addChild(new Obstacle(x, y));
+		addChild(new Obstacle(x, y, planet));
 	}
 
 	private function createFinish(x:Int, y:Int) {

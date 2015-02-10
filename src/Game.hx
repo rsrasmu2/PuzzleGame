@@ -13,11 +13,8 @@ class Game extends Sprite
 	public function new() 
 	{
 		super();
-		trace("3");
 		bg = new Background();
-		trace("4");
 		addChild(bg);
-		trace("5");
 		map = new GameMap();
 		addChild(map);
 		

@@ -12,11 +12,11 @@ class BgLayer extends Sprite
 	private var image2:Image;
 	
 	private var layer:Int;
+	// the parallax is the speed of the background layer. Bigger number = faster speed.
 	private var parallax:Float;
 	
 	public function new(layer:Int) 
 	{
-		trace("b");
 		super();
 		this.layer = layer;
 		this.addEventListener(starling.events.Event.ADDED_TO_STAGE, onAddedToStage);
@@ -28,12 +28,10 @@ class BgLayer extends Sprite
 		if (layer == 1){ 
 			image1 = new Image(Root.assets.getTexture("star_background"));
 			image2 = new Image(Root.assets.getTexture("star_background"));
-			trace("starbackground loaded");
 		}
 		else {
 			image1 = new Image(Root.assets.getTexture("star_foreground"));
 			image2 = new Image(Root.assets.getTexture("star_foreground"));
-			trace("starforeground loaded");
 			
 		}
 		
@@ -45,12 +43,10 @@ class BgLayer extends Sprite
 	}
 
 	public function getParallax():Float {
-		
 		return parallax;
 	}
 	
 	public function setParallax(value:Float):Void {
-		
 		parallax = value;
 	}
 	

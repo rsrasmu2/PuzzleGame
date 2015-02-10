@@ -1,10 +1,10 @@
-FLEX_SDK=~\Flex
+FLEX_SDK = C:\Users\Nancy\Documents\ApacheFlex
 
 APP=puzzle
 APP_XML=$(APP).xml
 ADL=$(FLEX_SDK)/bin/adl
 AMXMLC=$(FLEX_SDK)/bin/amxmlc
-SOURCES=src/Startup.hx src/Root.hx src/GameMap.hx src/Obstacle.hx src/Player.hx
+SOURCES=src/*.hx
 
 all: $(APP).swf
 $(APP).swf: $(SOURCES)
@@ -21,4 +21,4 @@ clean:
 	del $(APP).swf
 	
 test: $(APP).swf
-	$(ADL) -profile tv -screensize 640:640:640:640 $(APP_XML)
+	$(ADL) -profile tv -screensize 640x640:640x640 $(APP_XML)

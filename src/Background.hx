@@ -16,45 +16,36 @@ class Background extends Sprite
 
 	public function new() 
 	{
-		trace("a");
 		super();
-		//this.addEventListener(starling.events.Event.ADDED_TO_STAGE, onAddedToStage);
-		trace("a");
-		bgLayer1 = new BgLayer(1);
-		bgLayer2.setParallax(2);
-		addChild(bgLayer1);
-		
-		bgLayer2 = new BgLayer(2);
-		bgLayer2.setParallax(0.02);
-		addChild(bgLayer2);
-		
-		trace("both layers added");
-		this.addEventListener(Event.ENTER_FRAME, onEnterFrame);
+		this.addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 	}
 	
 	public function onAddedToStage(event:Event):Void {
-		/*this.removeEventListener(starling.events.Event.ADDED_TO_STAGE, onAddedToStage);
+		
 	
+		this.removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+		
+		
 		bgLayer1 = new BgLayer(1);
-		bgLayer2.setParallax(2);
+		bgLayer1.setParallax(.1);
 		addChild(bgLayer1);
 		
 		bgLayer2 = new BgLayer(2);
-		bgLayer2.setParallax(0.02);
+		bgLayer2.setParallax(.4);
 		addChild(bgLayer2);
 		
 		this.addEventListener(Event.ENTER_FRAME, onEnterFrame);
-		*/
+		
 	}
 	
 	public function onEnterFrame(event:Event):Void {
 		
-		bgLayer1.x -= Math.ceil(bgLayer1.getParallax());
+		bgLayer1.x -= bgLayer1.getParallax();
 		if (bgLayer1.x < -flash.Lib.current.stage.stageWidth) {
 			bgLayer1.x = 0;
 		}
 		
-		bgLayer2.x -= Math.ceil(bgLayer2.getParallax());
+		bgLayer2.x -= bgLayer2.getParallax();
 		if (bgLayer2.x < -flash.Lib.current.stage.stageWidth) {
 			bgLayer2.x = 0;
 		}

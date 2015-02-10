@@ -27,9 +27,6 @@ class GameMap extends Sprite {
 		removeChildren();
 		mapArr = map;
 
-		/*Use trace to check level and make sure null isn't a value in the map
-		trace(mapArr);*/
-
 		//Center the map
 		var quad = new Quad(mapArr[0].length * SPRITE_WIDTH, mapArr.length * SPRITE_HEIGHT);
 		x = Starling.current.stage.stageWidth / 2 - (quad.width / 2);
@@ -37,7 +34,7 @@ class GameMap extends Sprite {
 
 		//generate background
 		quad.color = 0;
-		quad.alpha = 0.75;
+		quad.alpha = 0.5;
 		addChild(quad);
 
 		//generate grid
@@ -47,7 +44,7 @@ class GameMap extends Sprite {
 			var line = new Quad(quad.width,2.5);
 			line.y = h;
 			h += SPRITE_HEIGHT;
-			line.alpha = 0.75;
+			line.alpha = 0.5;
 			addChild(line);
 		}
 		while(w <= mapArr[0].length * SPRITE_WIDTH)//vertical lines
@@ -55,7 +52,7 @@ class GameMap extends Sprite {
 			var line = new Quad(2.5,quad.height);
 			line.x = w;
 			w += SPRITE_WIDTH;
-			line.alpha = 0.75;
+			line.alpha = 0.5;
 			addChild(line);
 		}
 
@@ -132,7 +129,7 @@ class GameMap extends Sprite {
 		&& currentY+dirY < mapArr.length && mapArr[currentY+dirY][currentX+dirX] != 1) {
 			currentX += dirX;
 			currentY += dirY;
-			distance++;
+			++distance;
 
 			//We've hit the goal!
 			if (mapArr[currentY][currentX] == 3) {

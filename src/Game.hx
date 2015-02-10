@@ -23,7 +23,7 @@ class Game extends Sprite
 	{
 		super();
 		bg = new Background();
-		
+		addChild(bg);
 		map = new GameMap();
 
 		map.addEventListener(ON_COMPLETE,
@@ -43,9 +43,8 @@ class Game extends Sprite
 
 	private function setStage(state : GameState)
 	{
-		removeChildren();
-		addChild(bg);
-		
+		removeChildren(1);
+
 		switch(state)
 		{
 			case Menu:
@@ -106,6 +105,8 @@ class Game extends Sprite
 
 			case Level:
 				addChild(map);
+				/*haxe.Log.clear();
+				trace("Level: " + currentLevel);*/
 				map.setMap(LoadMap.load(Levels.level[currentLevel-1]));	//Level 1 is array index 0.
 		}
 	}

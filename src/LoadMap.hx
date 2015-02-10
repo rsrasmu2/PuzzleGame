@@ -21,6 +21,9 @@ class LoadMap
 				if(val != null)
 					map[i].push(val);
 			}
+
+			//remove the last row if nothing was put into it
+			if(map[i].length == 0) map.pop();
 		}
 
 		return map;

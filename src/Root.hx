@@ -28,7 +28,7 @@ class Root extends Sprite {
 		assets.enqueue("assets/neptune2.png", "assets/neptune1.png");
 		assets.enqueue("assets/saturn1.png", "assets/saturn2.png");
 		assets.enqueue("assets/jupiter1.png", "assets/jupiter2.png");
-		assets.enqueue("assets/uranusObj.png", "assets/uranusObj2.png")
+		assets.enqueue("assets/uranusObj.png", "assets/uranusObj2.png");
 		
 		assets.enqueue("assets/Button.png");
 		

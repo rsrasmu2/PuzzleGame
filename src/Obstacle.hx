@@ -14,11 +14,11 @@ class Obstacle extends Sprite {
 			} else if (planet == "j") {
 				obstacleImage = new Image(Root.assets.getTexture("marsRock.png"));
 			} else if (planet == "n") {
-				obstacleImage = new Image(Root.assets.getTexture("neptObj"));
+				obstacleImage = new Image(Root.assets.getTexture("neptune1"));
 			} else if (planet == "s") {
-				obstacleImage = new Image(Root.assets.getTexture("planet1"));
+				obstacleImage = new Image(Root.assets.getTexture("saturn1"));
 			} else if (planet == "u") {
-				obstacleImage = new Image(Root.assets.getTexture("neptObj"));
+				obstacleImage = new Image(Root.assets.getTexture("marsRock.png"));
 			} else {
 				obstacleImage = new Image(Root.assets.getTexture("Obstacle.png"));
 			}
@@ -28,11 +28,11 @@ class Obstacle extends Sprite {
 			} else if (planet == "j") {
 				obstacleImage = new Image(Root.assets.getTexture("marsCrater.png"));
 			} else if (planet == "n") {
-				obstacleImage = new Image(Root.assets.getTexture("neptObj2"));
+				obstacleImage = new Image(Root.assets.getTexture("neptune2"));
 			} else if (planet == "s") {
-				obstacleImage = new Image(Root.assets.getTexture("planet2"));
+				obstacleImage = new Image(Root.assets.getTexture("saturn2"));
 			} else if (planet == "u") {
-				obstacleImage = new Image(Root.assets.getTexture("neptObj2"));
+				obstacleImage = new Image(Root.assets.getTexture("marsCrater.png"));
 			} else {
 				obstacleImage = new Image(Root.assets.getTexture("Obstacle.png"));
 			}

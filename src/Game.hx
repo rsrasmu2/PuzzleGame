@@ -1,3 +1,4 @@
+import flash.system.ImageDecodingPolicy;
 import starling.display.*;
 import starling.core.*;
 import starling.textures.Texture;
@@ -20,6 +21,9 @@ class Game extends Sprite
 	private var map : GameMap;
 	private var currentLevel = 1;
 	private var bg:Background;
+	
+	//Hold the images of the crew members
+	private static var crew : Array<Image>;
 
 	public function new()
 	{
@@ -27,6 +31,14 @@ class Game extends Sprite
 		bg = new Background();
 		addChild(bg);
 		map = new GameMap();
+		
+		//Load the crew sprites
+		crew = new Array();
+		crew.push(new Image(Root.assets.getTexture("bobby")));
+		crew.push(new Image(Root.assets.getTexture("cherie")));
+		crew.push(new Image(Root.assets.getTexture("jordan")));
+		crew.push(new Image(Root.assets.getTexture("nancy")));
+		crew.push(new Image(Root.assets.getTexture("temitope")));
 
 		map.addEventListener(ON_COMPLETE,
 			function(){
@@ -118,9 +130,20 @@ class Game extends Sprite
 				addChild(map);
 				/*haxe.Log.clear();
 				trace("Level: " + currentLevel);*/
+				
+				//Create the crew members and draw them to the screen in the correct spot
+				for (i in 0...crew.length) {
+					crew[i].x = i * 20;
+					crew[i].y = -50;
+					addChild(crew[i]);
+				}
 				map.planet = Levels.level[currentLevel-1].charAt(0);
 				map.setMap(LoadMap.load(Levels.level[currentLevel-1]));	//Level 1 is array index 0.
 		}
+	}
+	//Used to get the crew in the GameMap class
+	public static function getCrew() {
+		return crew;
 	}
 }
 

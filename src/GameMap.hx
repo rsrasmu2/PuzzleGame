@@ -21,8 +21,8 @@ class GameMap extends Sprite {
 	private var player : Player;
 
 	private var lives : Int;
-	
-	private var crew : Array<Image>;
+
+	private var spaceship : Image;
 
 	public function new() {
 		super();
@@ -33,6 +33,7 @@ class GameMap extends Sprite {
 	public function setMap(map : Array<Array<Int>>) {
 		removeChildren();
 		mapArr = map;
+		
 
 		//Center the map
 		var quad = new Quad(mapArr[0].length * SPRITE_WIDTH, mapArr.length * SPRITE_HEIGHT);
@@ -88,6 +89,16 @@ class GameMap extends Sprite {
 			trace("Error: mapArr dimensions must be greater than 0");
 		}
 		addChild(player); //Added at the end so it moves on top of everything else;
+		
+		//Add the spaceship behind the crew sprites
+		spaceship = new Image(Root.assets.getTexture("spaceship"));
+		spaceship.x = -50;
+		spaceship.y = -88;
+		addChild(spaceship);
+		//Add each of the crew members
+		for (i in 0...Game.getCrew().length) {
+			addChild(Game.getCrew()[i]);
+		}
 	}
 
 	private function createPlayer(x:Int, y:Int) {
@@ -169,11 +180,21 @@ class GameMap extends Sprite {
 		if (flag) {
 			flag = false;
 			player.restart();
-			lives = lives - 1;
 			if (lives == 0) {
-
+				//Something needs to happen
 			}
-			//Add lost lives code here
+			//Remove all of the crew sprites to be redrawn
+			for (i in 0...Game.getCrew().length) {
+				removeChild(Game.getCrew()[i]);
+			}
+			//Remove the crew member from the list
+			Game.getCrew().pop();
+			//Redraw the crew members without the lost one
+			for (i in 0...Game.getCrew().length) {
+				addChild(Game.getCrew()[i]);
+			}
+			
+			lives = lives - 1;
 		}
 	}
 }

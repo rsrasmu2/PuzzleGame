@@ -20,9 +20,12 @@ class GameMap extends Sprite {
 
 	private var player : Player;
 
+	private var lives : Int;
+
 	public function new() {
 		super();
 		addEventListener(KeyboardEvent.KEY_DOWN, checkInput);
+		lives = 5;
 	}
 
 	public function setMap(map : Array<Array<Int>>) {

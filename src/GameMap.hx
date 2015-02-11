@@ -91,10 +91,10 @@ class GameMap extends Sprite {
 		addChild(player); //Added at the end so it moves on top of everything else;
 
 		//Add the spaceship behind the crew sprites
-		spaceship = new Image(Root.assets.getTexture("spaceship"));
+		/*spaceship = new Image(Root.assets.getTexture("spaceship"));
 		spaceship.x = -50;
 		spaceship.y = -88;
-		addChild(spaceship);
+		addChild(spaceship);*/
 		//Add each of the crew members
 		for (i in 0...Game.getCrew().length) {
 			addChild(Game.getCrew()[i]);

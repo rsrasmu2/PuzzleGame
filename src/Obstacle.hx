@@ -12,7 +12,7 @@ class Obstacle extends Sprite {
 			if (planet == "m") {
 				obstacleImage = new Image(Root.assets.getTexture("marsRock.png"));
 			} else if (planet == "j") {
-				obstacleImage = new Image(Root.assets.getTexture("marsRock.png"));
+				obstacleImage = new Image(Root.assets.getTexture("jupiter1"));
 			} else if (planet == "n") {
 				obstacleImage = new Image(Root.assets.getTexture("neptune1"));
 			} else if (planet == "s") {
@@ -26,7 +26,7 @@ class Obstacle extends Sprite {
 			if (planet == "m") {
 				obstacleImage = new Image(Root.assets.getTexture("marsCrater.png"));
 			} else if (planet == "j") {
-				obstacleImage = new Image(Root.assets.getTexture("marsCrater.png"));
+				obstacleImage = new Image(Root.assets.getTexture("jupiter2"));
 			} else if (planet == "n") {
 				obstacleImage = new Image(Root.assets.getTexture("neptune2"));
 			} else if (planet == "s") {

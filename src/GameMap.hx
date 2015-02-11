@@ -21,7 +21,7 @@ class GameMap extends Sprite {
 	private var player : Player;
 
 	private var lives : Int;
-	
+
 	private var crew : Array<Image>;
 
 	public function new() {

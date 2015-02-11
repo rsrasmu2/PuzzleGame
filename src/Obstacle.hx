@@ -10,7 +10,7 @@ class Obstacle extends Sprite {
 		var chance: Int = Std.random(10);
 		if (chance > 4) {
 			if (planet == "m") {
-				obstacleImage = new Image(Root.assets.getTexture("marsRock.png"));
+				obstacleImage = new Image(Root.assets.getTexture("marsRock"));
 			} else if (planet == "j") {
 				obstacleImage = new Image(Root.assets.getTexture("jupiter1"));
 			} else if (planet == "n") {
@@ -20,11 +20,11 @@ class Obstacle extends Sprite {
 			} else if (planet == "u") {
 				obstacleImage = new Image(Root.assets.getTexture("uranus1"));
 			} else {
-				obstacleImage = new Image(Root.assets.getTexture("marsRock.png"));
+				obstacleImage = new Image(Root.assets.getTexture("marsRock"));
 			}
 		} else {
 			if (planet == "m") {
-				obstacleImage = new Image(Root.assets.getTexture("marsCrater.png"));
+				obstacleImage = new Image(Root.assets.getTexture("marsCrater"));
 			} else if (planet == "j") {
 				obstacleImage = new Image(Root.assets.getTexture("jupiter2"));
 			} else if (planet == "n") {
@@ -34,7 +34,7 @@ class Obstacle extends Sprite {
 			} else if (planet == "u") {
 				obstacleImage = new Image(Root.assets.getTexture("uranus2"));
 			} else {
-				obstacleImage = new Image(Root.assets.getTexture("marsCrater.png"));
+				obstacleImage = new Image(Root.assets.getTexture("marsCrater"));
 			}
 		}
 		addChild(obstacleImage);

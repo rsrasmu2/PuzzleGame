@@ -20,12 +20,16 @@ class Root extends Sprite {
 	public function start(startup:Startup) {
 		assets = new AssetManager();
 		//assets.enqueue("assets/Player.png");
-		assets.enqueue("assets/Obstacle.png", "assets/flag.png");
 
-		assets.enqueue("assets/playerSprites.png", "assets/playerSprites.xml");
+		assets.enqueue("assets/sprites.png", "assets/sprites.xml");
+		
+		//assets.enqueue("assets/Obstacle.png", "assets/flag.png");
+
+		//assets.enqueue("assets/playerSprites.png", "assets/playerSprites.xml");
 
 		assets.enqueue("assets/star_assets.png", "assets/star_assets.xml");
 
+		/*
 		assets.enqueue("assets/Mars/marsObstacles.png", "assets/Mars/marsObstacles.xml");
 		assets.enqueue("assets/neptune2.png", "assets/neptune1.png");
 		assets.enqueue("assets/saturn1.png", "assets/saturn2.png");
@@ -39,6 +43,7 @@ class Root extends Sprite {
 
 
 		assets.enqueue("assets/Button.png");
+		*/
 		assets.enqueue("assets/PuzzleGame.mp3");
 
 		//Load the level assets

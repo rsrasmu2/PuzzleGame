@@ -2,6 +2,7 @@ import starling.display.*;
 import starling.core.*;
 import starling.textures.Texture;
 import starling.events.*;
+import starling.text.TextField;
 
 enum GameState
 {
@@ -132,6 +133,8 @@ class MenuText extends Button
 		x = Starling.current.stage.stageWidth/2 - width/2;
 		y = Starling.current.stage.stageHeight/2 - height/2;
 		text = s;
+		color = 0;
+		fontColor = 0xffff00;
 		game.addChild(this);
 	}
 }

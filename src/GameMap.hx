@@ -185,10 +185,11 @@ class GameMap extends Sprite {
 			if (lives == 0) {
 				//Game Over
 				removeChildren();
+				removeEventListeners();
 				var gameover:TextField = 
     			new TextField(200, 50, "Game Over", "Arial", 28, 0xff0000);
- 				gameover.x = -30;
- 				gameover.y = 0;
+ 				gameover.x = Starling.current.stage.stageWidth/4 - gameover.width;  // horizontal alignment
+ 				gameover.y = Starling.current.stage.stageHeight/4 - gameover.height;  // vertical alignment
 				addChild(gameover);
 			}
 			//Remove all of the crew sprites to be redrawn

@@ -22,8 +22,6 @@ class GameMap extends Sprite {
 	
 	private var lives : Int;
 
-	private var lives : Int;
-
 	public function new() {
 		super();
 		addEventListener(KeyboardEvent.KEY_DOWN, checkInput);

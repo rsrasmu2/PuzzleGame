@@ -152,7 +152,7 @@ class GameMap extends Sprite {
 		}
 		
 		if (flag) {
-				player.moveTo(currentX, currentY, distance - 1);
+				player.moveTo(currentX, currentY, distance);
 		} else {
 			player.moveTo(currentX, currentY, distance);
 		}

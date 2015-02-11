@@ -3,8 +3,10 @@ import starling.display.Sprite;
 import starling.display.Image;
 import starling.display.Quad;
 import starling.events.*;
+import starling.utils.AssetManager;
 import flash.ui.Keyboard;
 import starling.core.*;
+import starling.text.TextField;
 
 class GameMap extends Sprite {
 	public inline static var SPRITE_WIDTH = 32;
@@ -181,7 +183,13 @@ class GameMap extends Sprite {
 			flag = false;
 			player.restart();
 			if (lives == 0) {
-				//Something needs to happen
+				//Game Over
+				removeChildren();
+				var gameover:TextField = 
+    			new TextField(200, 50, "Game Over", "Arial", 28, 0xff0000);
+ 				gameover.x = -30;
+ 				gameover.y = 0;
+				addChild(gameover);
 			}
 			//Remove all of the crew sprites to be redrawn
 			for (i in 0...Game.getCrew().length) {

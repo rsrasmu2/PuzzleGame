@@ -7,7 +7,7 @@ class Finish extends Sprite {
 	public function new(mapX:Int, mapY:Int) {
 		super();
 		
-		obstacleImage = new Image(Root.assets.getTexture("Finish"));
+		obstacleImage = new Image(Root.assets.getTexture("flag"));
 		addChild(obstacleImage);
 		
 		x = mapX * GameMap.SPRITE_WIDTH;

@@ -4,9 +4,9 @@ Claim things that you're working on!
 
 To-Do List
 ----------
-- Restart level and lose a life when the player touches the edge of the grid.
-- Game over screen when all lives gone.
-- Display life sprites somewhere on the screen.
+- Restart level and lose a life when the player touches the edge of the grid.(done)
+- Game over screen when all lives gone. Cherie
+- Display life sprites somewhere on the screen.(done)
 - Re-arrange levels to create difficulty curve.
 - Make menus fancier (?)
 - Add volume control to menu

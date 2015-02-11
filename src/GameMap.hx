@@ -19,10 +19,13 @@ class GameMap extends Sprite {
 	private var mapArr : Array<Array<Int>>;
 
 	private var player : Player;
+	
+	private var lives : Int;
 
 	public function new() {
 		super();
 		addEventListener(KeyboardEvent.KEY_DOWN, checkInput);
+		lives = 5;
 	}
 
 	public function setMap(map : Array<Array<Int>>) {
@@ -119,7 +122,11 @@ class GameMap extends Sprite {
 				player.restart();
 		}
 	}
-
+	
+	
+	var flag:Bool = false;
+	
+	
 	private function playerMovementScan(dirX:Int, dirY:Int) {
 		var currentX:Int = player.mapX;
 		var currentY:Int = player.mapY;
@@ -127,24 +134,42 @@ class GameMap extends Sprite {
 
 		/*This could be cleaned up a bit if anyone is bored. Makes sure we're within
 		the map bounds and that the next space isn't an obstacle.*/
-		while (currentX+dirX >= 0 && currentX+dirX < mapArr[currentY].length && currentY+dirY >= 0
-		&& currentY+dirY < mapArr.length && mapArr[currentY+dirY][currentX+dirX] != 1) {
+		while (currentX+dirX >= 0 && currentY+dirY >= 0 && mapArr[currentY+dirY][currentX+dirX] != 1) {
 			currentX += dirX;
 			currentY += dirY;
 			++distance;
+			
+			//We hit an edge!
+			if (currentX + dirX < 0 || currentY + dirY < 0 || currentX + dirX == mapArr[currentY].length || currentY + dirY == mapArr.length) {
+				flag = true;
+				break;
+			}
 
 			//We've hit the goal!
 			if (mapArr[currentY][currentX] == 3) {
 				break;
 			}
 		}
-
-		player.moveTo(currentX, currentY, distance);
+		
+		if (flag) {
+				player.moveTo(currentX, currentY, distance);
+		} else {
+			player.moveTo(currentX, currentY, distance);
+		}
 	}
 
 	private function onPlayerMoveFinished(e:Event) {
 		if (mapArr[player.mapY][player.mapX] == 3) {
 			dispatchEvent(new Event(Game.ON_COMPLETE));
+		}
+		if (flag) {
+			flag = false;
+			player.restart();
+			lives = lives - 1;
+			if (lives == 0) {
+				
+			}
+			//Add lost lives code here
 		}
 	}
 }

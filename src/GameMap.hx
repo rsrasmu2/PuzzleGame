@@ -12,15 +12,17 @@ class GameMap extends Sprite {
 
 	//for player movement event
 	public inline static var MOVE_DONE = "playerMoveFinished";
-	
+
 	public var planet:String;
 
 	//NOTE: The convention to access map coordinate from this array is mapArr[y][x], NOT mapArr[x][y]
 	private var mapArr : Array<Array<Int>>;
 
 	private var player : Player;
-	
+
 	private var lives : Int;
+	
+	private var crew : Array<Image>;
 
 	public function new() {
 		super();
@@ -120,13 +122,15 @@ class GameMap extends Sprite {
 				player.changeTexture(0);
 			case Keyboard.R:
 				player.restart();
+			case Keyboard.ESCAPE:
+				parent.dispatchEvent(new Event(Game.RESET_GAME));
 		}
 	}
-	
-	
+
+
 	var flag:Bool = false;
-	
-	
+
+
 	private function playerMovementScan(dirX:Int, dirY:Int) {
 		var currentX:Int = player.mapX;
 		var currentY:Int = player.mapY;
@@ -138,7 +142,7 @@ class GameMap extends Sprite {
 			currentX += dirX;
 			currentY += dirY;
 			++distance;
-			
+
 			//We hit an edge!
 			if (currentX + dirX < 0 || currentY + dirY < 0 || currentX + dirX == mapArr[currentY].length || currentY + dirY == mapArr.length) {
 				flag = true;
@@ -150,7 +154,7 @@ class GameMap extends Sprite {
 				break;
 			}
 		}
-		
+
 		if (flag) {
 				player.moveTo(currentX, currentY, distance);
 		} else {
@@ -167,7 +171,7 @@ class GameMap extends Sprite {
 			player.restart();
 			lives = lives - 1;
 			if (lives == 0) {
-				
+
 			}
 			//Add lost lives code here
 		}

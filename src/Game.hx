@@ -107,6 +107,7 @@ class Game extends Sprite
 				addChild(map);
 				/*haxe.Log.clear();
 				trace("Level: " + currentLevel);*/
+				map.planet = Levels.level[currentLevel-1].charAt(0);
 				map.setMap(LoadMap.load(Levels.level[currentLevel-1]));	//Level 1 is array index 0.
 		}
 	}

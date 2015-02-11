@@ -18,13 +18,15 @@ class Root extends Sprite {
 	public function start(startup:Startup) {
 		assets = new AssetManager();
 		//assets.enqueue("assets/Player.png");
-		assets.enqueue("assets/Obstacle.png", "assets/Finish.png");
+		assets.enqueue("assets/Obstacle.png", "assets/flag.png");
 		
 		assets.enqueue("assets/playerSprites.png", "assets/playerSprites.xml");
 		
 		assets.enqueue("assets/star_assets.png", "assets/star_assets.xml");
 		
 		assets.enqueue("assets/Mars/marsObstacles.png", "assets/Mars/marsObstacles.xml");
+		assets.enqueue("assets/neptObj.png", "assets/neptObj2.png");
+		assets.enqueue("assets/planet1.png", "assets/planet2.png");
 		
 		assets.enqueue("assets/Button.png");
 		

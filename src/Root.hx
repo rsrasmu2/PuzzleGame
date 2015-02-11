@@ -28,6 +28,10 @@ class Root extends Sprite {
 		assets.enqueue("assets/neptune2.png", "assets/neptune1.png");
 		assets.enqueue("assets/saturn1.png", "assets/saturn2.png");
 		
+		
+		assets.enqueue("assets/crew/bobby.png", "assets/crew/cherie.png", "assets/crew/jordan.png");
+		assets.enqueue("assets/crew/nancy.png", "assets/crew/temitope.png", "assets/crew/shadow.png");
+		
 		assets.enqueue("assets/Button.png");
 		
 		//Load the level assets

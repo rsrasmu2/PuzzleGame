@@ -134,7 +134,20 @@ class GameMap extends Sprite {
 				playerMovementScan(0, 1);
 				player.changeTexture(0);
 			case Keyboard.R:
-				player.restart();
+				if (lives != 0){
+					player.restart();
+					lives -= 1;
+					for (i in 0...Game.getCrew().length) {
+					removeChild(Game.getCrew()[i]);
+					}
+					Game.getCrew().pop();
+					for (i in 0...Game.getCrew().length) {
+					addChild(Game.getCrew()[i]);
+					}
+				}
+				else{
+					trace("You're on your last life!");
+				}	
 			case Keyboard.ESCAPE:
 				parent.dispatchEvent(new Event(Game.RESET_GAME));
 		}

@@ -8,7 +8,7 @@ To-Do List
 - Re-arrange levels to create difficulty curve
 - Improve loading screen - Nancy
 - Game over screen when all lives gone - Cherie
-- Pushing restart makes you lose a life
+- Pushing restart makes you lose a life.(done)
 - Use planet entities as background for the grid.
 - shadow replaces crew member when they die
 - Add volume control to menu

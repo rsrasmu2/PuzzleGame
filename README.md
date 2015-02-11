@@ -9,6 +9,7 @@ To-Do List
 - Display life sprites somewhere on the screen.
 - Re-arrange levels to create difficulty curve.
 - Make menus fancier (?)
+- Add volume control to menu
 
 - More obstacle assets - CHERIE and NANCY - complete
 - Implement different object sprites on different levels - BOBBY - complete

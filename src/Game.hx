@@ -52,20 +52,17 @@ class Game extends Sprite
 	public function nextLevel()
 	{
 		++currentLevel;
-		//if (currentLevel > Levels.level.length) {
 		if (currentLevel > Levels.level.length) {
 			removeChildren(1);
-			removeEventListeners();
 			var Win:TextField =
 			new TextField(200, 50, "You Win!", "Arial", 28, 0xffffff);
 			Win.x = Starling.current.stage.stageWidth/2 - Win.width/2;  // horizontal alignment
 			Win.y = Starling.current.stage.stageHeight/2 - Win.height/2;  // vertical alignment
-			Root.game.addChild(Win);
+			addChild(Win);
 			var timer = new Timer(1000,3);
 			timer.start();
 			timer.addEventListener(TimerEvent.TIMER_COMPLETE, function(e:TimerEvent)
-			{	Root.game.reset();});
-			//setStage(Menu);
+			{	reset();});
 		} else {
 			setStage(Level);
 		}

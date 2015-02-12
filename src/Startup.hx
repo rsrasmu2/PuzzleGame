@@ -30,10 +30,10 @@ class Startup extends Sprite {
 		addChild(loadingBitmap);	//To display on scene
 
 		crewBitmap = new Bitmap(new CrewBitmapData(300, 112));
-		crewBitmap.x = (Lib.current.stage.stageWidth/2) - 150;
-		crewBitmap.y = (Lib.current.stage.stageWidth/2) - 56;
-		addChild(crewBitmap);	
-		
+		crewBitmap.x = (Lib.current.stage.stageWidth/2) - crewBitmap.width/2;
+		crewBitmap.y = (Lib.current.stage.stageHeight/2) - crewBitmap.height/2;
+		addChild(crewBitmap);
+
 		Lib.current.stage.addEventListener(Event.RESIZE, function(e:Event) {
 			Starling.current.viewPort = new Rectangle(0, 0, Lib.current.stage.stageWidth, Lib.current.stage.stageHeight);
 			if (loadingBitmap != null) {

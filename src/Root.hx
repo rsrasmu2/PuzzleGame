@@ -1,16 +1,15 @@
-import starling.display.Sprite;
+import starling.display.*;
 import starling.utils.AssetManager;
 import starling.core.Starling;
 import starling.animation.Transitions;
-import flash.media.SoundChannel;
-import flash.events.Event;
+import starling.events.*;
+import flash.media.*;
 
 class Root extends Sprite {
 
 	public static var assets:AssetManager;
 
-	public var map:GameMap;
-	public var game:Game;
+	public static var game:Game;
 	public var music:SoundChannel;
 
 	public function new() {
@@ -22,7 +21,7 @@ class Root extends Sprite {
 		//assets.enqueue("assets/Player.png");
 
 		assets.enqueue("assets/sprites.png", "assets/sprites.xml");
-		
+
 		//assets.enqueue("assets/Obstacle.png", "assets/flag.png");
 
 		//assets.enqueue("assets/playerSprites.png", "assets/playerSprites.xml");
@@ -53,24 +52,53 @@ class Root extends Sprite {
 
 		assets.loadQueue(function onProgress(ratio:Float) {
 			if (ratio == 1) {
-				Starling.juggler.tween(startup.loadingBitmap, 2.0, {
+				Starling.juggler.tween(startup.loadingBitmap, 1.0, {
 					transition:Transitions.EASE_OUT, delay:0, alpha: 0, onComplete: function(){
 						startup.removeChild(startup.loadingBitmap);
 
 						game = new Game();
 						addChild(game);
 						music = assets.playSound("PuzzleGame");
-						music.addEventListener(Event.SOUND_COMPLETE, loopMusic);
+						music.addEventListener(flash.events.Event.SOUND_COMPLETE, loopMusic);
+
+						var dec = new Button(Root.assets.getTexture("Button"));
+						dec.scaleX = dec.scaleY = 0.5;
+						dec.color = 0x222222;
+						dec.text = "<";
+						dec.fontColor = 0xffff00;
+						dec.fontSize = 30;
+						dec.x = Starling.current.stage.stageWidth - dec.width * 2;
+						dec.addEventListener(Event.TRIGGERED, function(e:Event)
+						{
+							music.soundTransform = new SoundTransform(music.soundTransform.volume-0.1);
+							//trace("Volume: " + music.soundTransform.volume);
+						});
+
+						var inc = new Button(Root.assets.getTexture("Button"));
+						inc.scaleX = inc.scaleY = 0.5;
+						inc.color = 0x222222;
+						inc.text = ">";
+						inc.fontColor = 0xffff00;
+						inc.fontSize = 30;
+						inc.x = Starling.current.stage.stageWidth - dec.width;
+						inc.addEventListener(Event.TRIGGERED, function(e:Event)
+						{
+							music.soundTransform = new SoundTransform(music.soundTransform.volume+0.1);
+							//trace("Volume: " + music.soundTransform.volume);
+						});
+						addChild(inc);addChild(dec);
 					}
 				});
 			}
 		});
 	}
 
-	private function loopMusic(e:Event)
+	private function loopMusic(e:flash.events.Event)
 	{
+		var trans = music.soundTransform;
 		music = assets.playSound("PuzzleGame");
-		if(!music.hasEventListener(Event.SOUND_COMPLETE))
-			music.addEventListener(Event.SOUND_COMPLETE,loopMusic);
+		music.soundTransform = trans;
+		if(!music.hasEventListener(flash.events.Event.SOUND_COMPLETE))
+			music.addEventListener(flash.events.Event.SOUND_COMPLETE,loopMusic);
 	}
 }

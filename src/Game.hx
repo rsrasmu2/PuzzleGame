@@ -17,22 +17,17 @@ enum GameState
 
 class Game extends Sprite
 {
-	public inline static var ON_COMPLETE = "LevelCompleted";
-	public inline static var RESET_GAME = "ResetGame";
-
-	private var map : GameMap;
 	private var currentLevel = 1;
 	private var bg:Background;
 
 	//Hold the images of the crew members
-	private static var crew : Array<Image>;
+	private var crew : Array<Image>;
 
 	public function new()
 	{
 		super();
 		bg = new Background();
 		addChild(bg);
-		map = new GameMap();
 
 		//Load the crew sprites
 		crew = new Array();
@@ -42,22 +37,29 @@ class Game extends Sprite
 		crew.push(new Image(Root.assets.getTexture("nancy")));
 		crew.push(new Image(Root.assets.getTexture("temitope")));
 
-		map.addEventListener(ON_COMPLETE,
-			function(){
-				++currentLevel;
-				//if (currentLevel > Levels.level.length) {
-				if (currentLevel > Levels.level.length) {
-					setStage(Menu);
-				} else {
-					setStage(Level);
-				}
-			});
-
-		addEventListener(RESET_GAME, function(){ setStage(Menu);});
+		//Create the crew members and draw them to the screen in the correct spot
+		for (i in 0...crew.length) {
+			crew[i].x = i * 20;
+			crew[i].y = -50;
+		}
 
 		//based on game state
 		setStage(Menu);
 	}
+
+	public function nextLevel()
+	{
+		++currentLevel;
+		//if (currentLevel > Levels.level.length) {
+		if (currentLevel > Levels.level.length) {
+			setStage(Menu);
+		} else {
+			setStage(Level);
+		}
+	}
+
+	public function reset()
+	{	setStage(Menu);}
 
 	private function setStage(state : GameState)
 	{
@@ -134,23 +136,19 @@ class Game extends Sprite
 				addChild(cred);
 
 			case Level:
-				addChild(map);
+				//reset lives if starting at the first level
+				if(currentLevel == 1) GameMap.reset();
+
+				//Level 1 is array index 0.
+				addChild(new GameMap(Levels.level[currentLevel-1]));
+
 				/*haxe.Log.clear();
 				trace("Level: " + currentLevel);*/
-
-				//Create the crew members and draw them to the screen in the correct spot
-				for (i in 0...crew.length) {
-					crew[i].x = i * 20;
-					crew[i].y = -50;
-					addChild(crew[i]);
-				}
-				map.planet = Levels.level[currentLevel-1].charAt(0);
-				map.setMap(LoadMap.load(Levels.level[currentLevel-1]));	//Level 1 is array index 0.
 		}
 	}
 	//Used to get the crew in the GameMap class
-	public static function getCrew() : Array<Image> {
-		return crew;
+	public function getCrew(?i:Int) : Dynamic{
+		return i == null ? crew : crew[i];
 	}
 }
 

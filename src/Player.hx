@@ -27,7 +27,7 @@ class Player extends Sprite {
 		this.mapX = this.constX = mapX;
 		this.mapY = this.constY = mapY;
 
-		playerImage = new Image(Root.assets.getTexture("playerDown.png"));
+		playerImage = new Image(Root.assets.getTexture("playerDown"));
 		addChild(playerImage);
 
 		x = getWorldX();
@@ -71,13 +71,13 @@ class Player extends Sprite {
 		removeChild(playerImage);
 		switch (choice) {
 			case 0:
-				playerImage = new Image(Root.assets.getTexture("playerDown.png"));
+				playerImage = new Image(Root.assets.getTexture("playerDown"));
 			case 1:
-				playerImage = new Image(Root.assets.getTexture("playerRight.png"));
+				playerImage = new Image(Root.assets.getTexture("playerRight"));
 			case 2:
-				playerImage = new Image(Root.assets.getTexture("playerUp.png"));
+				playerImage = new Image(Root.assets.getTexture("playerUp"));
 			case 3:
-				playerImage = new Image(Root.assets.getTexture("playerLeft.png"));
+				playerImage = new Image(Root.assets.getTexture("playerLeft"));
 		}
 		addChild(playerImage);
 	}

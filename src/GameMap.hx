@@ -3,8 +3,12 @@ import starling.display.Sprite;
 import starling.display.Image;
 import starling.display.Quad;
 import starling.events.*;
+import starling.utils.AssetManager;
 import flash.ui.Keyboard;
-import starling.core.*;
+import starling.core.Starling;
+import starling.text.TextField;
+import flash.utils.Timer;
+import flash.events.TimerEvent;
 
 class GameMap extends Sprite {
 	public inline static var SPRITE_WIDTH = 32;
@@ -13,27 +17,33 @@ class GameMap extends Sprite {
 	//for player movement event
 	public inline static var MOVE_DONE = "playerMoveFinished";
 
-	public var planet:String;
-
 	//NOTE: The convention to access map coordinate from this array is mapArr[y][x], NOT mapArr[x][y]
 	private var mapArr : Array<Array<Int>>;
 
 	private var player : Player;
 
-	private var lives : Int;
+	private static var lives = 5;
 
 	private var crew : Array<Image>;
 	private var spaceship : Image;
 	
 	private var bg : Image;
+	private var planet:String;
 
-	public function new() {
+	public function new(s:String) {
 		super();
 		addEventListener(KeyboardEvent.KEY_DOWN, checkInput);
+		planet = s.charAt(0);
+		setMap(LoadMap.load(s));
+	}
+
+	public static function reset()
+	{
+		//resets lives if starting at level 1
 		lives = 5;
 	}
 
-	public function setMap(map : Array<Array<Int>>) {
+	private function setMap(map : Array<Array<Int>>) {
 		removeChildren();
 		mapArr = map;
 
@@ -78,7 +88,6 @@ class GameMap extends Sprite {
 		//make sure your level has a player!!!
 		if(player == null){
 			trace("This level doesn't have a player! Error will occur if you try to move the player");
-			parent.dispatchEvent(new Event(Game.RESET_GAME));
 		}
 	}
 
@@ -104,12 +113,11 @@ class GameMap extends Sprite {
 		//Add the spaceship behind the crew sprites
 		spaceship = new Image(Root.assets.getTexture("spaceship"));
 		spaceship.x = -50;
-		spaceship.y = -88;
+		spaceship.y = -85;
 		addChild(spaceship);
-		//Add each of the crew members
-		for (i in 0...Game.getCrew().length) {
-			addChild(Game.getCrew()[i]);
-		}
+		//Add the lives number of crew members
+		for(i in 0...lives)
+			addChild(Root.game.getCrew(i));
 	}
 
 	private function createPlayer(x:Int, y:Int) {
@@ -143,15 +151,14 @@ class GameMap extends Sprite {
 				playerMovementScan(0, 1);
 				player.changeTexture(0);
 			case Keyboard.R:
-				player.restart();
+				//restarts, but costs a life
+				if(lives > 1) loseLife();
 			case Keyboard.ESCAPE:
-				parent.dispatchEvent(new Event(Game.RESET_GAME));
+				Root.game.reset();
 		}
 	}
 
-
 	var flag:Bool = false;
-
 
 	private function playerMovementScan(dirX:Int, dirY:Int) {
 		var currentX:Int = player.mapX;
@@ -186,26 +193,40 @@ class GameMap extends Sprite {
 
 	private function onPlayerMoveFinished(e:Event) {
 		if (mapArr[player.mapY][player.mapX] == 3) {
-			dispatchEvent(new Event(Game.ON_COMPLETE));
+			Root.game.nextLevel();
 		}
 		if (flag) {
+			loseLife();
 			flag = false;
-			player.restart();
-			if (lives == 0) {
-				//Something needs to happen
-			}
-			//Remove all of the crew sprites to be redrawn
-			for (i in 0...Game.getCrew().length) {
-				removeChild(Game.getCrew()[i]);
-			}
-			//Remove the crew member from the list
-			Game.getCrew().pop();
-			//Redraw the crew members without the lost one
-			for (i in 0...Game.getCrew().length) {
-				addChild(Game.getCrew()[i]);
-			}
+		}
+	}
 
-			lives = lives - 1;
+	private function loseLife(){
+		player.restart();
+		--lives;
+		if (lives == 0) {
+			//Game Over
+			removeChildren();
+			removeEventListeners();
+			var gameover:TextField =
+			new TextField(200, 50, "Game Over", "Arial", 28, 0xff0000);
+			gameover.x = Starling.current.stage.stageWidth/2 - gameover.width/2;  // horizontal alignment
+			gameover.y = Starling.current.stage.stageHeight/2 - gameover.height/2;  // vertical alignment
+			Root.game.addChild(gameover);
+			var timer = new Timer(1000,3);
+			timer.start();
+			timer.addEventListener(TimerEvent.TIMER_COMPLETE, function(e:TimerEvent)
+			{	Root.game.reset();});
+		}
+		else {
+			if(lives == 1){
+				var text = new TextField(200,50,"One member left!!!","Arial",20,0xff0000);
+				text.x = -(Starling.current.stage.stageWidth / 2 - (mapArr[0].length * SPRITE_WIDTH / 2));
+				text.y = -(Starling.current.stage.stageHeight / 2 - (mapArr.length * SPRITE_HEIGHT / 2));
+				addChild(text);
+			}
+			//remove the last crew member
+			removeChild(Root.game.getCrew(lives));
 		}
 	}
 	
@@ -216,11 +237,13 @@ class GameMap extends Sprite {
 			case 'm':
 				return new Image(Root.assets.getTexture("mars_bg"));
 			case 'j':
-				return new Image(Root.assets.getTexture("mars_bg"));
+				return new Image(Root.assets.getTexture("jupiter_bg"));
+			case 'n':
+				return new Image(Root.assets.getTexture("neptune_bg"));
 			case 's':
-				return new Image(Root.assets.getTexture("mars_bg"));
+				return new Image(Root.assets.getTexture("saturn_bg"));
 			case 'u':
-				return new Image(Root.assets.getTexture("mars_bg"));
+				return new Image(Root.assets.getTexture("uranus_bg"));
 		}
 		return new Image(Root.assets.getTexture("mars_bg"));
 	}

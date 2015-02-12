@@ -1,0 +1,31 @@
+<TextureAtlas imagePath="sprites.png">
+	<SubTexture name="Button" x="302" y="586" width="202" height="102"/>
+	<SubTexture name="bobby" x="370" y="792" width="13" height="27"/>
+	<SubTexture name="cherie" x="370" y="821" width="13" height="27"/>
+	<SubTexture name="crew" x="0" y="302" width="300" height="106"/>
+	<SubTexture name="flag" x="0" y="996" width="22" height="24"/>
+	<SubTexture name="jordan" x="368" y="933" width="13" height="28"/>
+	<SubTexture name="jupiter1" x="302" y="831" width="32" height="32"/>
+	<SubTexture name="jupiter2" x="302" y="797" width="32" height="32"/>
+	<SubTexture name="jupiter_bg" x="0" y="712" width="300" height="282"/>
+	<SubTexture name="marsCrater" x="302" y="763" width="32" height="32"/>
+	<SubTexture name="marsRock" x="336" y="965" width="29" height="32"/>
+	<SubTexture name="mars_bg" x="302" y="302" width="300" height="282"/>
+	<SubTexture name="nancy" x="367" y="994" width="13" height="27"/>
+	<SubTexture name="neptune1" x="302" y="967" width="32" height="32"/>
+	<SubTexture name="neptune2" x="336" y="831" width="32" height="32"/>
+	<SubTexture name="neptune_bg" x="302" y="0" width="300" height="300"/>
+	<SubTexture name="playerDown" x="336" y="763" width="32" height="32"/>
+	<SubTexture name="playerLeft" x="336" y="797" width="32" height="32"/>
+	<SubTexture name="playerRight" x="336" y="899" width="32" height="32"/>
+	<SubTexture name="playerUp" x="336" y="865" width="32" height="32"/>
+	<SubTexture name="saturn1" x="302" y="899" width="32" height="32"/>
+	<SubTexture name="saturn2" x="302" y="933" width="32" height="32"/>
+	<SubTexture name="saturn_bg" x="0" y="0" width="300" height="300"/>
+	<SubTexture name="shadow" x="367" y="965" width="13" height="27"/>
+	<SubTexture name="spaceship" x="302" y="690" width="191" height="71"/>
+	<SubTexture name="temitope" x="370" y="763" width="13" height="27"/>
+	<SubTexture name="uranus1" x="302" y="865" width="32" height="32"/>
+	<SubTexture name="uranus2" x="336" y="933" width="30" height="30"/>
+	<SubTexture name="uranus_bg" x="0" y="410" width="300" height="300"/>
+</TextureAtlas>

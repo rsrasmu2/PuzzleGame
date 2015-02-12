@@ -24,6 +24,8 @@ class GameMap extends Sprite {
 
 	private var crew : Array<Image>;
 	private var spaceship : Image;
+	
+	private var bg : Image;
 
 	public function new() {
 		super();
@@ -44,6 +46,14 @@ class GameMap extends Sprite {
 		quad.color = 0;
 		quad.alpha = 0.5;
 		addChild(quad);
+		
+		bg = getBG();
+		bg.scaleX = 2.2;
+		bg.scaleY = 2.2;
+		bg.x = (quad.width/2) - (bg.width / 2);
+		bg.y = (quad.height / 2) - (bg.height / 2);
+		addChild(bg);
+		
 
 		//generate grid
 		var h = 0; var w = 0;
@@ -68,6 +78,7 @@ class GameMap extends Sprite {
 		//make sure your level has a player!!!
 		if(player == null){
 			trace("This level doesn't have a player! Error will occur if you try to move the player");
+			parent.dispatchEvent(new Event(Game.RESET_GAME));
 		}
 	}
 
@@ -154,7 +165,7 @@ class GameMap extends Sprite {
 			currentY += dirY;
 			++distance;
 
-			//We hit an edge!
+			//We've hit an edge!
 			if (currentX + dirX < 0 || currentY + dirY < 0 || currentX + dirX == mapArr[currentY].length || currentY + dirY == mapArr.length) {
 				flag = true;
 				break;
@@ -196,5 +207,21 @@ class GameMap extends Sprite {
 
 			lives = lives - 1;
 		}
+	}
+	
+	//Gets the background image depending on the current level
+	//Needs to be updated with the new level backgrounds
+	private function getBG() {
+		switch (planet) {
+			case 'm':
+				return new Image(Root.assets.getTexture("mars_bg"));
+			case 'j':
+				return new Image(Root.assets.getTexture("mars_bg"));
+			case 's':
+				return new Image(Root.assets.getTexture("mars_bg"));
+			case 'u':
+				return new Image(Root.assets.getTexture("mars_bg"));
+		}
+		return new Image(Root.assets.getTexture("mars_bg"));
 	}
 }

@@ -6,6 +6,8 @@ import starling.events.*;
 import starling.text.TextField;
 import starling.animation.Transitions;
 import starling.animation.Tween;
+import flash.utils.Timer;
+import flash.events.TimerEvent;
 
 enum GameState
 {
@@ -52,7 +54,18 @@ class Game extends Sprite
 		++currentLevel;
 		//if (currentLevel > Levels.level.length) {
 		if (currentLevel > Levels.level.length) {
-			setStage(Menu);
+			removeChildren(1);
+			removeEventListeners();
+			var Win:TextField =
+			new TextField(200, 50, "You Win!", "Arial", 28, 0xffffff);
+			Win.x = Starling.current.stage.stageWidth/2 - Win.width/2;  // horizontal alignment
+			Win.y = Starling.current.stage.stageHeight/2 - Win.height/2;  // vertical alignment
+			Root.game.addChild(Win);
+			var timer = new Timer(1000,3);
+			timer.start();
+			timer.addEventListener(TimerEvent.TIMER_COMPLETE, function(e:TimerEvent)
+			{	Root.game.reset();});
+			//setStage(Menu);
 		} else {
 			setStage(Level);
 		}

@@ -26,7 +26,7 @@ class GameMap extends Sprite {
 
 	private var crew : Array<Image>;
 	private var spaceship : Image;
-
+	
 	private var bg : Image;
 	private var planet:String;
 
@@ -56,14 +56,14 @@ class GameMap extends Sprite {
 		quad.color = 0;
 		quad.alpha = 0.5;
 		addChild(quad);
-
+		
 		bg = getBG();
 		bg.scaleX = 2.2;
 		bg.scaleY = 2.2;
 		bg.x = (quad.width/2) - (bg.width / 2);
 		bg.y = (quad.height / 2) - (bg.height / 2);
 		addChild(bg);
-
+		
 
 		//generate grid
 		var h = 0; var w = 0;
@@ -72,8 +72,7 @@ class GameMap extends Sprite {
 			var line = new Quad(quad.width,2.5);
 			line.y = h;
 			h += SPRITE_HEIGHT;
-			//line.alpha = 0.5;
-			line.color = 0;
+			line.alpha = 0.5;
 			addChild(line);
 		}
 		while(w <= mapArr[0].length * SPRITE_WIDTH)//vertical lines
@@ -81,8 +80,7 @@ class GameMap extends Sprite {
 			var line = new Quad(2.5,quad.height);
 			line.x = w;
 			w += SPRITE_WIDTH;
-			//line.alpha = 0.5;
-			line.color = 0;
+			line.alpha = 0.5;
 			addChild(line);
 		}
 
@@ -231,7 +229,7 @@ class GameMap extends Sprite {
 			removeChild(Root.game.getCrew(lives));
 		}
 	}
-
+	
 	//Gets the background image depending on the current level
 	//Needs to be updated with the new level backgrounds
 	private function getBG() {

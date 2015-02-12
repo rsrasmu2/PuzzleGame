@@ -10,10 +10,12 @@ class Root extends Sprite {
 	public static var assets:AssetManager;
 
 	public static var game:Game;
-	public var music:SoundChannel;
+	private var music:SoundChannel;
+	private var vol:Float;
 
 	public function new() {
 		super();
+		vol = 0.5;
 	}
 
 	public function start(startup:Startup) {
@@ -28,32 +30,33 @@ class Root extends Sprite {
 		}
 
 		assets.loadQueue(function onProgress(ratio:Float) {
-			
+
 			// animate the ship floating up
 			Starling.juggler.tween(startup.crewBitmap, 2, {
 				transition:Transitions.LINEAR, delay:.2, y: startup.crewBitmap.y - 18
 			});
-			
+
 			// animate the ship floating down
 			Starling.juggler.tween(startup.crewBitmap, 2, {
 				transition:Transitions.LINEAR, delay:1.2, y: startup.crewBitmap.y + 18
 			});
-			
+
 			if (ratio == 1) {
 				// animate the ship flying away
 				Starling.juggler.tween(startup.crewBitmap, 1.8, {
 					transition:Transitions.EASE_IN, delay:2, x: Starling.current.stage.stageWidth
 				});
-				
+
 				// fade the loading screen, start game
 				Starling.juggler.tween(startup.loadingBitmap, 1.0, {
 					transition:Transitions.EASE_OUT, delay:3, alpha: 0, onComplete: function(){
 						startup.removeChild(startup.loadingBitmap);
 						startup.removeChild(startup.crewBitmap);
-						
+
 						game = new Game();
 						addChild(game);
 						music = assets.playSound("PuzzleGame");
+						music.soundTransform = new SoundTransform(vol);
 						music.addEventListener(flash.events.Event.SOUND_COMPLETE, loopMusic);
 
 						var dec = new Button(Root.assets.getTexture("Button"));
@@ -66,8 +69,13 @@ class Root extends Sprite {
 						dec.y = dec.height;
 						dec.addEventListener(Event.TRIGGERED, function(e:Event)
 						{
-							if (music.soundTransform.volume > 0) {
-								music.soundTransform = new SoundTransform(music.soundTransform.volume-0.1);
+							if(vol > 0)
+							{
+								vol -= 0.1;
+								if (vol < 0) {
+									vol = 0;
+								}
+								music.soundTransform = new SoundTransform(vol);
 							}
 							//trace("Volume: " + music.soundTransform.volume);
 						});
@@ -81,8 +89,9 @@ class Root extends Sprite {
 						inc.x = Starling.current.stage.stageWidth - dec.width;
 						inc.addEventListener(Event.TRIGGERED, function(e:Event)
 						{
-							if (music.soundTransform.volume < 1) {
-								music.soundTransform = new SoundTransform(music.soundTransform.volume+0.1);
+							if (vol < 1) {
+								vol += 0.1;
+								music.soundTransform = new SoundTransform(vol);
 							}
 							//trace("Volume: " + music.soundTransform.volume);
 						});
@@ -95,9 +104,8 @@ class Root extends Sprite {
 
 	private function loopMusic(e:flash.events.Event)
 	{
-		var trans = music.soundTransform;
 		music = assets.playSound("PuzzleGame");
-		music.soundTransform = trans;
+		music.soundTransform = new SoundTransform(vol);
 		if(!music.hasEventListener(flash.events.Event.SOUND_COMPLETE))
 			music.addEventListener(flash.events.Event.SOUND_COMPLETE,loopMusic);
 	}

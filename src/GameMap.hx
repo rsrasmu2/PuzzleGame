@@ -142,7 +142,7 @@ class GameMap extends Sprite {
 				player.changeTexture(0);
 			case Keyboard.R:
 				//restarts, but costs a life
-				if(lives > 0) loseLife();
+				if(lives > 1) loseLife();
 			case Keyboard.ESCAPE:
 				Root.game.reset();
 		}

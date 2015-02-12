@@ -111,11 +111,12 @@ class Game extends Sprite
 				addChild(back);
 
 				var instr = new MenuText(400,400,"The goal of the game is to move the "+
-				"player object to the finish object (tentative names). Use the "+
-				"arrows keys to move the object. Once you pick a direction, the "+
-				"player object continues to move in that direction until it hits "+
-				"an object. Press R to restart current level if you're stuck. "+
-				"Press the Escape Key to reset the game while playing.");
+				"rover over to the flag. Use the arrows keys to move the rover. "+
+				" Once you pick a direction, the rover continues to move in that direction until it hits "+
+				"an object. But, be careful not to go off the edge of the screen or else you'll lose " +
+				"one of your crew members. If you lose them all, it's game over. " +
+				"Press R to restart the current level if you're stuck (This will cost you a crew member). "+
+				"Press the Escape Key to go back to the main menu.");
 				instr.fontSize = 18;
 				instr.x = Starling.current.stage.stageWidth/2 - instr.width/2;
 				instr.y = back.y + 75;

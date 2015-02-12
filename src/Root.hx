@@ -95,7 +95,9 @@ class Root extends Sprite {
 
 	private function loopMusic(e:flash.events.Event)
 	{
+		var trans = music.soundTransform;
 		music = assets.playSound("PuzzleGame");
+		music.soundTransform = trans;
 		if(!music.hasEventListener(flash.events.Event.SOUND_COMPLETE))
 			music.addEventListener(flash.events.Event.SOUND_COMPLETE,loopMusic);
 	}

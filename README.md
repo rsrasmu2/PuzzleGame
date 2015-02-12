@@ -8,7 +8,6 @@ To-Do List
 - Re-arrange levels to create difficulty curve
 - Improve loading screen - Nancy
 - Game over screen when all lives gone - Cherie
-- Pushing restart makes you lose a life.(done)
 - Use planet entities as background for the grid.
 - shadow replaces crew member when they die
 - Add volume control to menu
@@ -17,6 +16,7 @@ To-Do List
 - Optional: An animation of traveling between planets? An easy way to do this would be to make the star background
   speed up and then slow back down.
 
+- Pushing restart makes you lose a life.(done)
 - Make menus fancier - done
 - Restart level and lose a life when the player touches the edge of the grid.(done)
 - Display life sprites somewhere on the screen.(done)

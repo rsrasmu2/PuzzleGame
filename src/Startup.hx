@@ -1,4 +1,5 @@
 import flash.display.Bitmap;
+import flash.display.BitmapData;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.geom.Rectangle;
@@ -8,8 +9,12 @@ import starling.core.Starling;
 @:bitmap("assets/loading.png")
 class LoadingBitmapData extends flash.display.BitmapData { }
 
+@:bitmap("assets/crew.png")
+class CrewBitmapData extends flash.display.BitmapData { }
+
 class Startup extends Sprite {
 	public var loadingBitmap:Bitmap;
+	public var crewBitmap:Bitmap;
 	public var startup:Sprite;
 
 	function new() {
@@ -24,6 +29,11 @@ class Startup extends Sprite {
 		loadingBitmap.smoothing = true;
 		addChild(loadingBitmap);	//To display on scene
 
+		crewBitmap = new Bitmap(new CrewBitmapData(300, 112));
+		crewBitmap.x = (Lib.current.stage.stageWidth/2) - 150;
+		crewBitmap.y = (Lib.current.stage.stageWidth/2) - 56;
+		addChild(crewBitmap);	
+		
 		Lib.current.stage.addEventListener(Event.RESIZE, function(e:Event) {
 			Starling.current.viewPort = new Rectangle(0, 0, Lib.current.stage.stageWidth, Lib.current.stage.stageHeight);
 			if (loadingBitmap != null) {

@@ -18,31 +18,8 @@ class Root extends Sprite {
 
 	public function start(startup:Startup) {
 		assets = new AssetManager();
-		//assets.enqueue("assets/Player.png");
-
 		assets.enqueue("assets/sprites.png", "assets/sprites.xml");
-
-		//assets.enqueue("assets/Obstacle.png", "assets/flag.png");
-
-		//assets.enqueue("assets/playerSprites.png", "assets/playerSprites.xml");
-
 		assets.enqueue("assets/star_assets.png", "assets/star_assets.xml");
-
-		/*
-		assets.enqueue("assets/Mars/marsObstacles.png", "assets/Mars/marsObstacles.xml");
-		assets.enqueue("assets/neptune2.png", "assets/neptune1.png");
-		assets.enqueue("assets/saturn1.png", "assets/saturn2.png");
-		assets.enqueue("assets/jupiter1.png", "assets/jupiter2.png");
-		assets.enqueue("assets/uranus1.png", "assets/uranus2.png");
-
-		assets.enqueue("assets/Crew/bobby.png", "assets/Crew/cherie.png", "assets/Crew/jordan.png");
-		assets.enqueue("assets/Crew/nancy.png", "assets/Crew/temitope.png", "assets/Crew/shadow.png");
-
-		assets.enqueue("assets/spaceship.png");
-
-
-		assets.enqueue("assets/Button.png");
-		*/
 		assets.enqueue("assets/PuzzleGame.mp3");
 
 		//Load the level assets
@@ -51,11 +28,29 @@ class Root extends Sprite {
 		}
 
 		assets.loadQueue(function onProgress(ratio:Float) {
+			
+			// animate the ship floating up
+			Starling.juggler.tween(startup.crewBitmap, 2, {
+				transition:Transitions.LINEAR, delay:.2, y: startup.crewBitmap.y - 18
+			});
+			
+			// animate the ship floating down
+			Starling.juggler.tween(startup.crewBitmap, 2, {
+				transition:Transitions.LINEAR, delay:1.2, y: startup.crewBitmap.y + 18
+			});
+			
 			if (ratio == 1) {
+				// animate the ship flying away
+				Starling.juggler.tween(startup.crewBitmap, 1.8, {
+					transition:Transitions.EASE_IN, delay:2, x: Starling.current.stage.stageWidth
+				});
+				
+				// fade the loading screen, start game
 				Starling.juggler.tween(startup.loadingBitmap, 1.0, {
-					transition:Transitions.EASE_OUT, delay:0, alpha: 0, onComplete: function(){
+					transition:Transitions.EASE_OUT, delay:3, alpha: 0, onComplete: function(){
 						startup.removeChild(startup.loadingBitmap);
-
+						startup.removeChild(startup.crewBitmap);
+						
 						game = new Game();
 						addChild(game);
 						music = assets.playSound("PuzzleGame");

@@ -59,10 +59,11 @@ class Root extends Sprite {
 						var dec = new Button(Root.assets.getTexture("Button"));
 						dec.scaleX = dec.scaleY = 0.5;
 						dec.color = 0x222222;
-						dec.text = "<";
+						dec.text = "v";
 						dec.fontColor = 0xffff00;
 						dec.fontSize = 30;
-						dec.x = Starling.current.stage.stageWidth - dec.width * 2;
+						dec.x = Starling.current.stage.stageWidth - dec.width;
+						dec.y = dec.height;
 						dec.addEventListener(Event.TRIGGERED, function(e:Event)
 						{
 							if (music.soundTransform.volume > 0) {
@@ -74,7 +75,7 @@ class Root extends Sprite {
 						var inc = new Button(Root.assets.getTexture("Button"));
 						inc.scaleX = inc.scaleY = 0.5;
 						inc.color = 0x222222;
-						inc.text = ">";
+						inc.text = "^";
 						inc.fontColor = 0xffff00;
 						inc.fontSize = 30;
 						inc.x = Starling.current.stage.stageWidth - dec.width;

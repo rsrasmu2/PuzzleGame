@@ -65,7 +65,9 @@ class Root extends Sprite {
 						dec.x = Starling.current.stage.stageWidth - dec.width * 2;
 						dec.addEventListener(Event.TRIGGERED, function(e:Event)
 						{
-							music.soundTransform = new SoundTransform(music.soundTransform.volume-0.1);
+							if (music.soundTransform.volume > 0) {
+								music.soundTransform = new SoundTransform(music.soundTransform.volume-0.1);
+							}
 							//trace("Volume: " + music.soundTransform.volume);
 						});
 
@@ -78,7 +80,9 @@ class Root extends Sprite {
 						inc.x = Starling.current.stage.stageWidth - dec.width;
 						inc.addEventListener(Event.TRIGGERED, function(e:Event)
 						{
-							music.soundTransform = new SoundTransform(music.soundTransform.volume+0.1);
+							if (music.soundTransform.volume < 1) {
+								music.soundTransform = new SoundTransform(music.soundTransform.volume+0.1);
+							}
 							//trace("Volume: " + music.soundTransform.volume);
 						});
 						addChild(inc);addChild(dec);

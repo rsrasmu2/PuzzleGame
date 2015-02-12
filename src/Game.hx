@@ -113,7 +113,7 @@ class Game extends Sprite
 			case Instructions:
 				var title = new MenuText(200,200,"How To Play");
 				title.fontSize = 50;
-				title.y = 50;
+				title.y = 0;
 				addChild(title);
 
 				var back = new MenuButton("Back");

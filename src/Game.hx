@@ -41,8 +41,8 @@ class Game extends Sprite
 
 		//Create the crew members and draw them to the screen in the correct spot
 		for (i in 0...crew.length) {
-			crew[i].x = i * 20;
-			crew[i].y = -50;
+			crew[i].x = i * 20 + 50;
+			crew[i].y = 35;
 		}
 
 		//based on game state

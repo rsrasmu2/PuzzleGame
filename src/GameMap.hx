@@ -9,6 +9,8 @@ import starling.core.Starling;
 import starling.text.TextField;
 import flash.utils.Timer;
 import flash.events.TimerEvent;
+import starling.animation.Transitions;
+import starling.animation.Tween;
 
 class GameMap extends Sprite {
 	public inline static var SPRITE_WIDTH = 32;
@@ -25,7 +27,7 @@ class GameMap extends Sprite {
 	private static var lives = 5;
 
 	private var crew : Array<Image>;
-	private var spaceship : Image;
+	private var spaceship : Sprite;
 
 	private var bg : Image;
 	private var planet:String;
@@ -63,32 +65,46 @@ class GameMap extends Sprite {
 		bg.x = (quad.width/2) - (bg.width / 2);
 		bg.y = (quad.height / 2) - (bg.height / 2);
 		addChild(bg);
+		
+		//Add the spaceship behind the crew sprites
+		spaceship = new Sprite();
+		spaceship.addChild(new Image(Root.assets.getTexture("spaceship")));
+		//Add the lives number of crew members
+		for(i in 0...lives)
+			spaceship.addChild(Root.game.getCrew(i));
+		spaceship.x = Starling.current.stage.stageWidth;
+		spaceship.y = -85;
+		addChild(spaceship);
+		
+		Starling.juggler.tween(spaceship, 2, { transition: Transitions.EASE_OUT,
+			x: -50,
+			onComplete: function() {
+				//generate grid
+				var h = 0; var w = 0;
+				while(h <= mapArr.length * SPRITE_HEIGHT)//horizontal lines
+				{
+					var line = new Quad(quad.width,2.5);
+					line.y = h;
+					h += SPRITE_HEIGHT;
+					line.color = 0;
+					addChild(line);
+				}
+				while(w <= mapArr[0].length * SPRITE_WIDTH)//vertical lines
+				{
+					var line = new Quad(2.5,quad.height);
+					line.x = w;
+					w += SPRITE_WIDTH;
+					line.color = 0;
+					addChild(line);
+				}
 
-
-		//generate grid
-		var h = 0; var w = 0;
-		while(h <= mapArr.length * SPRITE_HEIGHT)//horizontal lines
-		{
-			var line = new Quad(quad.width,2.5);
-			line.y = h;
-			h += SPRITE_HEIGHT;
-			line.color = 0;
-			addChild(line);
-		}
-		while(w <= mapArr[0].length * SPRITE_WIDTH)//vertical lines
-		{
-			var line = new Quad(2.5,quad.height);
-			line.x = w;
-			w += SPRITE_WIDTH;
-			line.color = 0;
-			addChild(line);
-		}
-
-		generateSprites();
-		//make sure your level has a player!!!
-		if(player == null){
-			trace("This level doesn't have a player! Error will occur if you try to move the player");
-		}
+				generateSprites();
+				//make sure your level has a player!!!
+				if(player == null){
+					trace("This level doesn't have a player! Error will occur if you try to move the player");
+				}
+			}
+		});
 	}
 
 	private function generateSprites() {
@@ -109,15 +125,6 @@ class GameMap extends Sprite {
 			trace("Error: mapArr dimensions must be greater than 0");
 		}
 		addChild(player); //Added at the end so it moves on top of everything else;
-
-		//Add the spaceship behind the crew sprites
-		spaceship = new Image(Root.assets.getTexture("spaceship"));
-		spaceship.x = -50;
-		spaceship.y = -85;
-		addChild(spaceship);
-		//Add the lives number of crew members
-		for(i in 0...lives)
-			addChild(Root.game.getCrew(i));
 	}
 
 	private function createPlayer(x:Int, y:Int) {
@@ -193,7 +200,12 @@ class GameMap extends Sprite {
 
 	private function onPlayerMoveFinished(e:Event) {
 		if (mapArr[player.mapY][player.mapX] == 3) {
-			Root.game.nextLevel();
+			Starling.juggler.tween(spaceship, 2, { transition: Transitions.EASE_IN,
+				x: -spaceship.width * 3,	//a little buffer space
+				onComplete: function() {
+					Root.game.nextLevel();
+				}
+			});
 		}
 		if (flag) {
 			loseLife();
@@ -226,7 +238,7 @@ class GameMap extends Sprite {
 				addChild(text);
 			}
 			//remove the last crew member
-			removeChild(Root.game.getCrew(lives));
+			spaceship.removeChild(Root.game.getCrew(lives));
 		}
 	}
 

@@ -35,7 +35,6 @@ class GameMap extends Sprite {
 
 	public function new(s:String) {
 		super();
-		addEventListener(KeyboardEvent.KEY_DOWN, checkInput);
 		planet = s.charAt(0);
 		setMap(LoadMap.load(s));
 	}
@@ -50,23 +49,24 @@ class GameMap extends Sprite {
 		removeChildren();
 		mapArr = map;
 
-		//Center the map
 		var quad = new Quad(mapArr[0].length * SPRITE_WIDTH, mapArr.length * SPRITE_HEIGHT);
 		x = Starling.current.stage.stageWidth / 2 - (quad.width / 2);
 		y = Starling.current.stage.stageHeight / 2 - (quad.height / 2);
 
-		//generate background
-		quad.color = 0;
-		quad.alpha = 0.5;
-		addChild(quad);
-
+		//Center the background
 		bg = getBG();
 		bg.scaleX = 2.2;
 		bg.scaleY = 2.2;
 		bg.x = (quad.width/2) - (bg.width / 2);
 		bg.y = (quad.height / 2) - (bg.height / 2);
+		bg.alpha = 0;
+		bg.addEventListener(Event.ADDED, function()
+		{
+			Starling.juggler.tween(bg, 1.0, {
+			transition:Transitions.EASE_OUT, delay:0, alpha: 1});
+		});
 		addChild(bg);
-		
+
 		//Add the spaceship behind the crew sprites
 		spaceship = new Sprite();
 		spaceship.addChild(new Image(Root.assets.getTexture("spaceship")));
@@ -76,7 +76,7 @@ class GameMap extends Sprite {
 		spaceship.x = Starling.current.stage.stageWidth;
 		spaceship.y = -150;
 		addChild(spaceship);
-		
+
 		Starling.juggler.tween(spaceship, 2, { transition: Transitions.EASE_OUT,
 			x: -50,
 			y: -85,
@@ -105,6 +105,7 @@ class GameMap extends Sprite {
 				if(player == null){
 					trace("This level doesn't have a player! Error will occur if you try to move the player");
 				}
+				addEventListener(KeyboardEvent.KEY_DOWN, checkInput);
 			}
 		});
 	}
@@ -206,8 +207,15 @@ class GameMap extends Sprite {
 			Starling.juggler.tween(spaceship, 2, { transition: Transitions.EASE_IN,
 				x: -spaceship.width * 3,	//a little buffer space
 				y: -150,
-				onComplete: function() {
-					Root.game.nextLevel();
+				onComplete: function()
+				{
+					removeChildren(1);
+					Starling.juggler.tween(bg, 1.0,
+					{
+						transition:Transitions.EASE_OUT,
+						alpha : 0, delay : 0, onComplete : function()
+						{Root.game.nextLevel();}
+					});
 				}
 			});
 		}
@@ -250,18 +258,20 @@ class GameMap extends Sprite {
 	//Gets the background image depending on the current level
 	//Needs to be updated with the new level backgrounds
 	private function getBG() {
-		switch (planet) {
+		return switch (planet) {
 			case 'm':
-				return new Image(Root.assets.getTexture("mars_bg"));
+				new Image(Root.assets.getTexture("mars_bg"));
 			case 'j':
-				return new Image(Root.assets.getTexture("jupiter_bg"));
+				new Image(Root.assets.getTexture("jupiter_bg"));
 			case 'n':
-				return new Image(Root.assets.getTexture("neptune_bg"));
+				new Image(Root.assets.getTexture("neptune_bg"));
 			case 's':
-				return new Image(Root.assets.getTexture("saturn_bg"));
+				new Image(Root.assets.getTexture("saturn_bg"));
 			case 'u':
-				return new Image(Root.assets.getTexture("uranus_bg"));
+				new Image(Root.assets.getTexture("uranus_bg"));
+			//case 'm':
+			default:
+				new Image(Root.assets.getTexture("mars_bg"));
 		}
-		return new Image(Root.assets.getTexture("mars_bg"));
 	}
 }

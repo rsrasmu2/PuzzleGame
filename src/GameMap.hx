@@ -73,11 +73,12 @@ class GameMap extends Sprite {
 		for(i in 0...lives)
 			spaceship.addChild(Root.game.getCrew(i));
 		spaceship.x = Starling.current.stage.stageWidth;
-		spaceship.y = -85;
+		spaceship.y = -150;
 		addChild(spaceship);
 		
 		Starling.juggler.tween(spaceship, 2, { transition: Transitions.EASE_OUT,
 			x: -50,
+			y: -85,
 			onComplete: function() {
 				//generate grid
 				var h = 0; var w = 0;
@@ -202,6 +203,7 @@ class GameMap extends Sprite {
 		if (mapArr[player.mapY][player.mapX] == 3) {
 			Starling.juggler.tween(spaceship, 2, { transition: Transitions.EASE_IN,
 				x: -spaceship.width * 3,	//a little buffer space
+				y: -150,
 				onComplete: function() {
 					Root.game.nextLevel();
 				}

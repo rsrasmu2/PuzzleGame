@@ -255,18 +255,20 @@ class GameMap extends Sprite {
 	//Gets the background image depending on the current level
 	//Needs to be updated with the new level backgrounds
 	private function getBG() {
-		switch (planet) {
+		return switch (planet) {
 			case 'm':
-				return new Image(Root.assets.getTexture("mars_bg"));
+				new Image(Root.assets.getTexture("mars_bg"));
 			case 'j':
-				return new Image(Root.assets.getTexture("jupiter_bg"));
+				new Image(Root.assets.getTexture("jupiter_bg"));
 			case 'n':
-				return new Image(Root.assets.getTexture("neptune_bg"));
+				new Image(Root.assets.getTexture("neptune_bg"));
 			case 's':
-				return new Image(Root.assets.getTexture("saturn_bg"));
+				new Image(Root.assets.getTexture("saturn_bg"));
 			case 'u':
-				return new Image(Root.assets.getTexture("uranus_bg"));
+				new Image(Root.assets.getTexture("uranus_bg"));
+			//case 'm':
+			default:
+				new Image(Root.assets.getTexture("mars_bg"));
 		}
-		return new Image(Root.assets.getTexture("mars_bg"));
 	}
 }

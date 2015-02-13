@@ -44,7 +44,8 @@ class Root extends Sprite {
 			if (ratio == 1) {
 				// animate the ship flying away
 				Starling.juggler.tween(startup.crewBitmap, 1.8, {
-					transition:Transitions.EASE_IN, delay:2, x: Starling.current.stage.stageWidth
+					transition:Transitions.EASE_IN, delay:2,
+					x: Starling.current.stage.stageWidth + startup.crewBitmap.width
 				});
 
 				// fade the loading screen, start game

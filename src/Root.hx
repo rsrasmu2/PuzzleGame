@@ -23,6 +23,8 @@ class Root extends Sprite {
 		assets.enqueue("assets/sprites.png", "assets/sprites.xml");
 		assets.enqueue("assets/star_assets.png", "assets/star_assets.xml");
 		assets.enqueue("assets/PuzzleGame.mp3");
+		assets.enqueue("assets/Lose.mp3");
+		assets.enqueue("assets/Win.mp3");
 
 		//Load the level assets
 		for (i in 0...Levels.level.length) {

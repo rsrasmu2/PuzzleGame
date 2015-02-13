@@ -11,6 +11,7 @@ import flash.utils.Timer;
 import flash.events.TimerEvent;
 import starling.animation.Transitions;
 import starling.animation.Tween;
+import flash.media.*;
 
 class GameMap extends Sprite {
 	public inline static var SPRITE_WIDTH = 32;
@@ -188,6 +189,7 @@ class GameMap extends Sprite {
 
 			//We've hit the goal!
 			if (mapArr[currentY][currentX] == 3) {
+				Root.assets.playSound("Win");
 				break;
 			}
 		}
@@ -218,6 +220,7 @@ class GameMap extends Sprite {
 	private function loseLife(){
 		player.restart();
 		--lives;
+		Root.assets.playSound("Lose");
 		if (lives == 0) {
 			//Game Over
 			removeChildren();

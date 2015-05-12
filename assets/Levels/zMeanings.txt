@@ -1,0 +1,4 @@
+0 - Space
+1 - Obstacle
+2 - Player
+3 - Goal

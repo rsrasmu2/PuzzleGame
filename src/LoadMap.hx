@@ -18,7 +18,7 @@ class LoadMap
 			for (j in 0...array[i].length) {
 				//make sure null isn't being pushed into the map
 				var val = Std.parseInt(array[i].charAt(j));
-				if(val != null)
+				if (val != null)
 					map[i].push(val);
 			}
 

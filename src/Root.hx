@@ -4,6 +4,7 @@ import starling.core.Starling;
 import starling.animation.Transitions;
 import starling.events.*;
 import flash.media.*;
+import starling.display.Button;
 
 class Root extends Sprite {
 
@@ -12,6 +13,11 @@ class Root extends Sprite {
 	public static var game:Game;
 	private var music:SoundChannel;
 	private var vol:Float;
+	
+	public var down : Button;
+	public var up : Button;
+	public var left : Button;
+	public var right : Button;
 
 	public function new() {
 		super();
@@ -25,6 +31,7 @@ class Root extends Sprite {
 		assets.enqueue("assets/PuzzleGame.mp3");
 		assets.enqueue("assets/Lose.mp3");
 		assets.enqueue("assets/Win.mp3");
+		assets.enqueue("assets/transButton.png");
 
 		//Load the level assets
 		for (i in 0...Levels.level.length) {
@@ -56,12 +63,13 @@ class Root extends Sprite {
 						startup.removeChild(startup.loadingBitmap);
 						startup.removeChild(startup.crewBitmap);
 
-						game = new Game();
+						game = new Game(this);
 						addChild(game);
 						music = assets.playSound("PuzzleGame");
 						music.soundTransform = new SoundTransform(vol);
 						music.addEventListener(flash.events.Event.SOUND_COMPLETE, loopMusic);
-
+						
+						
 						var dec = new Button(Root.assets.getTexture("Button"));
 						dec.scaleX = dec.scaleY = 0.5;
 						dec.color = 0x222222;
@@ -81,8 +89,8 @@ class Root extends Sprite {
 								music.soundTransform = new SoundTransform(vol);
 							}
 							//trace("Volume: " + music.soundTransform.volume);
-						});
-
+						});						
+						
 						var inc = new Button(Root.assets.getTexture("Button"));
 						inc.scaleX = inc.scaleY = 0.5;
 						inc.color = 0x222222;

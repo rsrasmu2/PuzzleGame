@@ -12,8 +12,12 @@ import flash.events.TimerEvent;
 import starling.animation.Transitions;
 import starling.animation.Tween;
 import flash.media.*;
+import starling.display.Button;
 
 class GameMap extends Sprite {
+	
+	public var zroot : Root;
+	
 	public inline static var SPRITE_WIDTH = 32;
 	public inline static var SPRITE_HEIGHT = 32;
 
@@ -33,8 +37,9 @@ class GameMap extends Sprite {
 	private var bg : Image;
 	private var planet:String;
 
-	public function new(s:String) {
+	public function new(s:String, root) {
 		super();
+		zroot = root;
 		planet = s.charAt(0);
 		setMap(LoadMap.load(s));
 	}
@@ -106,6 +111,68 @@ class GameMap extends Sprite {
 					trace("This level doesn't have a player! Error will occur if you try to move the player");
 				}
 				addEventListener(KeyboardEvent.KEY_DOWN, checkInput);
+				
+
+				//Button Movements
+				var down = new Button(Root.assets.getTexture("transButton"));
+				down.scaleX = Starling.current.stage.stageWidth;
+				down.scaleY = 6;
+				down.x = (Starling.current.stage.stageWidth - down.width) / 2 - this.x;
+				down.y = Starling.current.stage.stageHeight - down.height - this.y;
+				down.addEventListener(Event.TRIGGERED, function()
+				{
+					if (player.movable)
+					{
+						playerMovementScan(0, 1);
+						player.changeTexture(0);
+					}
+				});
+				addChild(down);
+				
+				var up = new Button(Root.assets.getTexture("transButton"));
+				up.scaleX = Starling.current.stage.stageWidth;
+				up.scaleY = 6;
+				up.x = (Starling.current.stage.stageWidth - up.width) / 2 - this.x;
+				up.y = 0 - this.y;
+				up.addEventListener(Event.TRIGGERED, function()
+				{
+					if (player.movable)
+					{
+						playerMovementScan(0, -1);
+						player.changeTexture(2);
+					}
+				});
+				addChild(up);
+				
+				var left = new Button(Root.assets.getTexture("transButton"));
+				left.scaleX = 6;
+				left.scaleY = Starling.current.stage.stageHeight;
+				left.x = 0 - this.x;
+				left.y = (Starling.current.stage.stageHeight - left.height) / 2 - this.y;
+				left.addEventListener(Event.TRIGGERED, function()
+				{
+					if (player.movable)
+					{
+						playerMovementScan( -1, 0);
+						player.changeTexture(3);
+					}
+				});
+				addChild(left);
+				
+				var right = new Button(Root.assets.getTexture("transButton"));
+				right.scaleX = 6;
+				right.scaleY = Starling.current.stage.stageHeight;
+				right.x = Starling.current.stage.stageWidth - right.width - this.x;
+				right.y = (Starling.current.stage.stageHeight - right.height) / 2 - this.y;
+				right.addEventListener(Event.TRIGGERED, function()
+				{
+					if (player.movable)
+					{
+						playerMovementScan(1, 0);
+						player.changeTexture(1);
+					}
+				});
+				addChild(right);
 			}
 		});
 	}
@@ -145,7 +212,7 @@ class GameMap extends Sprite {
 
 	private function checkInput(e:KeyboardEvent) {
 		//ignore event if the player is in the middle of moving
-		if(!player.movable) return;
+		if (!player.movable) return;
 		switch (e.keyCode)
 		{
 			case Keyboard.LEFT:

@@ -12,8 +12,9 @@
 	</initialWindow>
 
 	<icon>
-		<image32x32>assets/icon/ic_launcher_32.png</image32x32>
-		<image48x48>assets/icon/ic_launcher_48.png</image48x48>
+		<image32x32>assets/icon/32_icon.png</image32x32>
+		<image48x48>assets/icon/48_icon.png</image48x48>
+		<image128x128>assets/icon/128_icon.png</image128x128>
 	</icon>
 
 </application>

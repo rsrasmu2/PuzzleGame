@@ -10,4 +10,10 @@
 		<autoOrients>false</autoOrients>
 		<aspectRatio>landscape</aspectRatio>
 	</initialWindow>
+
+	<icon>
+		<image32x32>assets/icon/ic_launcher_32.png</image32x32>
+		<image48x48>assets/icon/ic_launcher_48.png</image48x48>
+	</icon>
+
 </application>

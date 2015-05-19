@@ -29,6 +29,8 @@ class Root extends Sprite {
 		assets = new AssetManager();
 		assets.enqueue("assets/sprites.png", "assets/sprites.xml");
 		assets.enqueue("assets/star_assets.png", "assets/star_assets.xml");
+		assets.enqueue("assets/pixelu.fnt", "assets/pixelu_0.png");
+		assets.enqueue("assets/8bitwonder.fnt", "assets/8bitwonder_0.png");
 		assets.enqueue("assets/PuzzleGame.mp3");
 		assets.enqueue("assets/Lose.mp3");
 		assets.enqueue("assets/Win.mp3");

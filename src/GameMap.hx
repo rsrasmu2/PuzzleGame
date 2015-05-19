@@ -313,7 +313,7 @@ class GameMap extends Sprite {
 		}
 		else {
 			if(lives == 1){
-				var text = new TextField(200,50,"One member left!!!","Arial",20,0xff0000);
+				var text = new TextField(400,50,"One member left","8bitwonder_0",20,0xff0000);
 				text.x = -(Starling.current.stage.stageWidth / 2 - (mapArr[0].length * SPRITE_WIDTH / 2));
 				text.y = -(Starling.current.stage.stageHeight / 2 - (mapArr.length * SPRITE_HEIGHT / 2));
 				addChild(text);

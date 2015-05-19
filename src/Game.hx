@@ -1,4 +1,3 @@
-import flash.system.ImageDecodingPolicy;
 import starling.display.*;
 import starling.core.*;
 import starling.textures.Texture;
@@ -92,7 +91,7 @@ class Game extends Sprite
 		switch(state)
 		{
 			case Menu:
-				var title = new MenuText(350,100,"Mission 1-1-3");
+				var title = new MenuText(500,100,"Mission 1 1 3");
 				title.fontSize = 50;
 				title.y = 50;
 				addChild(title);
@@ -139,7 +138,7 @@ class Game extends Sprite
 				
 
 			case Instructions:
-				var title = new MenuText(200,200,"How To Play");
+				var title = new MenuText(600,200,"How To Play");
 				title.fontSize = 50;
 				title.y = 0;
 				addChild(title);
@@ -150,11 +149,11 @@ class Game extends Sprite
 				function(){ setStage(Menu);});
 				addChild(back);
 
-				var instr = new MenuText(400,400,"The goal of the game is to move the "+
-				"rover over to the flag. Tap the sides of the screen to move the rover. "+
-				" Once you pick a direction, the rover continues to move in that direction until it hits "+
-				"an object. But, be careful not to go off the edge of the screen or else you'll lose " +
-				"one of your crew members. If you lose them all, it's game over. ");
+				var instr = new MenuText(500,400,"The goal of the game is to move the "+
+				"rover over to the flag \n Tap the sides of the screen to move the rover\n "+
+				" Once you pick a direction the rover continues to move in that direction until it hits "+
+				"an object \n Be careful not to go off the edge of the screen or else you will lose " +
+				"one of your crew members \n If you lose them all you lose");
 				//"Press R to restart the current level if you're stuck (This will cost you a crew member). "+
 				//"Press the Escape Key to go back to the main menu.");
 				instr.fontSize = 18;
@@ -163,7 +162,7 @@ class Game extends Sprite
 				addChild(instr);
 
 			case Credits:
-				var title = new MenuText(200,200,"Credits");
+				var title = new MenuText(500,200,"Credits");
 				title.fontSize = 50;
 				title.y = 0;
 				addChild(title);
@@ -174,7 +173,7 @@ class Game extends Sprite
 				function(){ setStage(Menu);});
 				addChild(back);
 
-				var cred = new MenuText(300,300,"\nTemitope Alaga\nJordan Harris\nNancy McCollough\nCherie Parsons\nRobert Rasmussen");
+				var cred = new MenuText(500,300,"\nTemitope Alaga\nJordan Harris\nNancy McCollough\nCherie Parsons\nRobert Rasmussen");
 				cred.fontSize = 20;
 				cred.y = back.y + 75;
 				cred.x = Starling.current.stage.stageWidth/2 - cred.width/2;
@@ -253,6 +252,7 @@ class Game extends Sprite
 						if (i > unlocked)
 						{
 							button.text = "Locked";
+							button.fontColor = 0xff0000;
 						}
 						else
 						{
@@ -288,6 +288,7 @@ class Game extends Sprite
 						if (i > unlocked)
 						{
 							button.text = "Locked";
+							button.fontColor = 0xff0000;
 						}
 						else
 						{
@@ -323,6 +324,7 @@ class Game extends Sprite
 						if (i > unlocked)
 						{
 							button.text = "Locked";
+							button.fontColor = 0xff0000;
 						}
 						else
 						{
@@ -358,6 +360,7 @@ class Game extends Sprite
 						if (i > unlocked)
 						{
 							button.text = "Locked";
+							button.fontColor = 0xff0000;
 						}
 						else
 						{
@@ -393,6 +396,7 @@ class Game extends Sprite
 						if (i > unlocked)
 						{
 							button.text = "Locked";
+							button.fontColor = 0xff0000;
 						}
 						else
 						{
@@ -421,7 +425,7 @@ class MenuText extends TextField
 {
 	public function new(w:Int,h:Int,s:String)
 	{
-		super(w,h,s,"Arial",12,0xffff00);
+		super(w,h,s,"8bitwonder_0",12,0xffff00);
 		x = Starling.current.stage.stageWidth/2 - w/2;
 		y = Starling.current.stage.stageHeight/2 - h/2;
 
@@ -448,8 +452,9 @@ class MenuButton extends Button
 		y = Starling.current.stage.stageHeight / 2 - height / 2;
 		text = s;
 		color = 0;
-		fontColor = 0xffff00;
+		fontColor = 0xFFFFFF;
 		fontSize = 25;
+		fontName = "8bitwonder_0";
 
 		addEventListener(Event.ADDED_TO_STAGE, function()
 		{

@@ -31,7 +31,7 @@ class Startup extends Sprite {
 
 		crewBitmap = new Bitmap(new CrewBitmapData(300, 112));
 		crewBitmap.x = (Lib.current.stage.stageWidth/2) - crewBitmap.width/2;
-		crewBitmap.y = (Lib.current.stage.stageHeight/2) - crewBitmap.height/2;
+		crewBitmap.y = (Lib.current.stage.stageHeight/2) - crewBitmap.height/2 + 100;
 		addChild(crewBitmap);
 
 		Lib.current.stage.addEventListener(Event.RESIZE, function(e:Event) {

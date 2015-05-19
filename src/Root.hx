@@ -54,24 +54,24 @@ class Root extends Sprite {
 
 			// animate the ship floating up
 			Starling.juggler.tween(startup.crewBitmap, 2, {
-				transition:Transitions.LINEAR, delay:.2, y: startup.crewBitmap.y - 18
+				transition:Transitions.LINEAR, y: startup.crewBitmap.y - 18
 			});
 
 			// animate the ship floating down
 			Starling.juggler.tween(startup.crewBitmap, 2, {
-				transition:Transitions.LINEAR, delay:1.2, y: startup.crewBitmap.y + 18
+				transition:Transitions.LINEAR, delay:.1, y: startup.crewBitmap.y + 18
 			});
 
 			if (ratio == 1) {
 				// animate the ship flying away
 				Starling.juggler.tween(startup.crewBitmap, 1.8, {
-					transition:Transitions.EASE_IN, delay:2,
-					x: Starling.current.stage.stageWidth + startup.crewBitmap.width
+					transition:Transitions.EASE_IN, delay:.5,
+					x: Starling.current.stage.stageWidth + 2 * startup.crewBitmap.width
 				});
 
 				// fade the loading screen, start game
 				Starling.juggler.tween(startup.loadingBitmap, 1.0, {
-					transition:Transitions.EASE_OUT, delay:3, alpha: 0, onComplete: function(){
+					transition:Transitions.EASE_OUT, delay:1.5, alpha: 0, onComplete: function(){
 						startup.removeChild(startup.loadingBitmap);
 						startup.removeChild(startup.crewBitmap);
 

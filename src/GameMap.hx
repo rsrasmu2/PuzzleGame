@@ -16,8 +16,6 @@ import starling.display.Button;
 
 class GameMap extends Sprite {
 	
-	public var zroot : Root;
-	
 	public inline static var SPRITE_WIDTH = 32;
 	public inline static var SPRITE_HEIGHT = 32;
 
@@ -37,9 +35,8 @@ class GameMap extends Sprite {
 	private var bg : Image;
 	private var planet:String;
 
-	public function new(s:String, root) {
+	public function new(s:String) {
 		super();
-		zroot = root;
 		planet = s.charAt(0);
 		setMap(LoadMap.load(s));
 	}
@@ -244,7 +241,8 @@ class GameMap extends Sprite {
 
 		/*This could be cleaned up a bit if anyone is bored. Makes sure we're within
 		the map bounds and that the next space isn't an obstacle.*/
-		while (currentX+dirX >= 0 && currentY+dirY >= 0 && mapArr[currentY+dirY][currentX+dirX] != 1) {
+		while (currentX + dirX >= 0 && currentY + dirY >= 0 && mapArr[currentY + dirY][currentX + dirX] != 1)
+		{
 			currentX += dirX;
 			currentY += dirY;
 			++distance;
@@ -261,9 +259,12 @@ class GameMap extends Sprite {
 			}
 		}
 
-		if (flag) {
+		if (flag)
+		{
 				player.moveTo(currentX, currentY, distance);
-		} else {
+		}
+		else
+		{
 			player.moveTo(currentX, currentY, distance);
 		}
 	}

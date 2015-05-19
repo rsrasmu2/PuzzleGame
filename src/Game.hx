@@ -14,15 +14,18 @@ enum GameState
 	Menu;
 	Instructions;
 	Credits;
+	LevelSelect;
+	Mars;
+	Jupiter;
+	Saturn;
+	Neptune;
+	Uranus;
 	Level;
 }
 
 class Game extends Sprite
 {
-	
-	public var zroot : Root;
-	
-	
+	private var unlocked = 0;
 	private var currentLevel = 1;
 	private var bg:Background;
 
@@ -32,9 +35,10 @@ class Game extends Sprite
 	public function new(root : Root )
 	{
 		super();
-		zroot = root;
 		bg = new Background();
 		addChild(bg);
+		
+		unlocked = LoadUnlocked.load();
 
 		//Load the crew sprites
 		crew = new Array();
@@ -69,6 +73,9 @@ class Game extends Sprite
 			timer.addEventListener(TimerEvent.TIMER_COMPLETE, function(e:TimerEvent)
 			{	reset();});
 		} else {
+			if (currentLevel > unlocked)
+				unlocked = currentLevel;
+				LoadUnlocked.save(unlocked);
 			setStage(Level);
 		}
 	}
@@ -90,24 +97,20 @@ class Game extends Sprite
 
 				var play = new MenuButton("Play");
 				play.y = title.y + 100;
-				play.fontSize = 20;
 				play.addEventListener(Event.TRIGGERED,
 				function(){
-					currentLevel = 1;
-					setStage(Level);
+					setStage(LevelSelect);
 				});
 				addChild(play);
 
 				var instr = new MenuButton("Instructions");
 				instr.y = play.y + 100;
-				instr.fontSize = 20;
 				instr.addEventListener(Event.TRIGGERED,
 				function(){	setStage(Instructions);});
 				addChild(instr);
 
 				var cred = new MenuButton("Credits");
 				cred.y = instr.y + 100;
-				cred.fontSize = 20;
 				cred.addEventListener(Event.TRIGGERED,
 				function(){	setStage(Credits);});
 				addChild(cred);
@@ -120,7 +123,6 @@ class Game extends Sprite
 
 				var back = new MenuButton("Back");
 				back.y = title.y + 200;
-				back.fontSize = 30;
 				back.addEventListener(Event.TRIGGERED,
 				function(){ setStage(Menu);});
 				addChild(back);
@@ -138,30 +140,248 @@ class Game extends Sprite
 				addChild(instr);
 
 			case Credits:
+				var title = new MenuText(200,200,"Credits");
+				title.fontSize = 50;
+				title.y = 0;
+				addChild(title);
+				
 				var back = new MenuButton("Back");
-				back.fontSize = 20; back.y = 50;
+				back.y = title.y + 200;
 				back.addEventListener(Event.TRIGGERED,
 				function(){ setStage(Menu);});
 				addChild(back);
 
-				var cred = new MenuText(300,300,"Credits\n--------"+
-				"\nTemitope Alaga\nJordan Harris\nNancy McCollough\nCherie Parsons\nRobert Rasmussen");
+				var cred = new MenuText(300,300,"\nTemitope Alaga\nJordan Harris\nNancy McCollough\nCherie Parsons\nRobert Rasmussen");
 				cred.fontSize = 20;
-				cred.y = back.y + 200;
+				cred.y = back.y + 75;
 				cred.x = Starling.current.stage.stageWidth/2 - cred.width/2;
 				addChild(cred);
+				
+				
+			case LevelSelect:
+				
+				var back = new MenuButton("Back");
+				back.y = 50;
+				back.addEventListener(Event.TRIGGERED,
+				function(){ setStage(Menu);});
+				addChild(back);
+				
+				var x = 0;
+				var y = 0;
+				
+				var mars = new MenuButton("Mars");
+				mars.x = (Starling.current.stage.stageWidth - mars.width)/2 - mars.width - 5;
+				mars.y = (Starling.current.stage.stageHeight - mars.height) / 2;
+				mars.addEventListener(Event.TRIGGERED,
+				function(){ setStage(Mars);});
+				addChild(mars);
+				
+				var jupiter = new MenuButton("Jupiter");
+				jupiter.x = (Starling.current.stage.stageWidth - jupiter.width) / 2;
+				jupiter.y = (Starling.current.stage.stageHeight - jupiter.height) / 2;
+				jupiter.addEventListener(Event.TRIGGERED,
+				function(){ setStage(Jupiter);});
+				addChild(jupiter);
+				
+				var saturn = new MenuButton("Saturn");
+				saturn.x = (Starling.current.stage.stageWidth - saturn.width) / 2 + saturn.width + 5;
+				saturn.y = (Starling.current.stage.stageHeight - saturn.height) / 2;
+				saturn.addEventListener(Event.TRIGGERED,
+				function(){ setStage(Saturn);});
+				addChild(saturn);
+				
+				var neptune = new MenuButton("Neptune");
+				neptune.x = (Starling.current.stage.stageWidth) / 2 - neptune.width - 2.5;
+				neptune.y = (Starling.current.stage.stageHeight + neptune.height) / 2 + 5;
+				neptune.addEventListener(Event.TRIGGERED,
+				function(){ setStage(Neptune);});
+				addChild(neptune);
+				
+				var uranus = new MenuButton("Uranus");
+				uranus.x = (Starling.current.stage.stageWidth) / 2 + 2.5;
+				uranus.y = (Starling.current.stage.stageHeight + uranus.height) / 2 + 5;
+				uranus.addEventListener(Event.TRIGGERED,
+				function(){ setStage(Uranus);});
+				addChild(uranus);
+				
+				
+			case Mars:
+				
+				var back = new MenuButton("Back");
+				back.y = 50;
+				back.addEventListener(Event.TRIGGERED,
+				function(){ setStage(LevelSelect);});
+				addChild(back);
+				
+				var y = 1;
+				for (i in 0...Levels.level.length)
+				{
+					if (Levels.level[i].charAt(0) == 'm')
+					{
+						if (i == y * 3)
+						{
+							y++;
+						}
+						
+						var button = new MenuButton("Level " + (i+1));
+						button.x = (Starling.current.stage.stageWidth - button.width) / 2 + (10 + button.width) * ((i % 3) - 1);
+						button.y = back.y + 100 + (10 + button.height) * y;
+						if (i > unlocked)
+						{
+							button.text = "Locked";
+						}
+						else
+						{
+							button.addEventListener(Event.TRIGGERED,
+							function() { currentLevel = i; setStage(Level); } );
+						}
+						addChild(button);
+					}
+				}
+				
+			case Jupiter:
+				
+				var back = new MenuButton("Back");
+				back.y = 50;
+				back.addEventListener(Event.TRIGGERED,
+				function(){ setStage(LevelSelect);});
+				addChild(back);
+				
+				var y = 1;
+				for (i in 0...Levels.level.length)
+				{
+					if (Levels.level[i].charAt(0) == 'j')
+					{
+						if (i == y * 3)
+						{
+							y++;
+						}
+						
+						var button = new MenuButton("Level " + (i+1));
+						button.x = (Starling.current.stage.stageWidth - button.width) / 2 + (10 + button.width) * ((i % 3) - 1);
+						button.y = back.y + 100 + (10 + button.height) * y;
+						if (i > unlocked)
+						{
+							button.text = "Locked";
+						}
+						else
+						{
+							button.addEventListener(Event.TRIGGERED,
+							function() { currentLevel = i; setStage(Level); } );
+						}
+						addChild(button);
+					}
+				}
+				
+			case Saturn:
+				
+				var back = new MenuButton("Back");
+				back.y = 50;
+				back.addEventListener(Event.TRIGGERED,
+				function(){ setStage(LevelSelect);});
+				addChild(back);
+				
+				var y = 1;
+				for (i in 0...Levels.level.length)
+				{
+					if (Levels.level[i].charAt(0) == 's')
+					{
+						if (i == y * 3)
+						{
+							y++;
+						}
+						
+						var button = new MenuButton("Level " + (i+1));
+						button.x = (Starling.current.stage.stageWidth - button.width) / 2 + (10 + button.width) * ((i % 3) - 1);
+						button.y = back.y + 100 + (10 + button.height) * y;
+						if (i > unlocked)
+						{
+							button.text = "Locked";
+						}
+						else
+						{
+							button.addEventListener(Event.TRIGGERED,
+							function() { currentLevel = i; setStage(Level); } );
+						}
+						addChild(button);
+					}
+				}
+				
+			case Neptune:
+				
+				var back = new MenuButton("Back");
+				back.y = 50;
+				back.addEventListener(Event.TRIGGERED,
+				function(){ setStage(LevelSelect);});
+				addChild(back);
+				
+				var y = 1;
+				for (i in 0...Levels.level.length)
+				{
+					if (Levels.level[i].charAt(0) == 'n')
+					{
+						if (i == y * 3)
+						{
+							y++;
+						}
+						
+						var button = new MenuButton("Level " + (i+1));
+						button.x = (Starling.current.stage.stageWidth - button.width) / 2 + (10 + button.width) * ((i % 3) - 1);
+						button.y = back.y + 100 + (10 + button.height) * y;
+						if (i > unlocked)
+						{
+							button.text = "Locked";
+						}
+						else
+						{
+							button.addEventListener(Event.TRIGGERED,
+							function() { currentLevel = i; setStage(Level); } );
+						}
+						addChild(button);
+					}
+				}
+				
+			case Uranus:
+				
+				var back = new MenuButton("Back");
+				back.y = 50;
+				back.addEventListener(Event.TRIGGERED,
+				function(){ setStage(LevelSelect);});
+				addChild(back);
+				
+				var y = 1;
+				for (i in 0...Levels.level.length)
+				{
+					if (Levels.level[i].charAt(0) == 'u')
+					{
+						trace(i);
+						if (i == y * 3)
+						{
+							y++;
+						}
+						
+						var button = new MenuButton("Level " + (i+1));
+						button.x = (Starling.current.stage.stageWidth - button.width) / 2 + (10 + button.width) * ((i % 3) - 1);
+						button.y = back.y + 100 + (10 + button.height) * y;
+						if (i > unlocked)
+						{
+							button.text = "Locked";
+						}
+						else
+						{
+							button.addEventListener(Event.TRIGGERED,
+							function() { currentLevel = i; setStage(Level); } );
+						}
+						addChild(button);
+					}
+				}
 
 			case Level:
 				//reset lives if starting at the first level
-				if (currentLevel == 1) GameMap.reset();
-				
-				
+				if (currentLevel == 0) GameMap.reset();
 
-				//Level 1 is array index 0.
-				addChild(new GameMap(Levels.level[currentLevel-1], zroot));
-
-				/*haxe.Log.clear();
-				trace("Level: " + currentLevel);*/
+				//Level 1 is at array index 0.
+				addChild(new GameMap(Levels.level[currentLevel]));
 		}
 	}
 	//Used to get the crew in the GameMap class
@@ -196,12 +416,16 @@ class MenuButton extends Button
 	public function new(s:String)
 	{
 		super(Root.assets.getTexture("Button"));
-
+		
+		scaleX = .75;
+		scaleY = .75;
+		
 		x = Starling.current.stage.stageWidth/2 - width/2;
-		y = Starling.current.stage.stageHeight/2 - height/2;
+		y = Starling.current.stage.stageHeight / 2 - height / 2;
 		text = s;
 		color = 0;
 		fontColor = 0xffff00;
+		fontSize = 25;
 
 		addEventListener(Event.ADDED_TO_STAGE, function()
 		{

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <application xmlns="http://ns.adobe.com/air/application/3.8">
 	<id>com.RobRas.PuzzleGame</id>
-	<name>Puzzle Game</name>
-	<versionNumber>15.02.03</versionNumber>
+	<name>Mission 1-1-3</name>
+	<versionNumber>15.02.04</versionNumber>
 	<filename>Puzzle Game</filename>
 	<initialWindow>
 		<content>puzzle.swf</content>

@@ -61,8 +61,10 @@ class Player extends Sprite {
 	}
 
 	public function restart(){
-		mapX = constX;mapY = constY;
-		x = getWorldX(); y = getWorldY();
+		mapX = constX;
+		mapY = constY;
+		x = getWorldX();
+		y = getWorldY();
 	}
 
 	//Change the player image depending on the direction going. 0:Down, 1:Right, 2:Up, 3:Left

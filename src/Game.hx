@@ -20,7 +20,7 @@ enum GameState
 	Saturn;
 	Neptune;
 	Uranus;
-	Level;
+	Start;
 }
 
 class Game extends Sprite
@@ -78,7 +78,7 @@ class Game extends Sprite
 			if (currentLevel > unlocked)
 				unlocked = currentLevel;
 				LoadUnlocked.save(unlocked);
-			setStage(Level);
+			setStage(Start);
 		}
 	}
 
@@ -100,13 +100,25 @@ class Game extends Sprite
 				var play = new MenuButton("Play");
 				play.y = title.y + 100;
 				play.addEventListener(Event.TRIGGERED,
+				function() {
+					if (unlocked >= Levels.level.length)
+						currentLevel = unlocked - 1;
+					else
+						currentLevel = unlocked;
+					setStage(Start);
+				});
+				addChild(play);
+				
+				var levelSelect = new MenuButton("Levels");
+				levelSelect.y = play.y + 100;
+				levelSelect.addEventListener(Event.TRIGGERED,
 				function(){
 					setStage(LevelSelect);
 				});
-				addChild(play);
+				addChild(levelSelect);
 
 				var instr = new MenuButton("Instructions");
-				instr.y = play.y + 100;
+				instr.y = levelSelect.y + 100;
 				instr.addEventListener(Event.TRIGGERED,
 				function(){	setStage(Instructions);});
 				addChild(instr);
@@ -116,6 +128,15 @@ class Game extends Sprite
 				cred.addEventListener(Event.TRIGGERED,
 				function(){	setStage(Credits);});
 				addChild(cred);
+				
+				/*
+				var reset = new MenuButton("Reset Save");
+				reset.y = cred.y + 100;
+				reset.addEventListener(Event.TRIGGERED,
+				function() {	LoadUnlocked.reset(); unlocked = currentLevel = 0; } );
+				addChild(reset);
+				*/
+				
 
 			case Instructions:
 				var title = new MenuText(200,200,"How To Play");
@@ -209,7 +230,7 @@ class Game extends Sprite
 				
 			case Mars:
 				
-				var back = new MenuButton("Back");
+				var back = new MenuButton("Planets");
 				back.y = 50;
 				back.addEventListener(Event.TRIGGERED,
 				function(){ setStage(LevelSelect);});
@@ -236,7 +257,7 @@ class Game extends Sprite
 						else
 						{
 							button.addEventListener(Event.TRIGGERED,
-							function() { currentLevel = i; setStage(Level); } );
+							function() { currentLevel = i; setStage(Start); } );
 						}
 						addChild(button);
 					}
@@ -271,7 +292,7 @@ class Game extends Sprite
 						else
 						{
 							button.addEventListener(Event.TRIGGERED,
-							function() { currentLevel = i; setStage(Level); } );
+							function() { currentLevel = i; setStage(Start); } );
 						}
 						addChild(button);
 					}
@@ -306,7 +327,7 @@ class Game extends Sprite
 						else
 						{
 							button.addEventListener(Event.TRIGGERED,
-							function() { currentLevel = i; setStage(Level); } );
+							function() { currentLevel = i; setStage(Start); } );
 						}
 						addChild(button);
 					}
@@ -341,7 +362,7 @@ class Game extends Sprite
 						else
 						{
 							button.addEventListener(Event.TRIGGERED,
-							function() { currentLevel = i; setStage(Level); } );
+							function() { currentLevel = i; setStage(Start); } );
 						}
 						addChild(button);
 					}
@@ -376,13 +397,13 @@ class Game extends Sprite
 						else
 						{
 							button.addEventListener(Event.TRIGGERED,
-							function() { currentLevel = i; setStage(Level); } );
+							function() { currentLevel = i; setStage(Start); } );
 						}
 						addChild(button);
 					}
 				}
 
-			case Level:
+			case Start:
 				//reset lives if starting at the first level
 				//if (currentLevel == 0) GameMap.reset();
 

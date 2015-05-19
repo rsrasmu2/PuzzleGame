@@ -247,14 +247,14 @@ class GameMap extends Sprite {
 			currentY += dirY;
 			++distance;
 
-			//We've hit an edge!
-			if (currentX + dirX < 0 || currentY + dirY < 0 || currentX + dirX == mapArr[currentY].length || currentY + dirY == mapArr.length) {
-				flag = true;
+			//We've hit the goal!
+			if (mapArr[currentY][currentX] == 3) {
 				break;
 			}
 
-			//We've hit the goal!
-			if (mapArr[currentY][currentX] == 3) {
+			//We've hit an edge!
+			if (currentX + dirX < 0 || currentY + dirY < 0 || currentX + dirX == mapArr[currentY].length || currentY + dirY == mapArr.length) {
+				flag = true;
 				break;
 			}
 		}
@@ -309,7 +309,7 @@ class GameMap extends Sprite {
 			var timer = new Timer(1000,3);
 			timer.start();
 			timer.addEventListener(TimerEvent.TIMER_COMPLETE, function(e:TimerEvent)
-			{	Root.game.reset();});
+			{	GameMap.reset(); Root.game.reset(); } );
 		}
 		else {
 			if(lives == 1){

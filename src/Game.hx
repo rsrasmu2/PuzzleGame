@@ -32,7 +32,7 @@ class Game extends Sprite
 	//Hold the images of the crew members
 	private var crew : Array<Image>;
 
-	public function new(root : Root )
+	public function new()
 	{
 		super();
 		bg = new Background();
@@ -53,7 +53,9 @@ class Game extends Sprite
 			crew[i].x = i * 20 + 50;
 			crew[i].y = 35;
 		}
-
+		
+		
+		
 		//based on game state
 		setStage(Menu);
 	}
@@ -61,7 +63,7 @@ class Game extends Sprite
 	public function nextLevel()
 	{
 		++currentLevel;
-		if (currentLevel > Levels.level.length) {
+		if (currentLevel >= Levels.level.length) {
 			removeChildren(1);
 			var Win:TextField =
 			new TextField(200, 50, "You Win!", "Arial", 28, 0xffffff);
@@ -225,6 +227,7 @@ class Game extends Sprite
 						
 						var button = new MenuButton("Level " + (i+1));
 						button.x = (Starling.current.stage.stageWidth - button.width) / 2 + (10 + button.width) * ((i % 3) - 1);
+						//button.x = Starling.current.stage.stageWidth / 2 + (10 + button.width) * ((i % 4) - 2); Will do this when there are 4 levels per planet, don't for get to change the if statement above (i == y * #)
 						button.y = back.y + 100 + (10 + button.height) * y;
 						if (i > unlocked)
 						{
@@ -259,6 +262,7 @@ class Game extends Sprite
 						
 						var button = new MenuButton("Level " + (i+1));
 						button.x = (Starling.current.stage.stageWidth - button.width) / 2 + (10 + button.width) * ((i % 3) - 1);
+						//button.x = Starling.current.stage.stageWidth / 2 + (10 + button.width) * ((i % 4) - 2); Will do this when there are 4 levels per planet, don't for get to change the if statement above (i == y * #)
 						button.y = back.y + 100 + (10 + button.height) * y;
 						if (i > unlocked)
 						{
@@ -293,6 +297,7 @@ class Game extends Sprite
 						
 						var button = new MenuButton("Level " + (i+1));
 						button.x = (Starling.current.stage.stageWidth - button.width) / 2 + (10 + button.width) * ((i % 3) - 1);
+						//button.x = Starling.current.stage.stageWidth / 2 + (10 + button.width) * ((i % 4) - 2); Will do this when there are 4 levels per planet, don't for get to change the if statement above (i == y * #)
 						button.y = back.y + 100 + (10 + button.height) * y;
 						if (i > unlocked)
 						{
@@ -327,6 +332,7 @@ class Game extends Sprite
 						
 						var button = new MenuButton("Level " + (i+1));
 						button.x = (Starling.current.stage.stageWidth - button.width) / 2 + (10 + button.width) * ((i % 3) - 1);
+						//button.x = Starling.current.stage.stageWidth / 2 + (10 + button.width) * ((i % 4) - 2); Will do this when there are 4 levels per planet, don't for get to change the if statement above (i == y * #)
 						button.y = back.y + 100 + (10 + button.height) * y;
 						if (i > unlocked)
 						{
@@ -354,7 +360,6 @@ class Game extends Sprite
 				{
 					if (Levels.level[i].charAt(0) == 'u')
 					{
-						trace(i);
 						if (i == y * 3)
 						{
 							y++;
@@ -362,6 +367,7 @@ class Game extends Sprite
 						
 						var button = new MenuButton("Level " + (i+1));
 						button.x = (Starling.current.stage.stageWidth - button.width) / 2 + (10 + button.width) * ((i % 3) - 1);
+						//button.x = Starling.current.stage.stageWidth / 2 + (10 + button.width) * ((i % 4) - 2); Will do this when there are 4 levels per planet, don't for get to change the if statement above (i == y * #)
 						button.y = back.y + 100 + (10 + button.height) * y;
 						if (i > unlocked)
 						{
@@ -378,7 +384,7 @@ class Game extends Sprite
 
 			case Level:
 				//reset lives if starting at the first level
-				if (currentLevel == 0) GameMap.reset();
+				//if (currentLevel == 0) GameMap.reset();
 
 				//Level 1 is at array index 0.
 				addChild(new GameMap(Levels.level[currentLevel]));
@@ -416,9 +422,6 @@ class MenuButton extends Button
 	public function new(s:String)
 	{
 		super(Root.assets.getTexture("Button"));
-		
-		scaleX = .75;
-		scaleY = .75;
 		
 		x = Starling.current.stage.stageWidth/2 - width/2;
 		y = Starling.current.stage.stageHeight / 2 - height / 2;

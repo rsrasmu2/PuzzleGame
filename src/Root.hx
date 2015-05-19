@@ -1,3 +1,4 @@
+import flash.display.Stage;
 import starling.display.*;
 import starling.utils.AssetManager;
 import starling.core.Starling;
@@ -38,6 +39,16 @@ class Root extends Sprite {
 		for (i in 0...Levels.level.length) {
 			assets.enqueue("assets/Levels/" + Levels.level[i] + ".txt");
 		}
+		
+		
+		//Check for lost focus of game
+		//this.stage.addEventListener(flash.events.Event.DEACTIVATE, lostFocus);
+		addEventListener(flash.events.Event.DEACTIVATE, lostFocus);
+		
+		
+		
+		
+		
 
 		assets.loadQueue(function onProgress(ratio:Float) {
 
@@ -64,7 +75,7 @@ class Root extends Sprite {
 						startup.removeChild(startup.loadingBitmap);
 						startup.removeChild(startup.crewBitmap);
 
-						game = new Game(this);
+						game = new Game();
 						addChild(game);
 						music = assets.playSound("PuzzleGame");
 						music.soundTransform = new SoundTransform(vol);
@@ -120,5 +131,22 @@ class Root extends Sprite {
 		music.soundTransform = new SoundTransform(vol);
 		if(!music.hasEventListener(flash.events.Event.SOUND_COMPLETE))
 			music.addEventListener(flash.events.Event.SOUND_COMPLETE,loopMusic);
+	}
+	
+	
+	
+	
+	public function lostFocus(e:flash.events.Event)
+	{
+		trace("This is being called");
+		//var st : Starling = new Starling(Root, this);
+		//st.stop();
+		vol = 0;
+		this.stage.addEventListener(flash.events.Event.ACTIVATE, onFocus);
+	}
+	 
+	public function onFocus(e:flash.events.Event)
+	{
+		this.stage.removeEventListener(flash.events.Event.ACTIVATE, onFocus);
 	}
 }

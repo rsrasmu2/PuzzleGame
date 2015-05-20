@@ -16,8 +16,8 @@ import starling.display.Button;
 
 class GameMap extends Sprite {
 	
-	public inline static var SPRITE_WIDTH = 32;
-	public inline static var SPRITE_HEIGHT = 32;
+	public inline static var SPRITE_WIDTH = 64;
+	public inline static var SPRITE_HEIGHT = 64;
 
 	//for player movement event
 	public inline static var MOVE_DONE = "playerMoveFinished";
@@ -302,7 +302,7 @@ class GameMap extends Sprite {
 			removeChildren();
 			removeEventListeners();
 			var gameover:TextField =
-			new TextField(200, 50, "Game Over", "Arial", 28, 0xff0000);
+			new TextField(200, 50, "Game Over", "8bitwonder_0", 28, 0xff0000);
 			gameover.x = Starling.current.stage.stageWidth/2 - gameover.width/2;  // horizontal alignment
 			gameover.y = Starling.current.stage.stageHeight/2 - gameover.height/2;  // vertical alignment
 			Root.game.addChild(gameover);
@@ -326,6 +326,7 @@ class GameMap extends Sprite {
 	//Gets the background image depending on the current level
 	//Needs to be updated with the new level backgrounds
 	private function getBG() {
+		return new Image(Root.assets.getTexture("holder"));
 		return switch (planet) {
 			case 'm':
 				new Image(Root.assets.getTexture("mars_bg"));

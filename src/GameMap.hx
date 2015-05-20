@@ -57,8 +57,8 @@ class GameMap extends Sprite {
 
 		//Center the background
 		bg = getBG();
-		bg.scaleX = 2.2;
-		bg.scaleY = 2.2;
+		bg.scaleX = 2.4;
+		bg.scaleY = 2.4;
 		bg.x = (quad.width/2) - (bg.width / 2);
 		bg.y = (quad.height / 2) - (bg.height / 2);
 		bg.alpha = 0;
@@ -238,6 +238,7 @@ class GameMap extends Sprite {
 		var currentX:Int = player.mapX;
 		var currentY:Int = player.mapY;
 		var distance:Int = 0;
+		Root.game.highscore -= 1;
 
 		/*This could be cleaned up a bit if anyone is bored. Makes sure we're within
 		the map bounds and that the next space isn't an obstacle.*/
@@ -282,7 +283,11 @@ class GameMap extends Sprite {
 					{
 						transition:Transitions.EASE_OUT,
 						alpha : 0, delay : 0, onComplete : function()
-						{Root.game.nextLevel();}
+						{
+							Root.game.highscore = Root.game.highscore + 5 * lives + 100;
+							Root.game.nextLevel();
+							
+						}
 					});
 				}
 			});
@@ -301,15 +306,24 @@ class GameMap extends Sprite {
 			//Game Over
 			removeChildren();
 			removeEventListeners();
-			var gameover:TextField =
-			new TextField(200, 50, "Game Over", "Arial", 28, 0xff0000);
-			gameover.x = Starling.current.stage.stageWidth/2 - gameover.width/2;  // horizontal alignment
-			gameover.y = Starling.current.stage.stageHeight/2 - gameover.height/2;  // vertical alignment
+			var gameover:TextField = new TextField(350, 50, "Game Over", "8bitwonder_0", 35, 0xff0000);
+			gameover.x = (Starling.current.stage.stageWidth - gameover.width) / 2;	// horizontal alignment
+			gameover.y = (Starling.current.stage.stageHeight - gameover.height) / 2;	// vertical alignment
 			Root.game.addChild(gameover);
+			
+			var score:TextField = new TextField(350, 50, "Score: " + Root.game.highscore, "8bitwonder_0", 35, 0xff0000);
+			score.x = gameover.x;	// horizontal alignment
+			score.y = gameover.y + gameover.height + 50;	// vertical alignment
+			Root.game.addChild(score);
+			Root.game.addToHighScores();
+			
 			var timer = new Timer(1000,3);
 			timer.start();
 			timer.addEventListener(TimerEvent.TIMER_COMPLETE, function(e:TimerEvent)
-			{	GameMap.reset(); Root.game.reset(); } );
+			{
+				GameMap.reset();
+				Root.game.reset();
+			});
 		}
 		else {
 			if(lives == 1){

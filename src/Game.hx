@@ -13,6 +13,7 @@ enum GameState
 	Menu;
 	Instructions;
 	Credits;
+	Highscore;
 	LevelSelect;
 	Mars;
 	Jupiter;
@@ -25,6 +26,8 @@ enum GameState
 class Game extends Sprite
 {
 	private var unlocked = 0;
+	public var highscore = 0;
+	private var scores : Array<Int>;
 	private var currentLevel = 1;
 	private var bg:Background;
 
@@ -37,7 +40,9 @@ class Game extends Sprite
 		bg = new Background();
 		addChild(bg);
 		
-		unlocked = LoadUnlocked.load();
+		unlocked = LoadStuff.loadLevel();
+		scores = new Array();
+		loadHighScores();
 
 		//Load the crew sprites
 		crew = new Array();
@@ -64,11 +69,18 @@ class Game extends Sprite
 		++currentLevel;
 		if (currentLevel >= Levels.level.length) {
 			removeChildren(1);
-			var Win:TextField =
-			new TextField(200, 50, "You Win!", "Arial", 28, 0xffffff);
-			Win.x = Starling.current.stage.stageWidth/2 - Win.width/2;  // horizontal alignment
-			Win.y = Starling.current.stage.stageHeight/2 - Win.height/2;  // vertical alignment
-			addChild(Win);
+			var win:TextField = new TextField(350, 50, "You Win!", "8bitwonder_0", 28, 0xffffff);
+			win.x = Starling.current.stage.stageWidth/2 - win.width/2;  // horizontal alignment
+			win.y = Starling.current.stage.stageHeight/2 - win.height/2;  // vertical alignment
+			addChild(win);
+			
+			var score:TextField = new TextField(350, 50, "Score: " + Root.game.highscore, "8bitwonder_0", 35, 0xff0000);
+			score.x = win.x;	// horizontal alignment
+			score.y = win.y + win.height;	// vertical alignment
+			addChild(score);
+			
+			addToHighScores();
+			
 			var timer = new Timer(1000,3);
 			timer.start();
 			timer.addEventListener(TimerEvent.TIMER_COMPLETE, function(e:TimerEvent)
@@ -76,7 +88,7 @@ class Game extends Sprite
 		} else {
 			if (currentLevel > unlocked)
 				unlocked = currentLevel;
-				LoadUnlocked.save(unlocked);
+				LoadStuff.saveLevel(unlocked);
 			setStage(Start);
 		}
 	}
@@ -86,7 +98,7 @@ class Game extends Sprite
 
 	private function setStage(state : GameState)
 	{
-		removeChildren(1);
+		removeChildren();
 
 		switch(state)
 		{
@@ -128,13 +140,24 @@ class Game extends Sprite
 				function(){	setStage(Credits);});
 				addChild(cred);
 				
-				/*
+				var list = new MenuButton("High Scores");
+				list.y = cred.y + 100;
+				list.addEventListener(Event.TRIGGERED,
+				function() { setStage(Highscore); } );
+				addChild(list);
+				
+				
 				var reset = new MenuButton("Reset Save");
-				reset.y = cred.y + 100;
-				reset.addEventListener(Event.TRIGGERED,
-				function() {	LoadUnlocked.reset(); unlocked = currentLevel = 0; } );
+				reset.y = list.y + 100;
+				reset.addEventListener(Event.TRIGGERED, function()
+				{
+					LoadStuff.resetLevel();
+					unlocked = currentLevel = 0;
+					LoadStuff.resetScores();
+					loadHighScores();
+				});
 				addChild(reset);
-				*/
+				
 				
 
 			case Instructions:
@@ -173,15 +196,33 @@ class Game extends Sprite
 				function(){ setStage(Menu);});
 				addChild(back);
 
-				var cred = new MenuText(500,300,"\nTemitope Alaga\nJordan Harris\nNancy McCollough\nCherie Parsons\nRobert Rasmussen");
+				var cred = new MenuText(500,300,"Jordan Harris\nNancy McCollough\nTemitope Alaga\nCherie Parsons\nRobert Rasmussen");
 				cred.fontSize = 20;
 				cred.y = back.y + 75;
 				cred.x = Starling.current.stage.stageWidth/2 - cred.width/2;
 				addChild(cred);
 				
 				
-			case LevelSelect:
+			case Highscore:
+				var title = new MenuText(500,200,"High Scores");
+				title.fontSize = 50;
+				title.y = 0;
+				addChild(title);
 				
+				var back = new MenuButton("Back");
+				back.y = title.y + 200;
+				back.addEventListener(Event.TRIGGERED,
+				function(){ setStage(Menu);});
+				addChild(back);
+				
+				var scores = new MenuText(500,500, getScores());
+				scores.fontSize = 20;
+				scores.y = back.y + 75;
+				scores.x = (Starling.current.stage.stageWidth - scores.width) / 2;
+				addChild(scores);
+				
+				
+			case LevelSelect:
 				var back = new MenuButton("Back");
 				back.y = 50;
 				back.addEventListener(Event.TRIGGERED,
@@ -265,7 +306,7 @@ class Game extends Sprite
 				
 			case Jupiter:
 				
-				var back = new MenuButton("Back");
+				var back = new MenuButton("Planets");
 				back.y = 50;
 				back.addEventListener(Event.TRIGGERED,
 				function(){ setStage(LevelSelect);});
@@ -301,7 +342,7 @@ class Game extends Sprite
 				
 			case Saturn:
 				
-				var back = new MenuButton("Back");
+				var back = new MenuButton("Planets");
 				back.y = 50;
 				back.addEventListener(Event.TRIGGERED,
 				function(){ setStage(LevelSelect);});
@@ -337,7 +378,7 @@ class Game extends Sprite
 				
 			case Neptune:
 				
-				var back = new MenuButton("Back");
+				var back = new MenuButton("Planets");
 				back.y = 50;
 				back.addEventListener(Event.TRIGGERED,
 				function(){ setStage(LevelSelect);});
@@ -373,7 +414,7 @@ class Game extends Sprite
 				
 			case Uranus:
 				
-				var back = new MenuButton("Back");
+				var back = new MenuButton("Planets");
 				back.y = 50;
 				back.addEventListener(Event.TRIGGERED,
 				function(){ setStage(LevelSelect);});
@@ -418,6 +459,51 @@ class Game extends Sprite
 	//Used to get the crew in the GameMap class
 	public function getCrew(?i:Int) : Dynamic{
 		return i == null ? crew : crew[i];
+	}
+	
+	public function getScores() : String
+	{
+		loadHighScores();
+		
+		var string = "";
+		for (i in 0...scores.length)
+		{
+			string = string + Std.string(scores[i]) + "\n";
+		}
+		return string;
+	}
+	
+	public function loadHighScores()
+	{
+		var temp = LoadStuff.loadScores();
+		if (temp == null)
+		{
+			scores = [for (i in 0...10) 0];
+		}
+		else
+		{
+			scores = temp;
+		}
+	}
+	
+	public function addToHighScores()
+	{
+		if (highscore > scores[scores.length - 1])
+		{
+			scores[scores.length] = highscore;
+			var outer = scores.length - 2;
+			while (outer > -1)
+			{
+				if (scores[outer + 1] > scores[outer])
+				{
+					var temp = scores[outer];
+					scores[outer] = scores[outer + 1];
+					scores[outer + 1] = temp;
+				}
+				outer--;
+			}
+			LoadStuff.saveScores(scores);
+		}
 	}
 }
 

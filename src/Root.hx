@@ -83,7 +83,6 @@ class Root extends Sprite {
 						music.soundTransform = new SoundTransform(vol);
 						music.addEventListener(flash.events.Event.SOUND_COMPLETE, loopMusic);
 						
-						
 						var dec = new Button(Root.assets.getTexture("Button"));
 						dec.scaleX = dec.scaleY = 0.5;
 						dec.color = 0x222222;

@@ -46,7 +46,7 @@ class Player extends Sprite {
 			x: getWorldX(),
 			y: getWorldY(),
 			onComplete: function() {
-				parent.dispatchEvent(new Event(GameMap.MOVE_DONE));
+				parent.dispatchEvent(new Event(GameMap.MOVE_DONE, true));
 				movable = true;
 			}
 		});

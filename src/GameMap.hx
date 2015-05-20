@@ -33,6 +33,7 @@ class GameMap extends Sprite {
 	private var spaceship : Sprite;
 
 	private var bg : Image;
+	private var grid : Sprite;
 	private var planet:String;
 
 	public function new(s:String) {
@@ -52,15 +53,16 @@ class GameMap extends Sprite {
 		mapArr = map;
 
 		var quad = new Quad(mapArr[0].length * SPRITE_WIDTH, mapArr.length * SPRITE_HEIGHT);
-		x = Starling.current.stage.stageWidth / 2 - (quad.width / 2);
-		y = Starling.current.stage.stageHeight / 2 - (quad.height / 2);
+		x = Starling.current.stage.stageWidth / 2;
+		y = Starling.current.stage.stageHeight / 2;
 
 		//Center the background
 		bg = getBG();
-		bg.scaleX = 2.4;
-		bg.scaleY = 2.4;
-		bg.x = (quad.width/2) - (bg.width / 2);
-		bg.y = (quad.height / 2) - (bg.height / 2);
+		bg.scaleX = bg.scaleY = 2.4;
+		//bg.x = (quad.width/2) - (bg.width / 2);
+		//bg.y = (quad.height / 2) - (bg.height / 2);
+		bg.x = -bg.width / 2;
+		bg.y = -bg.height / 2;
 		bg.alpha = 0;
 		bg.addEventListener(Event.ADDED, function()
 		{
@@ -79,27 +81,34 @@ class GameMap extends Sprite {
 		spaceship.y = -150;
 		addChild(spaceship);
 
+		grid = new Sprite();
+		grid.scaleX = 1.2;
+		grid.scaleY = 1.2;
+		grid.x = -quad.width / 2 * grid.scaleX;
+		grid.y = -quad.height / 2 * grid.scaleY;
+		addChild(grid);
+		
 		Starling.juggler.tween(spaceship, 2, { transition: Transitions.EASE_OUT,
-			x: -50,
-			y: -85,
+			x: -(quad.width / 2) * grid.scaleX + 60, //TO-DO
+			y: -(quad.height / 2) * grid.scaleY - 100,
 			onComplete: function() {
 				//generate grid
 				var h = 0; var w = 0;
 				while(h <= mapArr.length * SPRITE_HEIGHT)//horizontal lines
 				{
-					var line = new Quad(quad.width,2.5);
+					var line = new Quad(quad.width, 2.5);
 					line.y = h;
 					h += SPRITE_HEIGHT;
 					line.color = 0;
-					addChild(line);
+					grid.addChild(line);
 				}
 				while(w <= mapArr[0].length * SPRITE_WIDTH)//vertical lines
 				{
-					var line = new Quad(2.5,quad.height);
+					var line = new Quad(2.5, quad.height);
 					line.x = w;
 					w += SPRITE_WIDTH;
 					line.color = 0;
-					addChild(line);
+					grid.addChild(line);
 				}
 
 				generateSprites();
@@ -191,7 +200,7 @@ class GameMap extends Sprite {
 		} else {
 			trace("Error: mapArr dimensions must be greater than 0");
 		}
-		addChild(player); //Added at the end so it moves on top of everything else;
+		grid.addChild(player); //Added at the end so it moves on top of everything else;
 	}
 
 	private function createPlayer(x:Int, y:Int) {
@@ -200,11 +209,11 @@ class GameMap extends Sprite {
 	}
 
 	private function createObstacle(x:Int, y:Int) {
-		addChild(new Obstacle(x, y, planet));
+		grid.addChild(new Obstacle(x, y, planet));
 	}
 
 	private function createFinish(x:Int, y:Int) {
-		addChild(new Finish(x, y));
+		grid.addChild(new Finish(x, y));
 	}
 
 	private function checkInput(e:KeyboardEvent) {
@@ -259,15 +268,9 @@ class GameMap extends Sprite {
 				break;
 			}
 		}
-
-		if (flag)
-		{
-				player.moveTo(currentX, currentY, distance);
-		}
-		else
-		{
-			player.moveTo(currentX, currentY, distance);
-		}
+		
+		player.moveTo(currentX, currentY, distance);
+		
 	}
 
 	private function onPlayerMoveFinished(e:Event) {
@@ -340,6 +343,7 @@ class GameMap extends Sprite {
 	//Gets the background image depending on the current level
 	//Needs to be updated with the new level backgrounds
 	private function getBG() {
+		//return new Image(Root.assets.getTexture("holder"));
 		return switch (planet) {
 			case 'm':
 				new Image(Root.assets.getTexture("mars_bg"));

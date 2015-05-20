@@ -35,6 +35,7 @@ class Root extends Sprite {
 		assets.enqueue("assets/Lose.mp3");
 		assets.enqueue("assets/Win.mp3");
 		assets.enqueue("assets/transButton.png");
+		assets.enqueue("assets/holder.png");
 		assets.enqueue("assets/unlocked.txt");
 
 		//Load the level assets

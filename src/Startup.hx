@@ -29,7 +29,7 @@ class Startup extends Sprite {
 		loadingBitmap.smoothing = true;
 		addChild(loadingBitmap);	//To display on scene
 
-		crewBitmap = new Bitmap(new CrewBitmapData(300, 112));
+		crewBitmap = new Bitmap(new CrewBitmapData(500, 187));
 		crewBitmap.x = (Lib.current.stage.stageWidth/2) - crewBitmap.width/2;
 		crewBitmap.y = (Lib.current.stage.stageHeight/2) - crewBitmap.height/2 + 100;
 		addChild(crewBitmap);

@@ -248,6 +248,7 @@ class GameMap extends Sprite {
 		var currentY:Int = player.mapY;
 		var distance:Int = 0;
 		Root.game.highscore -= 1;
+		var check = false;
 
 		/*This could be cleaned up a bit if anyone is bored. Makes sure we're within
 		the map bounds and that the next space isn't an obstacle.*/
@@ -258,27 +259,31 @@ class GameMap extends Sprite {
 			++distance;
 
 			//We've hit the goal!
-			if (mapArr[currentY][currentX] == 3) {
+			if (mapArr[currentY][currentX] == 3)
+			{
+				check = true;
 				break;
 			}
 
 			//We've hit an edge!
-			if (currentX + dirX < 0 || currentY + dirY < 0 || currentX + dirX == mapArr[currentY].length || currentY + dirY == mapArr.length) {
+			if (currentX + dirX < 0 || currentY + dirY < 0 || currentX + dirX == mapArr[currentY].length || currentY + dirY == mapArr.length)
+			{
 				flag = true;
 				break;
 			}
 		}
 		
-		player.moveTo(currentX, currentY, distance);
+		player.moveTo(currentX, currentY, distance, check);
 		
 	}
 
 	private function onPlayerMoveFinished(e:Event) {
-		if (mapArr[player.mapY][player.mapX] == 3) {
+		if (mapArr[player.mapY][player.mapX] == 3)
+		{
 			Root.assets.playSound("Win");
 			Starling.juggler.tween(spaceship, 2, { transition: Transitions.EASE_IN,
-				x: -spaceship.width * 3,	//a little buffer space
-				y: -150,
+				x: -spaceship.width * 5,	//a little buffer space
+				y: -250,
 				onComplete: function()
 				{
 					removeChildren(1);
@@ -289,7 +294,6 @@ class GameMap extends Sprite {
 						{
 							Root.game.highscore = Root.game.highscore + 5 * lives + 100;
 							Root.game.nextLevel();
-							
 						}
 					});
 				}

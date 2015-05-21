@@ -7,6 +7,7 @@ import starling.animation.Transitions;
 import starling.animation.Tween;
 import flash.utils.Timer;
 import flash.events.TimerEvent;
+import flash.media.*;
 
 enum GameState
 {
@@ -25,11 +26,14 @@ enum GameState
 
 class Game extends Sprite
 {
-	private var unlocked = 0;
+	public var unlocked = 0;
 	public var highscore = 0;
 	private var scores : Array<Int>;
-	private var currentLevel = 1;
+	public var currentLevel = 1;
 	private var bg:Background;
+	
+	private var music:SoundChannel;
+	private var vol:Float;
 
 	//Hold the images of the crew members
 	private var crew : Array<Image>;
@@ -57,8 +61,12 @@ class Game extends Sprite
 			crew[i].x = i * 20 + 50;
 			crew[i].y = 35;
 		}
-		
-		
+	
+
+		vol = .5;
+		music = Root.assets.playSound("PuzzleGame");
+		music.soundTransform = new SoundTransform(vol);
+		music.addEventListener(flash.events.Event.SOUND_COMPLETE, loopMusic);
 		
 		//based on game state
 		setStage(Menu);
@@ -94,7 +102,10 @@ class Game extends Sprite
 	}
 
 	public function reset()
-	{	setStage(Menu);}
+	{
+		highscore = 0;
+		setStage(Menu);
+	}
 
 	private function setStage(state : GameState)
 	{
@@ -145,19 +156,6 @@ class Game extends Sprite
 				list.addEventListener(Event.TRIGGERED,
 				function() { setStage(Highscore); } );
 				addChild(list);
-				
-				
-				var reset = new MenuButton("Reset Save");
-				reset.y = list.y + 100;
-				reset.addEventListener(Event.TRIGGERED, function()
-				{
-					LoadStuff.resetLevel();
-					unlocked = currentLevel = 0;
-					LoadStuff.resetScores();
-					loadHighScores();
-				});
-				addChild(reset);
-				
 				
 
 			case Instructions:
@@ -504,6 +502,35 @@ class Game extends Sprite
 			}
 			LoadStuff.saveScores(scores);
 		}
+	}
+	
+	
+	public function incVol()
+	{
+		if (vol < 1)
+		{
+			vol += 0.1;
+			music.soundTransform = new SoundTransform(vol);
+		}
+	}
+	public function decVol()
+	{
+		if(vol > 0)
+		{
+			vol -= 0.1;
+			if (vol < 0) {
+				vol = 0;
+			}
+			music.soundTransform = new SoundTransform(vol);
+		}
+	}
+
+	private function loopMusic(e:flash.events.Event)
+	{
+		music = Root.assets.playSound("PuzzleGame");
+		music.soundTransform = new SoundTransform(vol);
+		if(!music.hasEventListener(flash.events.Event.SOUND_COMPLETE))
+			music.addEventListener(flash.events.Event.SOUND_COMPLETE,loopMusic);
 	}
 }
 

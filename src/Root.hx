@@ -12,17 +12,9 @@ class Root extends Sprite {
 	public static var assets:AssetManager;
 
 	public static var game:Game;
-	private var music:SoundChannel;
-	private var vol:Float;
-	
-	public var down : Button;
-	public var up : Button;
-	public var left : Button;
-	public var right : Button;
 
 	public function new() {
 		super();
-		vol = 0.5;
 	}
 
 	public function start(startup:Startup) {
@@ -37,6 +29,9 @@ class Root extends Sprite {
 		assets.enqueue("assets/transButton.png");
 		assets.enqueue("assets/holder.png");
 		assets.enqueue("assets/unlocked.txt");
+		
+		assets.enqueue("assets/options_bg.png");
+		assets.enqueue("assets/options_menu.png");
 
 		//Load the level assets
 		for (i in 0...Levels.level.length) {
@@ -80,10 +75,19 @@ class Root extends Sprite {
 
 						game = new Game();
 						addChild(game);
-						music = assets.playSound("PuzzleGame");
-						music.soundTransform = new SoundTransform(vol);
-						music.addEventListener(flash.events.Event.SOUND_COMPLETE, loopMusic);
 						
+						var options = new Button(Root.assets.getTexture("Button"), "Options");
+						options.scaleX = options.scaleY = .5;
+						options.fontName = "8bitwonder_0";
+						options.x = Starling.current.stage.stageWidth - options.width;
+						options.fontSize = 24;
+						options.addEventListener(Event.TRIGGERED, function(e:Event)
+						{
+							game.addChild(new Options());
+						});		
+						addChild(options);
+						
+						/*
 						var dec = new Button(Root.assets.getTexture("Button"));
 						dec.scaleX = dec.scaleY = 0.5;
 						dec.color = 0x222222;
@@ -121,18 +125,11 @@ class Root extends Sprite {
 							//trace("Volume: " + music.soundTransform.volume);
 						});
 						addChild(inc);addChild(dec);
+						*/
 					}
 				});
 			}
 		});
-	}
-
-	private function loopMusic(e:flash.events.Event)
-	{
-		music = assets.playSound("PuzzleGame");
-		music.soundTransform = new SoundTransform(vol);
-		if(!music.hasEventListener(flash.events.Event.SOUND_COMPLETE))
-			music.addEventListener(flash.events.Event.SOUND_COMPLETE,loopMusic);
 	}
 	
 	
@@ -143,7 +140,6 @@ class Root extends Sprite {
 		trace("This is being called");
 		//var st : Starling = new Starling(Root, this);
 		//st.stop();
-		vol = 0;
 		this.stage.addEventListener(flash.events.Event.ACTIVATE, onFocus);
 	}
 	 

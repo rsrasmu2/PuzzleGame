@@ -24,7 +24,7 @@ SOURCES=src/*.hx assets/*
 
 SIGN_CERT=sign.pfx
 
-SIGN_PWD=yourmom2
+SIGN_PWD=abc123
 
 SWF_VERSION=11.8
 

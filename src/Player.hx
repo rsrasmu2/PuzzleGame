@@ -34,7 +34,7 @@ class Player extends Sprite {
 		y = getWorldY();
 	}
 
-	public function moveTo(mapX:Int, mapY:Int, distance:Int) {
+	public function moveTo(mapX:Int, mapY:Int, distance:Int, flag:Bool) {
 		if(distance == 0) {return;}
 
 		this.mapX = mapX;
@@ -47,7 +47,10 @@ class Player extends Sprite {
 			y: getWorldY(),
 			onComplete: function() {
 				parent.dispatchEvent(new Event(GameMap.MOVE_DONE, true));
-				movable = true;
+				if (!flag)
+				{
+					movable = true;
+				}
 			}
 		});
 	}

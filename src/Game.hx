@@ -19,8 +19,8 @@ enum GameState
 	Mars;
 	Jupiter;
 	Saturn;
-	Neptune;
 	Uranus;
+	Neptune;
 	Start;
 }
 
@@ -251,24 +251,24 @@ class Game extends Sprite
 				function(){ setStage(Saturn);});
 				addChild(saturn);
 				
-				var neptune = new MenuButton("Neptune");
-				neptune.x = (Starling.current.stage.stageWidth) / 2 - neptune.width - 2.5;
-				neptune.y = (Starling.current.stage.stageHeight + neptune.height) / 2 + 5;
-				neptune.addEventListener(Event.TRIGGERED,
-				function(){ setStage(Neptune);});
-				addChild(neptune);
-				
 				var uranus = new MenuButton("Uranus");
-				uranus.x = (Starling.current.stage.stageWidth) / 2 + 2.5;
+				uranus.x = (Starling.current.stage.stageWidth) / 2 - uranus.width - 2.5;
 				uranus.y = (Starling.current.stage.stageHeight + uranus.height) / 2 + 5;
 				uranus.addEventListener(Event.TRIGGERED,
 				function(){ setStage(Uranus);});
 				addChild(uranus);
 				
+				var neptune = new MenuButton("Neptune");
+				neptune.x = (Starling.current.stage.stageWidth) / 2 + 2.5;
+				neptune.y = (Starling.current.stage.stageHeight + neptune.height) / 2 + 5;
+				neptune.addEventListener(Event.TRIGGERED,
+				function(){ setStage(Neptune);});
+				addChild(neptune);
+				
 				
 			case Mars:
 				
-				var back = new MenuButton("Planets");
+				var back = new MenuButton("Back");
 				back.y = 50;
 				back.addEventListener(Event.TRIGGERED,
 				function(){ setStage(LevelSelect);});
@@ -304,7 +304,7 @@ class Game extends Sprite
 				
 			case Jupiter:
 				
-				var back = new MenuButton("Planets");
+				var back = new MenuButton("Back");
 				back.y = 50;
 				back.addEventListener(Event.TRIGGERED,
 				function(){ setStage(LevelSelect);});
@@ -340,7 +340,7 @@ class Game extends Sprite
 				
 			case Saturn:
 				
-				var back = new MenuButton("Planets");
+				var back = new MenuButton("Back");
 				back.y = 50;
 				back.addEventListener(Event.TRIGGERED,
 				function(){ setStage(LevelSelect);});
@@ -374,9 +374,45 @@ class Game extends Sprite
 					}
 				}
 				
+			case Uranus:
+				
+				var back = new MenuButton("Back");
+				back.y = 50;
+				back.addEventListener(Event.TRIGGERED,
+				function(){ setStage(LevelSelect);});
+				addChild(back);
+				
+				var y = 1;
+				for (i in 0...Levels.level.length)
+				{
+					if (Levels.level[i].charAt(0) == 'u')
+					{
+						if (i == y * 3)
+						{
+							y++;
+						}
+						
+						var button = new MenuButton("Level " + (i+1));
+						button.x = (Starling.current.stage.stageWidth - button.width) / 2 + (10 + button.width) * ((i % 3) - 1);
+						//button.x = Starling.current.stage.stageWidth / 2 + (10 + button.width) * ((i % 4) - 2); Will do this when there are 4 levels per planet, don't for get to change the if statement above (i == y * #)
+						button.y = back.y + 100 + (10 + button.height) * y;
+						if (i > unlocked)
+						{
+							button.text = "Locked";
+							button.fontColor = 0xff0000;
+						}
+						else
+						{
+							button.addEventListener(Event.TRIGGERED,
+							function() { currentLevel = i; setStage(Start); } );
+						}
+						addChild(button);
+					}
+				}
+				
 			case Neptune:
 				
-				var back = new MenuButton("Planets");
+				var back = new MenuButton("Back");
 				back.y = 50;
 				back.addEventListener(Event.TRIGGERED,
 				function(){ setStage(LevelSelect);});
@@ -410,42 +446,6 @@ class Game extends Sprite
 					}
 				}
 				
-			case Uranus:
-				
-				var back = new MenuButton("Planets");
-				back.y = 50;
-				back.addEventListener(Event.TRIGGERED,
-				function(){ setStage(LevelSelect);});
-				addChild(back);
-				
-				var y = 1;
-				for (i in 0...Levels.level.length)
-				{
-					if (Levels.level[i].charAt(0) == 'u')
-					{
-						if (i == y * 3)
-						{
-							y++;
-						}
-						
-						var button = new MenuButton("Level " + (i+1));
-						button.x = (Starling.current.stage.stageWidth - button.width) / 2 + (10 + button.width) * ((i % 3) - 1);
-						//button.x = Starling.current.stage.stageWidth / 2 + (10 + button.width) * ((i % 4) - 2); Will do this when there are 4 levels per planet, don't for get to change the if statement above (i == y * #)
-						button.y = back.y + 100 + (10 + button.height) * y;
-						if (i > unlocked)
-						{
-							button.text = "Locked";
-							button.fontColor = 0xff0000;
-						}
-						else
-						{
-							button.addEventListener(Event.TRIGGERED,
-							function() { currentLevel = i; setStage(Start); } );
-						}
-						addChild(button);
-					}
-				}
-
 			case Start:
 				//reset lives if starting at the first level
 				//if (currentLevel == 0) GameMap.reset();

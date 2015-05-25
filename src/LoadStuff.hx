@@ -17,6 +17,16 @@ class LoadStuff
 		return so.data.itemNumbers;
 	}
 	
+	public static function loadVol()
+	{
+		var so = SharedObject.getLocal("volume");
+		
+		return so.data.volume;
+	}
+	
+	//Save Stuff
+	
+	
 	public static function saveLevel(stuff : Int)
 	{
 		var string = Std.string(stuff);
@@ -37,7 +47,6 @@ class LoadStuff
 	
 	public static function saveScores(items : Array<Int>)
 	{
-		
 		var so = SharedObject.getLocal("scores");
 		
 		so.data.itemNumbers = items;
@@ -50,7 +59,22 @@ class LoadStuff
 		{
 			trace("Failed");
 		}
+	}
+	
+	public static function saveVol(vol : Float)
+	{
+		var so = SharedObject.getLocal("volume");
 		
+		so.data.volume = vol;
+		
+		try
+		{
+			so.flush();
+		}
+		catch (e:Dynamic)
+		{
+			trace("Failed");
+		}
 	}
 	
 	//Reset the unlocked levels

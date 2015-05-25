@@ -1,4 +1,3 @@
-import flash.display.Stage;
 import starling.display.*;
 import starling.utils.AssetManager;
 import starling.core.Starling;
@@ -40,8 +39,7 @@ class Root extends Sprite {
 		
 		
 		//Check for lost focus of game
-		//this.stage.addEventListener(flash.events.Event.DEACTIVATE, lostFocus);
-		addEventListener(flash.events.Event.DEACTIVATE, lostFocus);
+		flash.Lib.current.stage.addEventListener(flash.events.Event.DEACTIVATE, lostFocus);
 		
 		
 		
@@ -79,53 +77,14 @@ class Root extends Sprite {
 						var options = new Button(Root.assets.getTexture("Button"), "Options");
 						options.scaleX = options.scaleY = .5;
 						options.fontName = "8bitwonder_0";
-						options.x = Starling.current.stage.stageWidth - options.width;
+						options.x = Starling.current.stage.stageWidth - options.width - 5;
+						options.y = 5;
 						options.fontSize = 24;
 						options.addEventListener(Event.TRIGGERED, function(e:Event)
 						{
 							game.addChild(new Options());
 						});		
 						addChild(options);
-						
-						/*
-						var dec = new Button(Root.assets.getTexture("Button"));
-						dec.scaleX = dec.scaleY = 0.5;
-						dec.color = 0x222222;
-						dec.text = "v";
-						dec.fontColor = 0xffff00;
-						dec.fontSize = 30;
-						dec.x = Starling.current.stage.stageWidth - dec.width;
-						dec.y = dec.height;
-						dec.addEventListener(Event.TRIGGERED, function(e:Event)
-						{
-							if(vol > 0)
-							{
-								vol -= 0.1;
-								if (vol < 0) {
-									vol = 0;
-								}
-								music.soundTransform = new SoundTransform(vol);
-							}
-							//trace("Volume: " + music.soundTransform.volume);
-						});						
-						
-						var inc = new Button(Root.assets.getTexture("Button"));
-						inc.scaleX = inc.scaleY = 0.5;
-						inc.color = 0x222222;
-						inc.text = "^";
-						inc.fontColor = 0xffff00;
-						inc.fontSize = 30;
-						inc.x = Starling.current.stage.stageWidth - dec.width;
-						inc.addEventListener(Event.TRIGGERED, function(e:Event)
-						{
-							if (vol < 1) {
-								vol += 0.1;
-								music.soundTransform = new SoundTransform(vol);
-							}
-							//trace("Volume: " + music.soundTransform.volume);
-						});
-						addChild(inc);addChild(dec);
-						*/
 					}
 				});
 			}
@@ -135,16 +94,20 @@ class Root extends Sprite {
 	
 	
 	
-	public function lostFocus(e:flash.events.Event)
+	private function lostFocus(e:flash.events.Event)
 	{
-		trace("This is being called");
-		//var st : Starling = new Starling(Root, this);
+		game.setVol(0);
+		flash.Lib.current.stage.addEventListener(flash.events.Event.ACTIVATE, onFocus);
+		flash.Lib.current.stage.frameRate = 0;
+		
+		//var st : Starling = new Starling(Root, new flash.display.Stage());
 		//st.stop();
-		this.stage.addEventListener(flash.events.Event.ACTIVATE, onFocus);
 	}
 	 
-	public function onFocus(e:flash.events.Event)
+	private function onFocus(e:flash.events.Event)
 	{
-		this.stage.removeEventListener(flash.events.Event.ACTIVATE, onFocus);
+		flash.Lib.current.stage.frameRate = 60;
+		game.setVol(LoadStuff.loadVol());
+		flash.Lib.current.stage.removeEventListener(flash.events.Event.ACTIVATE, onFocus);
 	}
 }

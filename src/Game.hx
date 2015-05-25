@@ -63,7 +63,12 @@ class Game extends Sprite
 		}
 	
 
-		vol = .5;
+		vol = LoadStuff.loadVol();
+		if (Math.isNaN(vol))
+		{
+			vol = .5;
+			LoadStuff.saveVol(vol);
+		}
 		music = Root.assets.playSound("PuzzleGame");
 		music.soundTransform = new SoundTransform(vol);
 		music.addEventListener(flash.events.Event.SOUND_COMPLETE, loopMusic);
@@ -109,7 +114,7 @@ class Game extends Sprite
 
 	private function setStage(state : GameState)
 	{
-		removeChildren();
+		removeChildren(1);
 
 		switch(state)
 		{
@@ -275,18 +280,21 @@ class Game extends Sprite
 				addChild(back);
 				
 				var y = 1;
+				var base = (Starling.current.stage.stageWidth - back.width) / 2 - back.width;
+				var x = 0;
 				for (i in 0...Levels.level.length)
 				{
 					if (Levels.level[i].charAt(0) == 'm')
 					{
-						if (i == y * 3)
+						if (x == 3)
 						{
 							y++;
+							x = 0;
 						}
 						
-						var button = new MenuButton("Level " + (i+1));
-						button.x = (Starling.current.stage.stageWidth - button.width) / 2 + (10 + button.width) * ((i % 3) - 1);
-						//button.x = Starling.current.stage.stageWidth / 2 + (10 + button.width) * ((i % 4) - 2); Will do this when there are 4 levels per planet, don't for get to change the if statement above (i == y * #)
+						var button = new MenuButton("Level " + (i + 1));
+						button.x = base + (10 + button.width) * x;
+						x++;
 						button.y = back.y + 100 + (10 + button.height) * y;
 						if (i > unlocked)
 						{
@@ -311,18 +319,21 @@ class Game extends Sprite
 				addChild(back);
 				
 				var y = 1;
+				var base = (Starling.current.stage.stageWidth - back.width) / 2 - back.width;
+				var x = 0;
 				for (i in 0...Levels.level.length)
 				{
 					if (Levels.level[i].charAt(0) == 'j')
 					{
-						if (i == y * 3)
+						if (x == 3)
 						{
 							y++;
+							x = 0;
 						}
 						
-						var button = new MenuButton("Level " + (i+1));
-						button.x = (Starling.current.stage.stageWidth - button.width) / 2 + (10 + button.width) * ((i % 3) - 1);
-						//button.x = Starling.current.stage.stageWidth / 2 + (10 + button.width) * ((i % 4) - 2); Will do this when there are 4 levels per planet, don't for get to change the if statement above (i == y * #)
+						var button = new MenuButton("Level " + (i + 1));
+						button.x = base + (10 + button.width) * x;
+						x++;
 						button.y = back.y + 100 + (10 + button.height) * y;
 						if (i > unlocked)
 						{
@@ -347,18 +358,21 @@ class Game extends Sprite
 				addChild(back);
 				
 				var y = 1;
+				var base = (Starling.current.stage.stageWidth - back.width) / 2 - back.width;
+				var x = 0;
 				for (i in 0...Levels.level.length)
 				{
 					if (Levels.level[i].charAt(0) == 's')
 					{
-						if (i == y * 3)
+						if (x == 3)
 						{
 							y++;
+							x = 0;
 						}
 						
-						var button = new MenuButton("Level " + (i+1));
-						button.x = (Starling.current.stage.stageWidth - button.width) / 2 + (10 + button.width) * ((i % 3) - 1);
-						//button.x = Starling.current.stage.stageWidth / 2 + (10 + button.width) * ((i % 4) - 2); Will do this when there are 4 levels per planet, don't for get to change the if statement above (i == y * #)
+						var button = new MenuButton("Level " + (i + 1));
+						button.x = base + (10 + button.width) * x;
+						x++;
 						button.y = back.y + 100 + (10 + button.height) * y;
 						if (i > unlocked)
 						{
@@ -383,18 +397,21 @@ class Game extends Sprite
 				addChild(back);
 				
 				var y = 1;
+				var base = (Starling.current.stage.stageWidth - back.width) / 2 - back.width;
+				var x = 0;
 				for (i in 0...Levels.level.length)
 				{
 					if (Levels.level[i].charAt(0) == 'u')
 					{
-						if (i == y * 3)
+						if (x == 3)
 						{
 							y++;
+							x = 0;
 						}
 						
-						var button = new MenuButton("Level " + (i+1));
-						button.x = (Starling.current.stage.stageWidth - button.width) / 2 + (10 + button.width) * ((i % 3) - 1);
-						//button.x = Starling.current.stage.stageWidth / 2 + (10 + button.width) * ((i % 4) - 2); Will do this when there are 4 levels per planet, don't for get to change the if statement above (i == y * #)
+						var button = new MenuButton("Level " + (i + 1));
+						button.x = base + (10 + button.width) * x;
+						x++;
 						button.y = back.y + 100 + (10 + button.height) * y;
 						if (i > unlocked)
 						{
@@ -419,18 +436,21 @@ class Game extends Sprite
 				addChild(back);
 				
 				var y = 1;
+				var base = (Starling.current.stage.stageWidth - back.width) / 2 - back.width;
+				var x = 0;
 				for (i in 0...Levels.level.length)
 				{
 					if (Levels.level[i].charAt(0) == 'n')
 					{
-						if (i == y * 3)
+						if (x == 3)
 						{
 							y++;
+							x = 0;
 						}
 						
-						var button = new MenuButton("Level " + (i+1));
-						button.x = (Starling.current.stage.stageWidth - button.width) / 2 + (10 + button.width) * ((i % 3) - 1);
-						//button.x = Starling.current.stage.stageWidth / 2 + (10 + button.width) * ((i % 4) - 2); Will do this when there are 4 levels per planet, don't for get to change the if statement above (i == y * #)
+						var button = new MenuButton("Level " + (i + 1));
+						button.x = base + (10 + button.width) * x;
+						x++;
 						button.y = back.y + 100 + (10 + button.height) * y;
 						if (i > unlocked)
 						{
@@ -500,6 +520,10 @@ class Game extends Sprite
 				}
 				outer--;
 			}
+			while (scores.length > 10)
+			{
+				scores.pop();
+			}
 			LoadStuff.saveScores(scores);
 		}
 	}
@@ -510,6 +534,7 @@ class Game extends Sprite
 		if (vol < 1)
 		{
 			vol += 0.1;
+			LoadStuff.saveVol(vol);
 			music.soundTransform = new SoundTransform(vol);
 		}
 	}
@@ -521,8 +546,25 @@ class Game extends Sprite
 			if (vol < 0) {
 				vol = 0;
 			}
+			LoadStuff.saveVol(vol);
 			music.soundTransform = new SoundTransform(vol);
 		}
+	}
+	public function setVol(newVol : Float)
+	{
+		if (newVol > 1)
+			vol = 1;
+		else if (newVol < 0)
+			vol = 0;
+		else
+			vol = newVol;
+			
+		music.soundTransform = new SoundTransform(vol);
+	}
+	
+	public function getVol()
+	{
+		return vol;
 	}
 
 	private function loopMusic(e:flash.events.Event)

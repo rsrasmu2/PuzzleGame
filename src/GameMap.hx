@@ -122,7 +122,7 @@ class GameMap extends Sprite {
 				//Button Movements
 				var down = new Button(Root.assets.getTexture("transButton"));
 				down.scaleX = Starling.current.stage.stageWidth;
-				down.scaleY = 6;
+				down.scaleY = 8;
 				down.x = (Starling.current.stage.stageWidth - down.width) / 2 - this.x;
 				down.y = Starling.current.stage.stageHeight - down.height - this.y;
 				down.addEventListener(Event.TRIGGERED, function()
@@ -137,7 +137,7 @@ class GameMap extends Sprite {
 				
 				var up = new Button(Root.assets.getTexture("transButton"));
 				up.scaleX = Starling.current.stage.stageWidth;
-				up.scaleY = 6;
+				up.scaleY = 8;
 				up.x = (Starling.current.stage.stageWidth - up.width) / 2 - this.x;
 				up.y = 0 - this.y;
 				up.addEventListener(Event.TRIGGERED, function()
@@ -151,7 +151,7 @@ class GameMap extends Sprite {
 				addChild(up);
 				
 				var left = new Button(Root.assets.getTexture("transButton"));
-				left.scaleX = 6;
+				left.scaleX = 10;
 				left.scaleY = Starling.current.stage.stageHeight;
 				left.x = 0 - this.x;
 				left.y = (Starling.current.stage.stageHeight - left.height) / 2 - this.y;
@@ -166,7 +166,7 @@ class GameMap extends Sprite {
 				addChild(left);
 				
 				var right = new Button(Root.assets.getTexture("transButton"));
-				right.scaleX = 6;
+				right.scaleX = 10;
 				right.scaleY = Starling.current.stage.stageHeight;
 				right.x = Starling.current.stage.stageWidth - right.width - this.x;
 				right.y = (Starling.current.stage.stageHeight - right.height) / 2 - this.y;
@@ -280,7 +280,7 @@ class GameMap extends Sprite {
 	private function onPlayerMoveFinished(e:Event) {
 		if (mapArr[player.mapY][player.mapX] == 3)
 		{
-			Root.assets.playSound("Win");
+			Root.assets.playSound("Win").soundTransform = new SoundTransform(Root.game.getVol() * 2);
 			Starling.juggler.tween(spaceship, 2, { transition: Transitions.EASE_IN,
 				x: -spaceship.width * 5,	//a little buffer space
 				y: -250,

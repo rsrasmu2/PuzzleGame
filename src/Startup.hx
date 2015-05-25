@@ -20,6 +20,8 @@ class Startup extends Sprite {
 	function new() {
 		super();
 		startup = this;
+		
+		Starling.handleLostContext = true;
 
 		loadingBitmap = new Bitmap(new LoadingBitmapData(0, 0));
 		loadingBitmap.x = 0;

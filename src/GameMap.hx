@@ -308,7 +308,7 @@ class GameMap extends Sprite {
 	private function loseLife(){
 		player.restart();
 		--lives;
-		Root.assets.playSound("Lose");
+		Root.assets.playSound("Lose").soundTransform = new SoundTransform(Root.game.getVol() * 2);
 		if (lives == 0) {
 			//Game Over
 			removeChildren();

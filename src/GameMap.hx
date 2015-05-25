@@ -58,7 +58,7 @@ class GameMap extends Sprite {
 
 		//Center the background
 		bg = getBG();
-		bg.scaleX = bg.scaleY = 2.4;
+		//bg.scaleX = bg.scaleY = 2.4;
 		//bg.x = (quad.width/2) - (bg.width / 2);
 		//bg.y = (quad.height / 2) - (bg.height / 2);
 		bg.x = -bg.width / 2;
@@ -82,8 +82,8 @@ class GameMap extends Sprite {
 		addChild(spaceship);
 
 		grid = new Sprite();
-		grid.scaleX = 1.2;
-		grid.scaleY = 1.2;
+		grid.scaleX = 1.3;
+		grid.scaleY = 1.3;
 		grid.x = -quad.width / 2 * grid.scaleX;
 		grid.y = -quad.height / 2 * grid.scaleY;
 		addChild(grid);
@@ -350,18 +350,18 @@ class GameMap extends Sprite {
 		//return new Image(Root.assets.getTexture("holder"));
 		return switch (planet) {
 			case 'm':
-				new Image(Root.assets.getTexture("mars_bg"));
+				new Image(Root.assets.getTexture("mars_new"));
 			case 'j':
-				new Image(Root.assets.getTexture("jupiter_bg"));
+				new Image(Root.assets.getTexture("jupiter_new"));
 			case 'n':
-				new Image(Root.assets.getTexture("neptune_bg"));
+				new Image(Root.assets.getTexture("neptune_new"));
 			case 's':
-				new Image(Root.assets.getTexture("saturn_bg"));
+				new Image(Root.assets.getTexture("saturn_new"));
 			case 'u':
-				new Image(Root.assets.getTexture("uranus_bg"));
+				new Image(Root.assets.getTexture("uranus_new"));
 			//case 'm':
 			default:
-				new Image(Root.assets.getTexture("mars_bg"));
+				new Image(Root.assets.getTexture("mars_new"));
 		}
 	}
 }

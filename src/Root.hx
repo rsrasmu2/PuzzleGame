@@ -23,10 +23,10 @@ class Root extends Sprite {
 		assets.enqueue("assets/pixelu.fnt", "assets/pixelu_0.png");
 		assets.enqueue("assets/8bitwonder.fnt", "assets/8bitwonder_0.png");
 		assets.enqueue("assets/PuzzleGame.mp3");
-		assets.enqueue("assets/Lose.mp3");
-		assets.enqueue("assets/Win.mp3");
+		assets.enqueue("assets/Lose.mp3", "assets/Win.mp3");
 		assets.enqueue("assets/transButton.png");
-		assets.enqueue("assets/holder.png");
+		assets.enqueue("assets/jupiter_new.png", "assets/mars_new.png", "assets/neptune_new.png", "assets/saturn_new.png");
+		assets.enqueue("assets/uranus_new.png");
 		assets.enqueue("assets/unlocked.txt");
 		
 		assets.enqueue("assets/options_bg.png");

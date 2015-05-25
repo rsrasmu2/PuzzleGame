@@ -120,7 +120,7 @@ class GameMap extends Sprite {
 				
 
 				//Button Movements
-				var down = new Button(Root.assets.getTexture("transButton"));
+				var down = new Button(Root.assets.getTexture("transButton"), "Down");
 				down.scaleX = Starling.current.stage.stageWidth;
 				down.scaleY = 8;
 				down.x = (Starling.current.stage.stageWidth - down.width) / 2 - this.x;
@@ -135,7 +135,7 @@ class GameMap extends Sprite {
 				});
 				addChild(down);
 				
-				var up = new Button(Root.assets.getTexture("transButton"));
+				var up = new Button(Root.assets.getTexture("transButton"), "up");
 				up.scaleX = Starling.current.stage.stageWidth;
 				up.scaleY = 8;
 				up.x = (Starling.current.stage.stageWidth - up.width) / 2 - this.x;
@@ -150,8 +150,8 @@ class GameMap extends Sprite {
 				});
 				addChild(up);
 				
-				var left = new Button(Root.assets.getTexture("transButton"));
-				left.scaleX = 10;
+				var left = new Button(Root.assets.getTexture("transButton"), "left");
+				left.scaleX = 12;
 				left.scaleY = Starling.current.stage.stageHeight;
 				left.x = 0 - this.x;
 				left.y = (Starling.current.stage.stageHeight - left.height) / 2 - this.y;
@@ -165,8 +165,8 @@ class GameMap extends Sprite {
 				});
 				addChild(left);
 				
-				var right = new Button(Root.assets.getTexture("transButton"));
-				right.scaleX = 10;
+				var right = new Button(Root.assets.getTexture("transButton"), "right");
+				right.scaleX = 12;
 				right.scaleY = Starling.current.stage.stageHeight;
 				right.x = Starling.current.stage.stageWidth - right.width - this.x;
 				right.y = (Starling.current.stage.stageHeight - right.height) / 2 - this.y;
@@ -200,7 +200,7 @@ class GameMap extends Sprite {
 		} else {
 			trace("Error: mapArr dimensions must be greater than 0");
 		}
-		grid.addChild(player); //Added at the end so it moves on top of everything else;
+		grid.addChild(player); //Added at the end so it moves on top of everything else
 	}
 
 	private function createPlayer(x:Int, y:Int) {
@@ -249,9 +249,8 @@ class GameMap extends Sprite {
 		var distance:Int = 0;
 		Root.game.highscore -= 1;
 		var check = false;
-
-		/*This could be cleaned up a bit if anyone is bored. Makes sure we're within
-		the map bounds and that the next space isn't an obstacle.*/
+		
+		// Makes sure we're within the map bounds and that the next space isn't an obstacle.
 		while (currentX + dirX >= 0 && currentY + dirY >= 0 && mapArr[currentY + dirY][currentX + dirX] != 1)
 		{
 			currentX += dirX;
@@ -345,9 +344,7 @@ class GameMap extends Sprite {
 	}
 
 	//Gets the background image depending on the current level
-	//Needs to be updated with the new level backgrounds
 	private function getBG() {
-		//return new Image(Root.assets.getTexture("holder"));
 		return switch (planet) {
 			case 'm':
 				new Image(Root.assets.getTexture("mars_new"));

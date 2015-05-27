@@ -120,7 +120,7 @@ class GameMap extends Sprite {
 				
 
 				//Button Movements
-				var down = new Button(Root.assets.getTexture("transButton"), "Down");
+				var down = new Button(Root.assets.getTexture("transButton"));
 				down.scaleX = Starling.current.stage.stageWidth;
 				down.scaleY = 8;
 				down.x = (Starling.current.stage.stageWidth - down.width) / 2 - this.x;
@@ -135,7 +135,7 @@ class GameMap extends Sprite {
 				});
 				addChild(down);
 				
-				var up = new Button(Root.assets.getTexture("transButton"), "up");
+				var up = new Button(Root.assets.getTexture("transButton"));
 				up.scaleX = Starling.current.stage.stageWidth;
 				up.scaleY = 8;
 				up.x = (Starling.current.stage.stageWidth - up.width) / 2 - this.x;
@@ -150,7 +150,7 @@ class GameMap extends Sprite {
 				});
 				addChild(up);
 				
-				var left = new Button(Root.assets.getTexture("transButton"), "left");
+				var left = new Button(Root.assets.getTexture("transButton"));
 				left.scaleX = 12;
 				left.scaleY = Starling.current.stage.stageHeight;
 				left.x = 0 - this.x;
@@ -165,7 +165,7 @@ class GameMap extends Sprite {
 				});
 				addChild(left);
 				
-				var right = new Button(Root.assets.getTexture("transButton"), "right");
+				var right = new Button(Root.assets.getTexture("transButton"));
 				right.scaleX = 12;
 				right.scaleY = Starling.current.stage.stageHeight;
 				right.x = Starling.current.stage.stageWidth - right.width - this.x;

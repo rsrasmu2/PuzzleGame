@@ -58,9 +58,6 @@ class GameMap extends Sprite {
 
 		//Center the background
 		bg = getBG();
-		//bg.scaleX = bg.scaleY = 2.4;
-		//bg.x = (quad.width/2) - (bg.width / 2);
-		//bg.y = (quad.height / 2) - (bg.height / 2);
 		bg.x = -bg.width / 2;
 		bg.y = -bg.height / 2;
 		bg.alpha = 0;
@@ -356,7 +353,6 @@ class GameMap extends Sprite {
 				new Image(Root.assets.getTexture("saturn_new"));
 			case 'u':
 				new Image(Root.assets.getTexture("uranus_new"));
-			//case 'm':
 			default:
 				new Image(Root.assets.getTexture("mars_new"));
 		}

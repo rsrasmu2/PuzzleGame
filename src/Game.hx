@@ -41,6 +41,10 @@ class Game extends Sprite
 	public function new()
 	{
 		super();
+		
+		// for testing purposes
+		//var blah = new MapTester("j1");
+		
 		bg = new Background();
 		addChild(bg);
 		

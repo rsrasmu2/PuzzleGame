@@ -44,32 +44,24 @@ class Options extends Sprite
 		vol.y = menu.y;
 		addChild(vol);
 		
-		var incVol = new Button(Root.assets.getTexture("Button"), "Increase");
-		incVol.scaleX = .75;
-		incVol.scaleY = .75;
-		incVol.x = vol.x + (vol.width - incVol.width) / 2;
-		incVol.y = vol.y + vol.height;
-		incVol.fontSize = 24;
-		incVol.fontName = "8bitwonder_0";
-		incVol.addEventListener(Event.TRIGGERED, function()
+		var mute = new Button(Root.assets.getTexture("Button"), "Mute");
+		mute.scaleX = .75;
+		mute.scaleY = .75;
+		mute.x = vol.x + (vol.width - mute.width) / 2;
+		mute.y = vol.y + vol.height;
+		mute.fontSize = 24;
+		mute.fontName = "8bitwonder_0";
+		mute.addEventListener(Event.TRIGGERED, function()
 		{
-			Root.game.incVol();
+			Root.game.muteVol();
+			if (Root.game.vol == 0) {
+				mute.text = "Unmute";
+			}
+			else {
+				mute.text = "Mute";
+			}
 		});
-		addChild(incVol);
-		
-		var decVol = new Button(Root.assets.getTexture("Button"), "Decrease");
-		decVol.scaleX = .75;
-		decVol.scaleY = .75;
-		decVol.x = incVol.x;
-		decVol.y = incVol.y + incVol.height;
-		decVol.fontSize = 24;
-		decVol.fontName = "8bitwonder_0";
-		decVol.addEventListener(Event.TRIGGERED, function()
-		{
-			Root.game.decVol();
-		});
-		addChild(decVol);
-		
+		addChild(mute);		
 		
 		var score = new TextField(175, 50, "Score\n" + Root.game.highscore, "8bitwonder_0", 24, 0xffff00);
 		score.x = menu.x + (menu.width - score.width) / 2;

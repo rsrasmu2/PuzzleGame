@@ -33,7 +33,7 @@ class Game extends Sprite
 	private var bg:Background;
 	
 	private var music:SoundChannel;
-	private var vol:Float;
+	public var vol:Float;
 
 	//Hold the images of the crew members
 	private var crew : Array<Image>;
@@ -532,6 +532,19 @@ class Game extends Sprite
 		}
 	}
 	
+	public function muteVol() {
+		if (vol == 0) {
+			// sound is already muted, unmute it
+			vol = 1;
+			LoadStuff.saveVol(vol);
+			music.soundTransform = new SoundTransform(vol);
+		}
+		else {
+			vol = 0;
+			LoadStuff.saveVol(vol);
+			music.soundTransform = new SoundTransform(vol);
+		}
+	}
 	
 	public function incVol()
 	{

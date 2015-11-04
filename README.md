@@ -1,6 +1,5 @@
-# PuzzleGame
+# OLD: use GitHub Issues instead
 
-Claim things that you're working on!
 
 To-Do List
 ----------
